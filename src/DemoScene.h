@@ -13,10 +13,7 @@ public:
 	~DemoScene();
 private:
 	CGFlight* light0;
-	CGFobject* obj;
-	CGFappearance* materialAppearance;
-	CGFappearance* textureAppearance;
-	CGFshader* shader;
+	
 };
 
 #endif

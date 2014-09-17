@@ -25,19 +25,11 @@ void DemoScene::init()
 	// Defines a default normal
 	glNormal3f(0,0,1);
 
-	obj=new ExampleObject();
-	materialAppearance=new CGFappearance();
-	textureAppearance=new CGFappearance("../data/pyramid.jpg",GL_REPEAT, GL_REPEAT);
-	shader=new CGFshader("../data/texshader.vert","../data/texshader.frag");
-
 	setUpdatePeriod(30);
 }
 
 void DemoScene::update(unsigned long t)
 {
-	shader->bind();
-	shader->update(t/400.0);
-	shader->unbind();
 	
 }
 	
@@ -47,8 +39,8 @@ void DemoScene::display()
 	// ---- BEGIN Background, camera and axis setup
 	
 	// Clear image and depth buffer everytime we update the scene
+	glClearColor(0.1, 0.2, 0.3, 0.6);
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-
 	// Initialize Model-View matrix as identity (no transformation
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
@@ -63,28 +55,6 @@ void DemoScene::display()
 	axis.draw();
 
 
-	// ---- END Background, camera and axis setup
-
-
-	// ---- BEGIN feature demos
-
-	// Simple object
-	materialAppearance->apply();
-	obj->draw();
-
-	// textured object
-
-	glTranslatef(0,4,0);
-	textureAppearance->apply();
-	obj->draw();
-
-	// shader object
-
-	glTranslatef(0,4,0);
-	shader->bind();
-	obj->draw();
-	shader->unbind();
-
 
 	// ---- END feature demos
 
@@ -96,9 +66,5 @@ void DemoScene::display()
 
 DemoScene::~DemoScene()
 {
-	delete(shader);
-	delete(textureAppearance);
-	delete(materialAppearance);
-	delete(obj);
 	delete(light0);
 }
