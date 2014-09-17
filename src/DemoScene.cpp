@@ -11,13 +11,11 @@ struct global_data globals;
 
 #include "CGFappearance.h"
 
+#include "XMLScene.h"
+
 void DemoScene::init() 
 {
-	//hardcoded background
-	globals.drawBackground[0] = 0.1;
-	globals.drawBackground[1] = 0.2;
-	globals.drawBackground[2] = 0.3;
-	globals.drawBackground[3] = 0.6;
+	XMLScene anf("scene.anf", globals);
 
 	// Enables lighting computations
 	glEnable(GL_LIGHTING);
