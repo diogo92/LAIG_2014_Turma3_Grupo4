@@ -3,6 +3,9 @@
 #include "CGFapplication.h"
 
 #include "ExampleObject.h"
+#include "DataHolders.h"
+
+struct global_data globals;
 
 #include <math.h>
 
@@ -10,6 +13,12 @@
 
 void DemoScene::init() 
 {
+	//hardcoded background
+	globals.drawBackground[0] = 0.1;
+	globals.drawBackground[1] = 0.2;
+	globals.drawBackground[2] = 0.3;
+	globals.drawBackground[3] = 0.6;
+
 	// Enables lighting computations
 	glEnable(GL_LIGHTING);
 
@@ -39,7 +48,7 @@ void DemoScene::display()
 	// ---- BEGIN Background, camera and axis setup
 	
 	// Clear image and depth buffer everytime we update the scene
-	glClearColor(0.1, 0.2, 0.3, 0.6);
+	glClearColor(globals.drawBackground[0], globals.drawBackground[1], globals.drawBackground[2], globals.drawBackground[3]);
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 	// Initialize Model-View matrix as identity (no transformation
 	glMatrixMode(GL_MODELVIEW);
