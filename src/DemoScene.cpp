@@ -20,6 +20,39 @@ void DemoScene::init()
 	// Enables lighting computations
 	glEnable(GL_LIGHTING);
 
+	if (globals.cullingFace == 0){
+		glDisable(GL_CULL_FACE);
+	}
+	else if(globals.cullingFace == 1){
+		glCullFace(GL_BACK);
+		glEnable(GL_CULL_FACE);
+	}
+	else if(globals.cullingFace == 2){
+		glCullFace(GL_FRONT);
+		glEnable(GL_CULL_FACE);
+	}
+	else if(globals.cullingFace == 3){
+		glCullFace(GL_FRONT_AND_BACK);
+		glEnable(GL_CULL_FACE);
+	}
+
+	if(globals.cullingOrder == 0){
+		glFrontFace(GL_CCW);
+	}
+	else if(globals.cullingOrder == 1){
+		glFrontFace(GL_CW);
+	}
+
+	if(globals.drawMode == 0){
+		glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+	}
+	else if(globals.drawMode == 1){
+		glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
+	}
+	else if(globals.drawMode == 2){
+		glPolygonMode( GL_FRONT_AND_BACK, GL_POINT );
+	}
+
 	// Sets up some lighting parameters
 	glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, CGFlight::background_ambient);  // Define ambient light
