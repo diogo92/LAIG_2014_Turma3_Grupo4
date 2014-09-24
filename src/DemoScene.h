@@ -13,6 +13,7 @@ public:
 	~DemoScene();
 private:
 	CGFlight* light0;
+	CGFobject* test;
 	
 };
 

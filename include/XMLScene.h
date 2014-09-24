@@ -2,27 +2,25 @@
 #define _XMLSCENE_H_
 
 #include "tinyxml.h"
-#include "DataHolders.h"
-#include <cstring>
+#include "GlobalData.h"
+#include "Graph.h"
 
 class XMLScene
 {
 public:
-	XMLScene(char *filename, struct global_data &globals);
+	XMLScene(char *filename, GlobalData &globals, Graph &graphScene);
 	~XMLScene();
 
 	static TiXmlElement *findChildByAttribute(TiXmlElement *parent,const char * attr, const char *val);
 	
 protected:
-
 	TiXmlDocument* doc;
-
 	TiXmlElement* globalsElement; 
-	TiXmlElement* matsElement;
+	TiXmlElement* graphElement;
+
 	TiXmlElement* textsElement;
 	TiXmlElement* leavesElement;
 	TiXmlElement* nodesElement;
-	TiXmlElement* graphElement;
 };
 
 #endif

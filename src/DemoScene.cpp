@@ -1,21 +1,16 @@
 #include "DemoScene.h"
 #include "CGFaxis.h"
-#include "CGFapplication.h"
 
-#include "ExampleObject.h"
-#include "DataHolders.h"
-
-struct global_data globals;
-
-#include <math.h>
-
-#include "CGFappearance.h"
+//#include "CGFappearance.h"
 
 #include "XMLScene.h"
 
+GlobalData globals;
+Graph graphScene;
+
 void DemoScene::init() 
 {
-	XMLScene anf("scene.anf", globals);
+	XMLScene anf("scene.anf", globals, graphScene);
 
 	// Enables lighting computations
 	glEnable(GL_LIGHTING);
@@ -94,8 +89,6 @@ void DemoScene::display()
 	// Draw axis
 	axis.draw();
 
-
-
 	// ---- END feature demos
 
 	// We have been drawing in a memory area that is not visible - the back buffer, 
@@ -107,4 +100,5 @@ void DemoScene::display()
 DemoScene::~DemoScene()
 {
 	delete(light0);
+	delete(test);
 }

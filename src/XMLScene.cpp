@@ -1,6 +1,6 @@
 #include "XMLScene.h"
 
-XMLScene::XMLScene(char *filename, struct global_data &globals)
+XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 {
 
 	// Read XML from file
@@ -154,6 +154,117 @@ XMLScene::XMLScene(char *filename, struct global_data &globals)
 			exit (-1);
 		}
 
+	}
+
+	graphElement = anfElement->FirstChildElement("graph");
+
+	if (graphElement == NULL){
+		printf("graph element not found\n");
+		exit(-1);
+	}
+	else {
+		printf("processing graph\n");
+
+		temp = NULL;
+		temp = (char *) graphElement->Attribute("rootid");
+		
+		if(temp == NULL){
+			printf("graph attribute rootid not found\n");
+			exit(-1);
+		}
+		else {
+			printf(">> graph rootid: %s\n", temp);
+		}
+
+		TiXmlElement *node = graphElement->FirstChildElement();
+		TiXmlElement *nodeElement;
+
+		while(node){
+			
+			nodeElement = NULL;
+			temp = NULL;
+			temp = (char *) node->Attribute("id");
+
+			if(temp == NULL){
+				printf("node attribute id not found\n");
+				exit(-1);
+			}
+			else {
+				printf(">> node id: %s\n",temp);
+
+				nodeElement = node->FirstChildElement("transforms");
+
+				if(nodeElement == NULL){
+					printf("  block transforms not found\n");
+					exit(-1);
+				}
+				else{
+					// tranforms here
+				}
+
+				nodeElement = NULL;
+
+				nodeElement = node->FirstChildElement("primitives");
+
+				if(nodeElement == NULL){
+					printf("  block primitives not found\n");
+					exit(-1);
+				}
+				else{
+					nodeElement = nodeElement->FirstChildElement();
+					while(nodeElement){
+						temp = (char *) nodeElement->Value();
+
+						if(strcmp(temp,"rectangle") == 0){
+							printf("  primitive rectangle\n");
+							float x1,x2,y1,y2;
+							
+							temp = NULL;
+							temp = (char *) nodeElement->Attribute("xy1");
+							
+							if(temp && sscanf(temp,"%f %f",&x1, &y1)==2)
+							{
+								printf("  >> xy1: %f %f\n", x1, y1);
+							}
+							else {
+								printf("  error parsing xy1\n");
+								exit(-1);
+							}
+							
+							temp = NULL;
+							temp = (char *) nodeElement->Attribute("xy2");
+							
+							if(temp && sscanf(temp,"%f %f",&x2, &y2)==2)
+							{
+								printf("  >> xy2: %f %f\n", x2, y2);
+							}
+							else {
+								printf("  error parsing xy2\n");
+								exit(-1);
+							}
+
+						}
+
+						nodeElement = nodeElement->NextSiblingElement();
+					}
+					// primitives here
+				}
+
+				nodeElement = NULL;
+
+				nodeElement = node->FirstChildElement("descendants");
+
+				if(nodeElement == NULL){
+					printf("  block descendants not found\n");
+					exit(-1);
+				}
+				else{
+					// descendants here
+				}
+			}
+
+			node = node->NextSiblingElement();
+		}
 	}
 
 }
