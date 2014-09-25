@@ -46,10 +46,13 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>glew32.lib;CGFlib.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;TinyXML.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>LIBCMTD;LIBCMT.lib</IgnoreSpecificDefaultLibraries>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -66,20 +69,31 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Cylinder.cpp" />
     <ClCompile Include="src\DemoScene.cpp" />
     <ClCompile Include="src\ExampleObject.cpp" />
+    <ClCompile Include="src\GlobalData.cpp" />
+    <ClCompile Include="src\Graph.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Node.cpp" />
     <ClCompile Include="src\Rectangle.cpp" />
+    <ClCompile Include="src\Sphere.cpp" />
+    <ClCompile Include="src\Torus.cpp" />
     <ClCompile Include="src\Triangle.cpp" />
     <ClCompile Include="src\VisualObject.cpp" />
     <ClCompile Include="src\XMLScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\XMLScene.h" />
-    <ClInclude Include="src\DataHolders.h" />
+    <ClInclude Include="src\Cylinder.h" />
     <ClInclude Include="src\DemoScene.h" />
     <ClInclude Include="src\ExampleObject.h" />
+    <ClInclude Include="src\GlobalData.h" />
+    <ClInclude Include="src\Graph.h" />
+    <ClInclude Include="src\Node.h" />
     <ClInclude Include="src\Rectangle.h" />
+    <ClInclude Include="src\Sphere.h" />
+    <ClInclude Include="src\Torus.h" />
     <ClInclude Include="src\Triangle.h" />
     <ClInclude Include="src\Vertice.h" />
     <ClInclude Include="src\VisualObject.h" />
