@@ -6,10 +6,10 @@
 
 using std::string;
 
-class VisualObject: public CGFobject{
+class VisualObject{
 public:
-	virtual void drawVisual(void);
 	VisualObject();
+	virtual void draw(){printf("I'm a virtual function\n");};
 	float matrix[16];
 };
 

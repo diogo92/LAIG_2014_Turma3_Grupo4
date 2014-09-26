@@ -51,8 +51,7 @@
                 <!-- Primitivas : rectangle, triangle, cylinder, sphere, torus -->
                 <!--   Comandos a serem interpretados genericamente como em OpenGL/GLUT, exceto -->
                 <!--   o cilindro, que deve adicionalmente ter topos ou tampas) -->           
-                <rectangle xy1="1 1" xy2="4 4" />
-                <rectangle xy1="1 5" xy2="5 4" />
+                <sphere radius="2" slices="16" stacks="16" />
              </primitives>
               
              <!-- bloco "descendants" -->
@@ -89,7 +88,7 @@
                 <!-- Primitivas : rectangle, triangle, cylinder, sphere, torus -->
                 <!--   Comandos a serem interpretados genericamente como em OpenGL/GLUT, exceto -->
                 <!--   o cilindro, que deve adicionalmente ter topos ou tampas) -->           
-                <rectangle xy1=" 6 6" xy2="7 6" />
+                <torus inner="2" outer="4" slices="16" loops="16" />
              </primitives>
               
              <!-- bloco "descendants" -->

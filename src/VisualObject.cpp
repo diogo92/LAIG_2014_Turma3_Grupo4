@@ -18,7 +18,3 @@ VisualObject::VisualObject(){
 	matrix[14] = 0;
 	matrix[15] = 1;
 }
-
-void VisualObject::drawVisual(){
-	draw();
-}

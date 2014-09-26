@@ -2,14 +2,19 @@
 #define _GRAPH_H_
 
 #include "Node.h"
+#include <map>
+
+using std::map;
+using std::string;
 
 class Graph
 {
 public:
 	Graph(void);
 	~Graph(void);
-	vector<Node> nodes;
-	Node * root;
+	map<string ,Node> nodes;
+	string root;
+	void draw();
 };
 
 #endif

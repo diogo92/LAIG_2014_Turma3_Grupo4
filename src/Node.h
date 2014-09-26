@@ -5,18 +5,20 @@
 #include "VisualObject.h"
 
 using std::vector;
+using std::string;
 
 class Node
 {
 public:
 	Node(void);
-	Node(char * id);
-	Node(char * id, float matrix[16]);
+	Node(string id);
+	Node(string id, float matrix[16]);
 	~Node(void);
+	void draw();
 	float matrix[16];
-	char * id;
-	vector<int> descendants;
-	vector<VisualObject> primitives;
+	string id;
+	vector<Node *> descendants;
+	vector<VisualObject *> primitives;
 };
 
 #endif

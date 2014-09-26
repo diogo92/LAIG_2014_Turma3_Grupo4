@@ -4,7 +4,7 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 {
 
 	// Read XML from file
-	char * temp = NULL;
+	string temp;
 	doc=new TiXmlDocument( filename );
 	bool loadOkay = doc->LoadFile();
 
@@ -33,42 +33,40 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 		TiXmlElement* drawElement=globalsElement->FirstChildElement("drawing");
 		if (drawElement)
 		{
-			temp = NULL;
-			temp = (char *) drawElement->Attribute("mode");
+			temp = drawElement->Attribute("mode");
 
-			if (temp){
-				if(strcmp(temp,"fill") == 0) {
+			if (!temp.empty()){
+				if(strcmp(temp.c_str(),"fill") == 0) {
 					globals.drawMode = 0;
-				} else if(strcmp(temp,"line") == 0) {
+				} else if(strcmp(temp.c_str(),"line") == 0) {
 					globals.drawMode = 1;
-				} else if(strcmp(temp,"point") == 0) {
+				} else if(strcmp(temp.c_str(),"point") == 0) {
 					globals.drawMode = 2;
 				} else {
 					printf("Invalid value at drawing mode\n");
 					exit(-1);
 				}
-				printf(">> drawing mode: %s\n", temp);
+				printf(">> drawing mode: %s\n", temp.c_str());
 			}
 			else{
 				printf("Error parsing drawing mode\n");
 				exit(-1);
 			}
 
-			temp = NULL;
-			temp = (char *) drawElement->Attribute("shading");
+			temp = drawElement->Attribute("shading");
 
-			if (temp){
-				if(strcmp(temp,"flat") == 0){
+			if (!temp.empty()){
+				if(strcmp(temp.c_str(),"flat") == 0){
 					globals.drawShading = 0;
 				}
-				else if(strcmp(temp,"gouraud") == 0){
+				else if(strcmp(temp.c_str(),"gouraud") == 0){
 					globals.drawShading = 1;
 				}
 				else{
 					printf("Invalid value at drawing shading\n");
 					exit(-1);
 				}
-				printf(">> drawing shading: %s\n", temp);
+				printf(">> drawing shading: %s\n", temp.c_str());
 			}
 			else{
 				printf("Error parsing drawing shading\n");
@@ -76,10 +74,9 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 			}
 
 			float r,g,b,a;
-			temp = NULL;
-			temp = (char *) drawElement->Attribute("background");
+			temp = drawElement->Attribute("background");
 
-			if(temp && sscanf(temp,"%f %f %f %f",&r, &g, &b, &a)==4)
+			if(temp.c_str() && sscanf(temp.c_str(),"%f %f %f %f",&r, &g, &b, &a)==4)
 			{
 				globals.drawBackground[0] = r;
 				globals.drawBackground[1] = g;
@@ -101,48 +98,46 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 		TiXmlElement* cullingElement=globalsElement->FirstChildElement("culling");
 		if (cullingElement)
 		{
-			temp = NULL;
-			temp = (char *) cullingElement->Attribute("face");
+			temp = cullingElement->Attribute("face");
 
-			if (temp){
-				if(strcmp(temp,"none") == 0){
+			if (!temp.empty()){
+				if(strcmp(temp.c_str(),"none") == 0){
 					globals.cullingFace = 0;
 				}
-				else if(strcmp(temp,"back") == 0){
+				else if(strcmp(temp.c_str(),"back") == 0){
 					globals.cullingFace = 1;
 				}
-				else if(strcmp(temp,"front") == 0){
+				else if(strcmp(temp.c_str(),"front") == 0){
 					globals.cullingFace = 2;
 				}
-				else if(strcmp(temp,"both") == 0){
+				else if(strcmp(temp.c_str(),"both") == 0){
 					globals.cullingFace = 3;
 				}
 				else{
 					printf("Invalid value at culling face\n");
 					exit(-1);
 				}
-				printf(">> culling face: %s\n", temp);
+				printf(">> culling face: %s\n", temp.c_str());
 			}
 			else{
 				printf("Error parsing culling face\n");
 				exit(-1);
 			}
 
-			temp = NULL;
-			temp = (char *) cullingElement->Attribute("order");
+			temp = cullingElement->Attribute("order");
 
-			if (temp){
-				if(strcmp(temp,"ccw") == 0){
+			if (!temp.empty()){
+				if(strcmp(temp.c_str(),"ccw") == 0){
 					globals.cullingOrder = 0;
 				}
-				else if(strcmp(temp,"cw") == 0){
+				else if(strcmp(temp.c_str(),"cw") == 0){
 					globals.cullingOrder = 1;
 				}
 				else{
 					printf("Invalid value at culling order\n");
 					exit(-1);
 				}
-				printf(">> culling order: %s\n", temp);
+				printf(">> culling order: %s\n", temp.c_str());
 			}
 			else{
 				printf("Error parsing culling order\n");
@@ -165,57 +160,39 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 	else {
 		printf("processing graph\n");
 
-		temp = NULL;
-		temp = (char *) graphElement->Attribute("rootid");
-		
-		if(temp == NULL){
+		temp = graphElement->Attribute("rootid");
+		string atualnode = graphElement->Attribute("rootid");
+
+		if(temp.empty()){
 			printf("graph attribute rootid not found\n");
 			exit(-1);
 		}
 		else {
-			printf(">> graph rootid: %s\n", temp);
-			graphScene.nodes.push_back(Node(temp));
-			graphScene.root = & graphScene.nodes.at(graphScene.nodes.size()-1);
+			printf(">> graph rootid: %s\n", atualnode.c_str());
+			graphScene.root = graphElement->Attribute("rootid");
+			graphScene.nodes[atualnode] = Node(atualnode);
 
 		}
 
 		TiXmlElement *node = graphElement->FirstChildElement();
 		TiXmlElement *nodeElement;
-		int atual;
 		bool found;
 		while(node){
 			
 			nodeElement = NULL;
-			temp = NULL;
-			temp = (char *) node->Attribute("id");
+			temp = node->Attribute("id");
+			atualnode = node->Attribute("id");
 
-			if(temp == NULL){
+			if(temp.empty()){
 				printf("node attribute id not found\n");
 				exit(-1);
 			}
 			else {
-				int nodePosition = -1;
-				for(int i = 0; i < graphScene.nodes.size(); i++){
-					if(strcmp(temp,graphScene.nodes.at(i).id)==0){
-						nodePosition = i;
-						break;
-					}
+				printf(">> node id: %s\n",atualnode.c_str());
+				if ( graphScene.nodes.find(atualnode) == graphScene.nodes.end() ) {
+				  graphScene.nodes[temp] = Node(atualnode);
 				}
-
-				if(nodePosition == -1){
-					graphScene.nodes.push_back(Node(temp));
-					for(int i = 0; i < graphScene.nodes.size(); i++){
-						if(strcmp(temp,graphScene.nodes.at(i).id)==0){
-							atual =i;
-							break;
-						}
-					}
-				}
-				else {
-					atual = nodePosition;
-				}
-				printf(">> node id: %s\n",temp);
-
+				
 				nodeElement = node->FirstChildElement("transforms");
 
 				if(nodeElement == NULL){
@@ -239,14 +216,13 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 					while(nodeElement){
 						temp = (char *) nodeElement->Value();
 
-						if(strcmp(temp,"rectangle") == 0){
+						if(strcmp(temp.c_str(),"rectangle") == 0){
 							printf("  primitive rectangle\n");
 							float x1,x2,y1,y2;
 							
-							temp = NULL;
-							temp = (char *) nodeElement->Attribute("xy1");
+							temp = nodeElement->Attribute("xy1");
 							
-							if(temp && sscanf(temp,"%f %f",&x1, &y1)==2)
+							if(temp.c_str() && sscanf(temp.c_str(),"%f %f",&x1, &y1)==2)
 							{
 								printf("  >> xy1: %f %f\n", x1, y1);
 							}
@@ -255,10 +231,9 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 								exit(-1);
 							}
 							
-							temp = NULL;
-							temp = (char *) nodeElement->Attribute("xy2");
+							temp = nodeElement->Attribute("xy2");
 							
-							if(temp && sscanf(temp,"%f %f",&x2, &y2)==2)
+							if(temp.c_str() && sscanf(temp.c_str(),"%f %f",&x2, &y2)==2)
 							{
 								printf("  >> xy2: %f %f\n", x2, y2);
 							}
@@ -267,8 +242,100 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 								exit(-1);
 							}
 
-							graphScene.nodes.at(atual).primitives.push_back(Rectangle(x1,y1,x2,y2));
+							graphScene.nodes[atualnode].primitives.push_back(new Rectangle(x1,y1,x2,y2));
 						}
+						else if(strcmp(temp.c_str(),"torus") == 0){
+							printf("  primitive torus\n");
+							float innerradius,outerradius;
+							int slices,loops;
+							
+							temp = nodeElement->Attribute("inner");
+							
+							if(temp.c_str() && sscanf(temp.c_str(),"%f", &innerradius)==1)
+							{
+								printf("  >> inner: %f\n", innerradius);
+							}
+							else {
+								printf("  error parsing inner\n");
+								exit(-1);
+							}
+							
+							temp = nodeElement->Attribute("outer");
+							
+							if(temp.c_str() && sscanf(temp.c_str(),"%f",&outerradius)==1)
+							{
+								printf("  >> outer: %f\n", outerradius);
+							}
+							else {
+								printf("  error parsing outer\n");
+								exit(-1);
+							}
+
+							temp = nodeElement->Attribute("slices");
+							
+							if(temp.c_str() && sscanf(temp.c_str(),"%d",&slices)==1)
+							{
+								printf("  >> outer: %d\n", slices);
+							}
+							else {
+								printf("  error parsing slices\n");
+								exit(-1);
+							}
+
+							temp = nodeElement->Attribute("loops");
+							
+							if(temp.c_str() && sscanf(temp.c_str(),"%d",&loops)==1)
+							{
+								printf("  >> outer: %d\n", loops);
+							}
+							else {
+								printf("  error parsing loops\n");
+								exit(-1);
+							}
+
+							graphScene.nodes[atualnode].primitives.push_back(new Torus(innerradius,outerradius,slices,loops));
+						} else if(strcmp(temp.c_str(),"sphere") == 0){
+							printf("  primitive sphere\n");
+							float radius;
+							int slices,stacks;
+							
+							temp = nodeElement->Attribute("radius");
+							
+							if(temp.c_str() && sscanf(temp.c_str(),"%f", &radius)==1)
+							{
+								printf("  >> inner: %f\n", radius);
+							}
+							else {
+								printf("  error parsing radius\n");
+								exit(-1);
+							}
+							
+							temp = nodeElement->Attribute("slices");
+							
+							if(temp.c_str() && sscanf(temp.c_str(),"%d",&slices)==1)
+							{
+								printf("  >> outer: %d\n", slices);
+							}
+							else {
+								printf("  error parsing slices\n");
+								exit(-1);
+							}
+
+							temp = nodeElement->Attribute("stacks");
+							
+							if(temp.c_str() && sscanf(temp.c_str(),"%d",&stacks)==1)
+							{
+								printf("  >> outer: %d\n", stacks);
+							}
+							else {
+								printf("  error parsing stacks\n");
+								exit(-1);
+							}
+
+							graphScene.nodes[atualnode].primitives.push_back(new Sphere(radius,slices,stacks));
+						}
+
+
 
 						nodeElement = nodeElement->NextSiblingElement();
 					}
@@ -278,6 +345,8 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 				nodeElement = NULL;
 
 				nodeElement = node->FirstChildElement("descendants");
+
+				string atualdescendant;
 
 				if(nodeElement == NULL){
 					printf("  block descendants not found\n");
@@ -289,34 +358,18 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 						printf("  doesn't have descendants\n");
 					}
 					else{
-						temp = NULL;
-						temp = (char *) nodeElement->Attribute("id");
+						temp = nodeElement->Attribute("id");
+						atualdescendant = nodeElement->Attribute("id");
 
-						if(temp == NULL){
+						if(temp.empty()){
 							printf("  error parsing noderef attribute id\n");
 							exit(-1);
 						}
 						else{
-							found = false;
-							for(int i = 0; i < graphScene.nodes.size();i++){
-								if(strcmp(temp,graphScene.nodes.at(i).id)==0){
-									found = true;
-									graphScene.nodes.at(atual).descendants.push_back(i);
-									break;
-								}
+							if ( graphScene.nodes.find(atualdescendant) == graphScene.nodes.end() ) {
+								graphScene.nodes[atualdescendant] = Node(atualdescendant);
 							}
-
-							if(found == false){
-								graphScene.nodes.push_back(Node(temp));
-								graphScene.nodes.at(atual).descendants.push_back(graphScene.nodes.size()-1);
-								found = true;
-							}
-
-							if(!found){
-								printf("  error adding descendant\n");
-								exit(-1);
-							}
-							
+							graphScene.nodes[atualnode].descendants.push_back(&graphScene.nodes[atualdescendant]);
 						}
 					}
 				}

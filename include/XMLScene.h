@@ -5,6 +5,8 @@
 #include "GlobalData.h"
 #include "Graph.h"
 #include "Rectangle.h"
+#include "Torus.h"
+#include "Sphere.h"
 
 class XMLScene
 {
