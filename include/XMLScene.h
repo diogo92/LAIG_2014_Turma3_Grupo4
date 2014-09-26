@@ -4,6 +4,7 @@
 #include "tinyxml.h"
 #include "GlobalData.h"
 #include "Graph.h"
+#include "Rectangle.h"
 
 class XMLScene
 {

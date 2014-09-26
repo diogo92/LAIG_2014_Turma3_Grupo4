@@ -61,6 +61,11 @@ void DemoScene::init()
 	glNormal3f(0,0,1);
 
 	setUpdatePeriod(30);
+
+	printf("Size: %d\n",graphScene.nodes.size());
+	for(int i = 0; i < graphScene.nodes.size(); i++){
+		printf("Node %s has %d primitives\n",graphScene.nodes.at(i).id,graphScene.nodes.at(i).primitives.size());
+	}
 }
 
 void DemoScene::update(unsigned long t)

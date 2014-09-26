@@ -174,11 +174,15 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 		}
 		else {
 			printf(">> graph rootid: %s\n", temp);
+			graphScene.nodes.push_back(Node(temp));
+			graphScene.root = & graphScene.nodes.at(graphScene.nodes.size()-1);
+
 		}
 
 		TiXmlElement *node = graphElement->FirstChildElement();
 		TiXmlElement *nodeElement;
-
+		int atual;
+		bool found;
 		while(node){
 			
 			nodeElement = NULL;
@@ -190,6 +194,26 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 				exit(-1);
 			}
 			else {
+				int nodePosition = -1;
+				for(int i = 0; i < graphScene.nodes.size(); i++){
+					if(strcmp(temp,graphScene.nodes.at(i).id)==0){
+						nodePosition = i;
+						break;
+					}
+				}
+
+				if(nodePosition == -1){
+					graphScene.nodes.push_back(Node(temp));
+					for(int i = 0; i < graphScene.nodes.size(); i++){
+						if(strcmp(temp,graphScene.nodes.at(i).id)==0){
+							atual =i;
+							break;
+						}
+					}
+				}
+				else {
+					atual = nodePosition;
+				}
 				printf(">> node id: %s\n",temp);
 
 				nodeElement = node->FirstChildElement("transforms");
@@ -243,6 +267,7 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 								exit(-1);
 							}
 
+							graphScene.nodes.at(atual).primitives.push_back(Rectangle(x1,y1,x2,y2));
 						}
 
 						nodeElement = nodeElement->NextSiblingElement();
@@ -259,7 +284,41 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 					exit(-1);
 				}
 				else{
-					// descendants here
+					nodeElement = nodeElement->FirstChildElement("noderef");
+					if(nodeElement == NULL){
+						printf("  doesn't have descendants\n");
+					}
+					else{
+						temp = NULL;
+						temp = (char *) nodeElement->Attribute("id");
+
+						if(temp == NULL){
+							printf("  error parsing noderef attribute id\n");
+							exit(-1);
+						}
+						else{
+							found = false;
+							for(int i = 0; i < graphScene.nodes.size();i++){
+								if(strcmp(temp,graphScene.nodes.at(i).id)==0){
+									found = true;
+									graphScene.nodes.at(atual).descendants.push_back(i);
+									break;
+								}
+							}
+
+							if(found == false){
+								graphScene.nodes.push_back(Node(temp));
+								graphScene.nodes.at(atual).descendants.push_back(graphScene.nodes.size()-1);
+								found = true;
+							}
+
+							if(!found){
+								printf("  error adding descendant\n");
+								exit(-1);
+							}
+							
+						}
+					}
 				}
 			}
 

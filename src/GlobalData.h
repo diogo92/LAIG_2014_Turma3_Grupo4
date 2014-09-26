@@ -1,4 +1,6 @@
-#pragma once
+#ifndef _GLOBALDATA_H_
+#define _GLOBALDATA_H_
+
 class GlobalData
 {
 public:
@@ -12,3 +14,4 @@ public:
 
 };
 
+#endif
