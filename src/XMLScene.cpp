@@ -244,6 +244,45 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 
 							graphScene.nodes[atualnode].primitives.push_back(new Rectangle(x1,y1,x2,y2));
 						}
+						else if(strcmp(temp.c_str(),"triangle") == 0){
+							printf("  primitive triangle\n");
+							float x1,x2,x3,y1,y2,y3,z1,z2,z3;
+							
+							temp = nodeElement->Attribute("xyz1");
+							
+							if(temp.c_str() && sscanf(temp.c_str(),"%f %f %f",&x1, &y1, &z1)==3)
+							{
+								printf("  >> xyz1: %f %f %f\n", x1, y1, z1);
+							}
+							else {
+								printf("  error parsing xyz1\n");
+								exit(-1);
+							}
+							
+							temp = nodeElement->Attribute("xyz2");
+							
+							if(temp.c_str() && sscanf(temp.c_str(),"%f %f %f",&x2, &y2, &z2)==3)
+							{
+								printf("  >> xy2: %f %f %f\n", x2, y2, z2);
+							}
+							else {
+								printf("  error parsing xyz2\n");
+								exit(-1);
+							}
+
+							temp = nodeElement->Attribute("xyz3");
+
+							if(temp.c_str() && sscanf(temp.c_str(),"%f %f %f",&x3, &y3, &z3)==3)
+							{
+								printf("  >> xyz3: %f %f %f\n", x3, y3, z3);
+							}
+							else {
+								printf("  error parsing xyz3\n");
+								exit(-1);
+							}
+
+							graphScene.nodes[atualnode].primitives.push_back(new Triangle(x1,y1,z1,x2,y2,z2,x3,y3,z3));
+						}
 						else if(strcmp(temp.c_str(),"torus") == 0){
 							printf("  primitive torus\n");
 							float innerradius,outerradius;
@@ -333,6 +372,68 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 							}
 
 							graphScene.nodes[atualnode].primitives.push_back(new Sphere(radius,slices,stacks));
+						}
+						else if(strcmp(temp.c_str(),"cylinder") == 0){
+							printf("  primitive cylinder\n");
+							float base,top,height;
+							int slices,stacks;
+							
+							temp = nodeElement->Attribute("base");
+							
+							if(temp.c_str() && sscanf(temp.c_str(),"%f", &base)==1)
+							{
+								printf("  >> base: %f\n", base);
+							}
+							else {
+								printf("  error parsing base\n");
+								exit(-1);
+							}
+
+							temp = nodeElement->Attribute("top");
+							
+							if(temp.c_str() && sscanf(temp.c_str(),"%f", &top)==1)
+							{
+								printf("  >> top: %f\n", top);
+							}
+							else {
+								printf("  error parsing top\n");
+								exit(-1);
+							}
+
+							temp = nodeElement->Attribute("height");
+							
+							if(temp.c_str() && sscanf(temp.c_str(),"%f", &height)==1)
+							{
+								printf("  >> height: %f\n", height);
+							}
+							else {
+								printf("  error parsing height\n");
+								exit(-1);
+							}
+							
+							temp = nodeElement->Attribute("slices");
+							
+							if(temp.c_str() && sscanf(temp.c_str(),"%d",&slices)==1)
+							{
+								printf("  >> outer: %d\n", slices);
+							}
+							else {
+								printf("  error parsing slices\n");
+								exit(-1);
+							}
+
+							temp = nodeElement->Attribute("stacks");
+							
+							if(temp.c_str() && sscanf(temp.c_str(),"%d",&stacks)==1)
+							{
+								printf("  >> outer: %d\n", stacks);
+							}
+							else {
+								printf("  error parsing stacks\n");
+								exit(-1);
+							}
+
+							graphScene.nodes[atualnode].primitives.push_back(new Cylinder(base,top,height,slices,stacks));
 						}
 
 
