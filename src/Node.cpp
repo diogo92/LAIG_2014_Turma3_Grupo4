@@ -29,6 +29,8 @@ Node::Node(string id, float matrix[16]){
 
 Node::~Node(void)
 {
+	for(int i=0;i<primitives.size();i++)
+		delete (primitives.at(i));
 }
 
 void Node::draw(){

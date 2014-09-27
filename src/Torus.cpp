@@ -16,6 +16,7 @@ Torus::Torus(double raioInterior, double raioExterior, double lados, int loops){
 	}
 	
 }
+
 void Torus::draw() 
 {
 	glBegin(GL_TRIANGLE_STRIP);

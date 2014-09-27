@@ -17,6 +17,7 @@ class Torus : public VisualObject {
 	vector<Vertice> tex;
 	public:
 		Torus(double raioInterior, double raioExterior, double lados, int loops);
+		~Torus(){};
 	    void draw();
 		void calcVertices(int i,int j);
 };

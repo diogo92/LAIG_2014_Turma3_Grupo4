@@ -10,8 +10,12 @@ class Cylinder : public VisualObject {
 	double raioBase;
 	double raioTopo;
 	double altura;
+	GLUquadricObj *obj;
+	GLUquadricObj *diskBot;
+	GLUquadricObj *diskTop;
 	public:
 		Cylinder(double raioBase, double raioTopo, double altura, int slices, int stacks);
+		~Cylinder();
 	    void draw();
 		void drawTop();
 		void drawBase();

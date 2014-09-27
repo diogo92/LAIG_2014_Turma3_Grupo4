@@ -6,11 +6,20 @@ Cylinder::Cylinder(double raioBase, double raioTopo, double altura, int slices, 
 	this->raioTopo=raioTopo;
 	this->raioBase=raioBase;
 	this->altura=altura;
+	this->obj = gluNewQuadric();
+	this->diskTop = gluNewQuadric();
+	this->diskBot = gluNewQuadric();
 
+}
+
+Cylinder::~Cylinder(){
+	delete(this->obj);
+	delete(this->diskTop);
+	delete(this->diskBot);
 }
 void Cylinder::draw() 
 {
-	GLUquadricObj *obj = gluNewQuadric();
+	
 	gluQuadricOrientation(obj,GLU_OUTSIDE);
 	gluQuadricTexture(obj,GLU_TRUE);
 	glPushMatrix();
@@ -33,20 +42,18 @@ void Cylinder::draw()
 void Cylinder::drawTop(){
 	glPushMatrix();
 	glTranslated(0,0,altura);
-	GLUquadricObj *disk = gluNewQuadric();
-	gluQuadricOrientation(disk,GLU_OUTSIDE);
-	gluQuadricTexture(disk,GLU_TRUE);
-	gluDisk(disk,0,raioTopo,lados,1);
+	gluQuadricOrientation(diskTop,GLU_OUTSIDE);
+	gluQuadricTexture(diskTop,GLU_TRUE);
+	gluDisk(diskTop,0,raioTopo,lados,1);
 	glPopMatrix();
 }
 
 void Cylinder::drawBase(){
 	glPushMatrix();
 	glRotated(180,1,0,0);
-	GLUquadricObj *disk = gluNewQuadric();
-	gluQuadricOrientation(disk,GLU_OUTSIDE);
-	gluQuadricTexture(disk,GLU_TRUE);
-	gluDisk(disk,0,raioBase,lados,1);
+	gluQuadricOrientation(diskBot,GLU_OUTSIDE);
+	gluQuadricTexture(diskBot,GLU_TRUE);
+	gluDisk(diskBot,0,raioBase,lados,1);
 	glPopMatrix();
 }
 
