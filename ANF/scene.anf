@@ -51,7 +51,8 @@
                 <!-- Primitivas : rectangle, triangle, cylinder, sphere, torus -->
                 <!--   Comandos a serem interpretados genericamente como em OpenGL/GLUT, exceto -->
                 <!--   o cilindro, que deve adicionalmente ter topos ou tampas) -->           
-                <sphere radius="2" slices="16" stacks="16" />
+                <cylinder base="3" top="3" height="8" slices="16" stacks="16" />
+                <rectangle xy1="0 0" xy2="5 5" />
              </primitives>
               
              <!-- bloco "descendants" -->
@@ -72,9 +73,9 @@
                 <!-- ex: bloco transforms pode ficar sem conteudo -->
                 <!-- ex: bloco transforms pode ser R,T (nao tem S) -->
                 <!-- ex: bloco transforms pode ser R,S,T,S -->
-                <!-- <transform type="translate" to="0.5 0.5 0.5" />
+                <transform type="translate" to="0.5 0.5 0.5" />
                 <transform type="rotate" axis="zz" angle="90" />
-                <transform type="scale" factor="1 1 1.5" />-->
+                <transform type="scale" factor="1 1 1.5" />
             </transforms>
  
                              
@@ -88,7 +89,7 @@
                 <!-- Primitivas : rectangle, triangle, cylinder, sphere, torus -->
                 <!--   Comandos a serem interpretados genericamente como em OpenGL/GLUT, exceto -->
                 <!--   o cilindro, que deve adicionalmente ter topos ou tampas) -->           
-                <torus inner="2" outer="4" slices="16" loops="16" />
+                <triangle xyz1="0 0 0" xyz2="0 3 0" xyz3="0 1.5 3" />
              </primitives>
               
              <!-- bloco "descendants" -->
