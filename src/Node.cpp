@@ -22,22 +22,22 @@ Node::Node(string id){
 
 Node::Node(string id, float matrix[16]){
 	this->id = id;
-	for(int i = 0; i < 16; i++){
+	for(unsigned int i = 0; i < 16; i++){
 		this->matrix[i] = matrix[i];
 	}
 }
 
 Node::~Node(void)
 {
-	for(int i=0;i<primitives.size();i++)
+	for(unsigned int i=0;i<primitives.size();i++)
 		delete (primitives.at(i));
 }
 
 void Node::draw(){
-	for(int i = 0; i < this->primitives.size();i++){
+	for(unsigned int i = 0; i < this->primitives.size();i++){
 		this->primitives.at(i)->draw();
 	}
-	for(int i = 0; i < this->descendants.size();i++){
+	for(unsigned int i = 0; i < this->descendants.size();i++){
 		this->descendants.at(i)->draw();
 	}
 }

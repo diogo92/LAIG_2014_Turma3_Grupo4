@@ -176,7 +176,7 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 
 		TiXmlElement *node = graphElement->FirstChildElement();
 		TiXmlElement *nodeElement;
-		bool found;
+		bool found = false;
 		while(node){
 
 			nodeElement = NULL;

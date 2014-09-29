@@ -13,9 +13,9 @@ Cylinder::Cylinder(double raioBase, double raioTopo, double altura, int slices, 
 }
 
 Cylinder::~Cylinder(){
-	delete(this->obj);
-	delete(this->diskTop);
-	delete(this->diskBot);
+	gluDeleteQuadric(this->obj);
+	gluDeleteQuadric(this->diskTop);
+	gluDeleteQuadric(this->diskBot);
 }
 void Cylinder::draw() 
 {

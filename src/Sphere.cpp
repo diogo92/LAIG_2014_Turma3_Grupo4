@@ -10,7 +10,7 @@ Sphere::Sphere(double raio, int slices, int stacks) {
 }
 
 Sphere::~Sphere(){
-	delete(this->obj);
+	gluDeleteQuadric(this->obj);
 }
 
 void Sphere::draw() {
