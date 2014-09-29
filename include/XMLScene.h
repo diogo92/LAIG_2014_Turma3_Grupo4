@@ -1,6 +1,10 @@
 #ifndef _XMLSCENE_H_
 #define _XMLSCENE_H_
 
+#ifdef _MSC_VER
+#define _CRT_SECURE_NO_WARNINGS
+#endif
+
 #include "tinyxml.h"
 #include "GlobalData.h"
 #include "Graph.h"
