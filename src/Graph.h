@@ -2,6 +2,7 @@
 #define _GRAPH_H_
 
 #include "Node.h"
+#include "GraphNode.h"
 #include <map>
 
 using std::map;
@@ -13,7 +14,9 @@ public:
 	Graph(void);
 	~Graph(void);
 	map<string ,Node> nodes;
-	string root;
+	string rootNodeID;
+	map<string,GraphNode> graphNodes;
+	GraphNode * rootNode;
 	void draw();
 };
 

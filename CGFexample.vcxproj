@@ -74,6 +74,7 @@
     <ClCompile Include="src\ExampleObject.cpp" />
     <ClCompile Include="src\GlobalData.cpp" />
     <ClCompile Include="src\Graph.cpp" />
+    <ClCompile Include="src\GraphNode.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Node.cpp" />
     <ClCompile Include="src\Rectangle.cpp" />
@@ -90,6 +91,7 @@
     <ClInclude Include="src\ExampleObject.h" />
     <ClInclude Include="src\GlobalData.h" />
     <ClInclude Include="src\Graph.h" />
+    <ClInclude Include="src\GraphNode.h" />
     <ClInclude Include="src\Node.h" />
     <ClInclude Include="src\Rectangle.h" />
     <ClInclude Include="src\Sphere.h" />

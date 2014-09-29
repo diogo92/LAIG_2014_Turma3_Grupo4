@@ -169,9 +169,11 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 		}
 		else {
 			printf(">> graph rootid: %s\n", atualnode.c_str());
-			graphScene.root = graphElement->Attribute("rootid");
+			graphScene.rootNodeID = graphElement->Attribute("rootid");
 			graphScene.nodes[atualnode] = Node(atualnode);
-
+			graphScene.rootNode = new GraphNode();
+			graphScene.rootNode->atualNodeID = graphScene.rootNodeID;
+			graphScene.rootNode->atualNode = &graphScene.nodes[atualnode];
 		}
 
 		TiXmlElement *node = graphElement->FirstChildElement();
@@ -557,7 +559,16 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 							if ( graphScene.nodes.find(atualdescendant) == graphScene.nodes.end() ) {
 								graphScene.nodes[atualdescendant] = Node(atualdescendant);
 							}
-							graphScene.nodes[atualnode].descendants.push_back(&graphScene.nodes[atualdescendant]);
+							//graphScene.nodes[atualnode].descendants.push_back(&graphScene.nodes[atualdescendant]);
+							if ( graphScene.graphNodes.find(atualdescendant) == graphScene.graphNodes.end() ) {
+								graphScene.graphNodes[atualdescendant] = GraphNode();
+								graphScene.graphNodes[atualdescendant].atualNodeID = atualdescendant;
+								if(graphScene.nodes.find(atualdescendant) == graphScene.nodes.end()){
+									graphScene.nodes[atualdescendant] = Node(atualdescendant);
+								}
+								graphScene.graphNodes[atualdescendant].atualNode = &graphScene.nodes[atualdescendant];
+							}
+							graphScene.graphNodes[atualnode].descendants[atualdescendant] = &graphScene.graphNodes[atualdescendant];
 						}
 					}
 				}

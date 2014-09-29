@@ -89,7 +89,7 @@ void DemoScene::display()
 	// Draw axis
 	axis.draw();
 
-	graphScene.nodes[graphScene.root].draw();
+	graphScene.draw();
 
 	// ---- END feature demos
 
