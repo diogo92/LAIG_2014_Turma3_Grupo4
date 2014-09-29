@@ -226,18 +226,19 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 							}
 							else if(strcmp(temp.c_str(),"rotate")==0)
 							{
-								/*temp = nodeElement->Attribute("axis");
+								temp = nodeElement->Attribute("axis");
 								string axis;
 								float angle;
-								if(temp.c_str() && sscanf(temp.c_str(),"%s",&axis)==1)
+								if(!temp.empty())
 								{
-									printf("  >> axis: %s\n", axis);
-								}*/
-								char *axis = (char *) nodeElement->Attribute("axis");
-								float angle;
-								if((axis!=NULL))
-								{
-									printf("  >> axis: %s\n", axis);
+									if(temp == "xx" || temp == "yy" || temp == "zz"){
+										axis = temp;
+										printf("  >> axis: %s\n", axis.c_str());
+									}
+									else{
+										printf("  error: wrong value of axis\n");
+										exit(-1);
+									}
 								}
 								else {
 									printf("  error parsing axis\n");
