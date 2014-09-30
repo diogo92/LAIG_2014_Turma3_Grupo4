@@ -11,5 +11,5 @@ Graph::~Graph(void)
 }
 
 void Graph::draw(){
-	this->rootNode->draw();
+	this->graphNodes[rootNodeID].draw();
 }

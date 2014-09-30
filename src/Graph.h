@@ -16,7 +16,6 @@ public:
 	map<string ,Node> nodes;
 	string rootNodeID;
 	map<string,GraphNode> graphNodes;
-	GraphNode * rootNode;
 	void draw();
 };
 

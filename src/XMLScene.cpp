@@ -171,9 +171,9 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 			printf(">> graph rootid: %s\n", atualnode.c_str());
 			graphScene.rootNodeID = graphElement->Attribute("rootid");
 			graphScene.nodes[atualnode] = Node(atualnode);
-			graphScene.rootNode = new GraphNode();
-			graphScene.rootNode->atualNodeID = graphScene.rootNodeID;
-			graphScene.rootNode->atualNode = &graphScene.nodes[atualnode];
+			graphScene.graphNodes[atualnode] = GraphNode();
+			graphScene.graphNodes[atualnode].atualNodeID = atualnode;
+			graphScene.graphNodes[atualnode].atualNode = &graphScene.nodes[atualnode];
 		}
 
 		TiXmlElement *node = graphElement->FirstChildElement();
@@ -287,7 +287,7 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 
 						nodeElement = nodeElement->NextSiblingElement();
 					}
-					glGetFloatv(GL_MODELVIEW_MATRIX, &graphScene.nodes[atualnode].matrix[0][0]);
+					glGetFloatv(GL_MODELVIEW_MATRIX, &graphScene.nodes[atualnode].matrix[0]);
 				}
 				
 

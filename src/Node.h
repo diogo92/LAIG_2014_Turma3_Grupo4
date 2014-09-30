@@ -16,7 +16,7 @@ public:
 	void draw();
 	string id;
 	vector<VisualObject *> primitives;
-	float matrix[4][4];
+	float matrix[16];
 };
 
 #endif
