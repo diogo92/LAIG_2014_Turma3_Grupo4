@@ -203,6 +203,7 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 				}
 				else{
 					nodeElement = nodeElement->FirstChildElement();
+					glLoadIdentity();
 					while(nodeElement){
 						temp = (char *) nodeElement->Value();
 						if(strcmp(temp.c_str(),"transform") == 0){
@@ -221,21 +222,26 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 									printf("  error parsing to\n");
 									exit(-1);
 								}
-
-								/*
-								DO SOMETHING FOR TRANSLATE
-								*/
+								glTranslatef(x,y,z);
 							}
 							else if(strcmp(temp.c_str(),"rotate")==0)
 							{
 								temp = nodeElement->Attribute("axis");
 								string axis;
-								float angle;
+								float angle,axisx = 0,axisy = 0, axisz = 0;
 								if(!temp.empty())
 								{
 									if(temp == "xx" || temp == "yy" || temp == "zz"){
 										axis = temp;
 										printf("  >> axis: %s\n", axis.c_str());
+										if(temp == "xx"){
+											axisx = 1;
+										}
+										else if(temp == "yy"){
+											axisy = 1;
+										} else {
+											axisz = 1;
+										}
 									}
 									else{
 										printf("  error: wrong value of axis\n");
@@ -255,10 +261,7 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 									printf("  error parsing angle\n");
 									exit(-1);
 								}
-
-								/*
-								DO SOMETHING FOR ROTATE
-								*/
+								glRotatef(angle,axisx,axisy,axisz);
 
 							}
 							else if(strcmp(temp.c_str(),"scale")==0){
@@ -272,11 +275,7 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 									printf("  error parsing factor\n");
 									exit(-1);
 								}
-
-								/*
-								DO SOMETHING FOR SCALE
-								*/
-
+								glScalef(x,y,z);
 							}
 
 							else {
@@ -285,9 +284,10 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 							}
 
 						}
+
 						nodeElement = nodeElement->NextSiblingElement();
 					}
-					
+					glGetFloatv(GL_MODELVIEW_MATRIX, &graphScene.nodes[atualnode].matrix[0][0]);
 				}
 				
 
