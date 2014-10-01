@@ -548,32 +548,31 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 				}
 				else{
 					nodeElement = nodeElement->FirstChildElement("noderef");
-					if(nodeElement == NULL){
-						printf("  doesn't have descendants\n");
-					}
-					else{
-						temp = nodeElement->Attribute("id");
-						atualdescendant = nodeElement->Attribute("id");
+					while(nodeElement){
+							temp = nodeElement->Attribute("id");
+							atualdescendant = nodeElement->Attribute("id");
 
-						if(temp.empty()){
-							printf("  error parsing noderef attribute id\n");
-							exit(-1);
-						}
-						else{
-							if ( graphScene.nodes.find(atualdescendant) == graphScene.nodes.end() ) {
-								graphScene.nodes[atualdescendant] = Node(atualdescendant);
+							if(temp.empty()){
+								printf("  error parsing noderef attribute id\n");
+								exit(-1);
 							}
-							//graphScene.nodes[atualnode].descendants.push_back(&graphScene.nodes[atualdescendant]);
-							if ( graphScene.graphNodes.find(atualdescendant) == graphScene.graphNodes.end() ) {
-								graphScene.graphNodes[atualdescendant] = GraphNode();
-								graphScene.graphNodes[atualdescendant].atualNodeID = atualdescendant;
-								if(graphScene.nodes.find(atualdescendant) == graphScene.nodes.end()){
+							else{
+								printf("  >> descendant %s\n",atualdescendant.c_str());
+								if ( graphScene.nodes.find(atualdescendant) == graphScene.nodes.end() ) {
 									graphScene.nodes[atualdescendant] = Node(atualdescendant);
 								}
-								graphScene.graphNodes[atualdescendant].atualNode = &graphScene.nodes[atualdescendant];
+								//graphScene.nodes[atualnode].descendants.push_back(&graphScene.nodes[atualdescendant]);
+								if ( graphScene.graphNodes.find(atualdescendant) == graphScene.graphNodes.end() ) {
+									graphScene.graphNodes[atualdescendant] = GraphNode();
+									graphScene.graphNodes[atualdescendant].atualNodeID = atualdescendant;
+									if(graphScene.nodes.find(atualdescendant) == graphScene.nodes.end()){
+										graphScene.nodes[atualdescendant] = Node(atualdescendant);
+									}
+									graphScene.graphNodes[atualdescendant].atualNode = &graphScene.nodes[atualdescendant];
+								}
+								graphScene.graphNodes[atualnode].descendants[atualdescendant] = &graphScene.graphNodes[atualdescendant];
 							}
-							graphScene.graphNodes[atualnode].descendants[atualdescendant] = &graphScene.graphNodes[atualdescendant];
-						}
+						nodeElement = nodeElement->NextSiblingElement();
 					}
 				}
 			}
