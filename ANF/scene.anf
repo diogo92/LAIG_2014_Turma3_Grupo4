@@ -25,19 +25,12 @@
     </globals>
    
     <!-- bloco do grafo; "rootid" identifica o no de raiz -->
-    <graph rootid="pai">
+    <graph rootid="root">
 
         <!-- tem de existir, pelo menos, um bloco "node" -->
-        <node id="pai">
+        <node id="root">
             <!-- bloco "transforms" obrigatorio -->
             <transforms>
-                <!-- deve conter transformacoes explicitas usando as instrucoes seguintes sem limite nem ordem -->
-                <!-- ex: bloco transforms pode ficar sem conteudo -->
-                <!-- ex: bloco transforms pode ser R,T (nao tem S) -->
-                <!-- ex: bloco transforms pode ser R,S,T,S -->
-                <!-- <transform type="translate" to="0.5 0.5 0.5" />
-                <transform type="rotate" axis="zz" angle="90" />
-                <transform type="scale" factor="1 1 1.5" />-->
             </transforms>
  
                              
@@ -46,60 +39,174 @@
 
              <!-- bloco "primitives" -->
             <primitives>
-                <!-- podem existir varias primitivas -->
-
-                <!-- Primitivas : rectangle, triangle, cylinder, sphere, torus -->
-                <!--   Comandos a serem interpretados genericamente como em OpenGL/GLUT, exceto -->
-                <!--   o cilindro, que deve adicionalmente ter topos ou tampas) -->           
-                <cylinder base="3" top="3" height="8" slices="16" stacks="16" />
-                <rectangle xy1="0 0" xy2="5 5" />
              </primitives>
               
              <!-- bloco "descendants" -->
             <descendants>
-                <!-- Referencia a outros elementos do grafo -->
-                <!-- (repetir o no. de vezes necessario) -->
-                <!-- LEMBRANDO: qualquer no' pode ser referenciado previamente 'a sua declaracao; isto -->
-                <!--            e', a ordem pela qual os nos sao declarados e' irrelevante -->
-
-                <noderef id="filho" />
-
+                <noderef id="homer" />
             </descendants>
         </node>
-        <node id="filho">
-            <!-- bloco "transforms" obrigatorio -->
+
+        <node id="homer">
             <transforms>
-                <!-- deve conter transformacoes explicitas usando as instrucoes seguintes sem limite nem ordem -->
-                <!-- ex: bloco transforms pode ficar sem conteudo -->
-                <!-- ex: bloco transforms pode ser R,T (nao tem S) -->
-                <!-- ex: bloco transforms pode ser R,S,T,S -->
-                <transform type="translate" to="0.5 0.5 0.5" />
-                <transform type="rotate" axis="zz" angle="90" />
-                <transform type="scale" factor="1 1 1.5" />
             </transforms>
- 
-                             
-             <!-- conteudo do no; deve existir pelo menos um bloco "primitives" ou um "descendants" -->
-             <!-- podem existir ambos -->
 
-             <!-- bloco "primitives" -->
             <primitives>
-                <!-- podem existir varias primitivas -->
+            </primitives>
 
-                <!-- Primitivas : rectangle, triangle, cylinder, sphere, torus -->
-                <!--   Comandos a serem interpretados genericamente como em OpenGL/GLUT, exceto -->
-                <!--   o cilindro, que deve adicionalmente ter topos ou tampas) -->           
-                <triangle xyz1="0 0 0" xyz2="0 3 0" xyz3="0 1.5 3" />
-             </primitives>
-              
-             <!-- bloco "descendants" -->
             <descendants>
-                <!-- Referencia a outros elementos do grafo -->
-                <!-- (repetir o no. de vezes necessario) -->
-                <!-- LEMBRANDO: qualquer no' pode ser referenciado previamente 'a sua declaracao; isto -->
-                <!--            e', a ordem pela qual os nos sao declarados e' irrelevante -->
-
+                <noderef id="head"/>
+                <noderef id="torso"/>
+                <noderef id="arms"/>
+                <noderef id="legs"/>
             </descendants>
         </node>
+
+                <node id="head">
+                    <transforms>
+                    </transforms>
+
+                    <primitives>
+                    </primitives>
+                    <descendants>
+                        <noderef id="cil"/>
+                        <noderef id="top"/>
+                        <noderef id="eyes"/>
+                        <noderef id="hair"/>
+                    </descendants>
+                </node>
+                        <node id="cil">
+                            <transforms>
+                                <transform type="rotate" axis="xx" angle="-90" />
+                            </transforms>
+
+                            <primitives>
+                              <cylinder base="0.5" top="0.5" height="1.5" slices="16" stacks="16" />
+                            </primitives>
+
+                            <descendants>
+                            </descendants>
+                        </node>
+                        <node id="top">
+                            <transforms>
+                                <transform type="translate" to="0.0 1.5 0.0" />
+                                <transform type="scale" factor="0.5 0.5 0.5"/>
+                            </transforms>
+
+                            <primitives>
+                                <sphere radius="1" slices="16" stacks="16" />
+                            </primitives>
+                            
+                            <descendants>
+                            </descendants>
+                        </node>
+                        <node id="eyes">
+                            <transforms>
+                                <transform type="translate" to="0.0 1.0 0.5" />
+                                <transform type="scale" factor="0.25 0.25 0.25"/>
+                            </transforms>
+
+                            <primitives>
+                            </primitives>
+                            
+                            <descendants>
+                                <noderef id="righteye"/>
+                                <noderef id="lefteye"/>
+                            </descendants>
+                        </node>
+                                <node id="righteye">
+                                    <transforms>
+                                        <transform type="translate" to="-0.75 0.0 0.0" />
+                                    </transforms>
+
+                                    <primitives>
+                                        <sphere radius="1" slices="16" stacks="16" />
+                                    </primitives>
+                                    
+                                    <descendants>
+                                    </descendants>
+                                </node>
+                                <node id="lefteye">
+                                    <transforms>
+                                        <transform type="translate" to="0.75 0.0 0.0" />
+                                    </transforms>
+
+                                    <primitives>
+                                        <sphere radius="1" slices="16" stacks="16" />
+                                    </primitives>
+                                    
+                                    <descendants>
+                                    </descendants>
+                                </node>
+
+                        <node id="hair">
+                            <transforms>
+                                <transform type="rotate" axis="xx" angle="90" />
+                            </transforms>
+
+                            <primitives>
+                            </primitives>
+
+                            <descendants>
+                                <noderef id="backhair"/>
+                                <noderef id="fronthair"/>
+                            </descendants>
+                        </node>
+                                <node id="backhair">
+                                    <transforms>
+                                        <transform type="translate" to="0.0 0.1 -1.85" />
+                                    </transforms>
+
+                                    <primitives>
+                                        <torus inner="0.01" outer="0.2" slices="16" loops="16"  />
+                                    </primitives>
+                                    
+                                    <descendants>
+                                    </descendants>
+                                </node>
+                                <node id="fronthair">
+                                    <transforms>
+                                        <transform type="translate" to="0.0 -0.1 -1.85" />
+                                    </transforms>
+
+                                    <primitives>
+                                        <torus inner="0.01" outer="0.2" slices="16" loops="16"  />
+                                    </primitives>
+                                    
+                                    <descendants>
+                                    </descendants>
+                                </node>
+
+                <node id="torso">
+                    <transforms>
+                    </transforms>
+
+                    <primitives>
+                    </primitives>
+
+                    <descendants>
+                    </descendants>
+                </node>
+                <node id="arms">
+                    <transforms>
+                    </transforms>
+
+                    <primitives>
+                    </primitives>
+
+                    <descendants>
+                    </descendants>
+                </node>
+                <node id="legs">
+                    <transforms>
+                    </transforms>
+
+                    <primitives>
+                    </primitives>
+
+                    <descendants>
+                    </descendants>
+                </node>
+        
     </graph>
 </anf>

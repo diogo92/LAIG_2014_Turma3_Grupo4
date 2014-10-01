@@ -407,7 +407,7 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 
 							if(temp.c_str() && sscanf(temp.c_str(),"%d",&slices)==1)
 							{
-								printf("  >> outer: %d\n", slices);
+								printf("  >> slices: %d\n", slices);
 							}
 							else {
 								printf("  error parsing slices\n");
@@ -418,7 +418,7 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 
 							if(temp.c_str() && sscanf(temp.c_str(),"%d",&loops)==1)
 							{
-								printf("  >> outer: %d\n", loops);
+								printf("  >> loops: %d\n", loops);
 							}
 							else {
 								printf("  error parsing loops\n");
