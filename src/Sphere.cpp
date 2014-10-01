@@ -14,9 +14,7 @@ Sphere::~Sphere(){
 }
 
 void Sphere::draw() {
-	glPushMatrix();
 	gluSphere(obj,raio,lados,andares);
-	glPopMatrix();
 }
 
 

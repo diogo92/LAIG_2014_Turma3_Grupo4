@@ -22,7 +22,6 @@ void Cylinder::draw()
 	
 	gluQuadricOrientation(obj,GLU_OUTSIDE);
 	gluQuadricTexture(obj,GLU_TRUE);
-	glPushMatrix();
 	gluCylinder(obj, raioBase, raioTopo, altura, lados, andares);
 	if(raioTopo>0){
 		glPushMatrix();
@@ -33,9 +32,8 @@ void Cylinder::draw()
 		glPushMatrix();
 		drawBase();
 		glPopMatrix();
-	glPopMatrix();
-	}
 	
+	}
 	
 }
 
