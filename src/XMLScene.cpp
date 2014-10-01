@@ -287,7 +287,11 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 
 						nodeElement = nodeElement->NextSiblingElement();
 					}
-					glGetFloatv(GL_MODELVIEW_MATRIX, &graphScene.nodes[atualnode].matrix[0]);
+					float m[16];
+					glGetFloatv(GL_MODELVIEW_MATRIX, &m[0]);//graphScene.nodes[atualnode].matrix[0]
+					for(int i = 0; i<16; i++)
+						graphScene.nodes[atualnode].matrix[i] = m[i];
+
 				}
 				
 

@@ -16,7 +16,7 @@ public:
 	void draw();
 	string id;
 	vector<VisualObject *> primitives;
-	float matrix[16];
+	GLfloat matrix[16];
 };
 
 #endif

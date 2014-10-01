@@ -17,7 +17,6 @@ public:
 	string atualNodeID;
 	map<string, GraphNode *> descendants;
 	void draw();
-	float matrix[16];
 };
 
 #endif
