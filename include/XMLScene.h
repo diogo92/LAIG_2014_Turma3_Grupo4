@@ -26,6 +26,7 @@ protected:
 	TiXmlDocument* doc;
 	TiXmlElement* globalsElement; 
 	TiXmlElement* graphElement;
+	TiXmlElement* appearanceElement;
 
 	TiXmlElement* textsElement;
 	TiXmlElement* leavesElement;

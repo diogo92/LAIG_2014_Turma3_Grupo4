@@ -151,6 +151,103 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 
 	}
 
+	appearanceElement = anfElement->FirstChildElement("appearances");
+
+	if (appearanceElement == NULL){
+		printf("appearances element not found\n");
+		exit(-1);
+	}
+	else {
+		printf("processing appearances\n");
+		TiXmlElement *nodeAppearance = appearanceElement->FirstChildElement();
+		unsigned int counter = 0;
+		while(nodeAppearance){
+			TiXmlElement * nodeAppearanceChild;
+			temp = nodeAppearance->Attribute("id");
+			string appid = nodeAppearance->Attribute("id");
+			float shininess;
+			if(appid.empty()){
+				printf("appearance id not found\n");
+				exit(-1);
+			}
+			else{
+				printf(">> appearance %s\n", appid.c_str());
+			}
+
+			temp = nodeAppearance->Attribute("shininess");
+			if(temp.c_str() && sscanf(temp.c_str(),"%f",&shininess)==1)
+			{
+				printf(">> shinissess: %f\n",shininess);
+			}
+			else{
+				printf("appearance shininess not found\n");
+				exit(-1);
+			}
+			
+			float ambr,ambg,ambb,amba;
+			float difr,difg,difb,difa;
+			float sper,speg,speb,spea;
+
+			nodeAppearanceChild = findChildByAttribute(nodeAppearance,"type","ambient");
+			if(nodeAppearanceChild == NULL){
+				printf("appearence ambient not found\n");
+				exit(-1);
+			}
+			
+			temp = nodeAppearanceChild->Attribute("value");
+
+			if(temp.c_str() && sscanf(temp.c_str(),"%f %f %f %f",&ambr, &ambg, &ambb, &amba)==4)
+			{
+				printf("  >> ambient (rgba): %f %f %f %f\n", ambr, ambg, ambb, amba);
+			}
+			else {
+				printf("Error parsing ambient\n");
+				exit(-1);
+			}
+
+			nodeAppearanceChild = findChildByAttribute(nodeAppearance,"type","diffuse");
+			if(nodeAppearanceChild == NULL){
+				printf("appearence diffuse not found\n");
+				exit(-1);
+			}
+			
+			temp = nodeAppearanceChild->Attribute("value");
+
+			if(temp.c_str() && sscanf(temp.c_str(),"%f %f %f %f",&difr, &difg, &difb, &difa)==4)
+			{
+				printf("  >> diffuse (rgba): %f %f %f %f\n", difr, difg, difb, difa);
+			}
+			else {
+				printf("Error parsing diffuse\n");
+				exit(-1);
+			}
+
+			nodeAppearanceChild = findChildByAttribute(nodeAppearance,"type","specular");
+			if(nodeAppearanceChild == NULL){
+				printf("appearance specular not found\n");
+				exit(-1);
+			}
+			
+			temp = nodeAppearanceChild->Attribute("value");
+
+			if(temp.c_str() && sscanf(temp.c_str(),"%f %f %f %f",&sper, &speg, &speb, &spea)==4)
+			{
+				printf("  >> specular (rgba): %f %f %f %f\n", sper, speg, speb, spea);
+			}
+			else {
+				printf("Error parsing specular\n");
+				exit(-1);
+			}
+
+			nodeAppearance = nodeAppearance->NextSiblingElement();
+			counter++;
+		}
+		if(counter == 0){
+			printf("didn't find any appearance block\n");
+			exit(-1);
+		}
+	}
+
 	graphElement = anfElement->FirstChildElement("graph");
 
 	if (graphElement == NULL){
@@ -435,7 +532,7 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 
 							if(temp.c_str() && sscanf(temp.c_str(),"%f", &radius)==1)
 							{
-								printf("  >> inner: %f\n", radius);
+								printf("  >> radius: %f\n", radius);
 							}
 							else {
 								printf("  error parsing radius\n");
@@ -446,7 +543,7 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 
 							if(temp.c_str() && sscanf(temp.c_str(),"%d",&slices)==1)
 							{
-								printf("  >> outer: %d\n", slices);
+								printf("  >> slices: %d\n", slices);
 							}
 							else {
 								printf("  error parsing slices\n");
@@ -457,7 +554,7 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 
 							if(temp.c_str() && sscanf(temp.c_str(),"%d",&stacks)==1)
 							{
-								printf("  >> outer: %d\n", stacks);
+								printf("  >> stacks: %d\n", stacks);
 							}
 							else {
 								printf("  error parsing stacks\n");
