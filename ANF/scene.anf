@@ -196,7 +196,7 @@
                                 <node id="rightear">
                                     <transforms>
                                         <transform type="translate" to="0.0 0.0 -2.0"/>
-                                        <transform type="rotate" axis="yy" angle="-65"/>
+                                        <transform type="rotate" axis="yy" angle="-70"/>
                                         <transform type="translate" to="2.0 1.7 0.0"/>
                                         <transform type="rotate" axis="zz" angle="90"/>
                                     </transforms>
@@ -211,7 +211,7 @@
                                 <node id="leftear">
                                     <transforms>
                                         <transform type="translate" to="0.0 0.0 -2.0"/>
-                                        <transform type="rotate" axis="yy" angle="65"/>
+                                        <transform type="rotate" axis="yy" angle="70"/>
                                         <transform type="translate" to="-2.0 1.7 0.0"/>
                                         <transform type="rotate" axis="zz" angle="90"/>
                                     </transforms>
@@ -240,9 +240,12 @@
 
                 <node id="torso">
                     <transforms>
+                        <transform type="translate" to="0.0 4.2 0.0"/>
+                        <transform type="scale" factor="1.5 2.00 1.5"/>
                     </transforms>
 
                     <primitives>
+                        <sphere radius="1" slices="16" stacks="16"/>
                     </primitives>
 
                     <descendants>
@@ -250,14 +253,207 @@
                 </node>
                 <node id="arms">
                     <transforms>
+                        <transform type="translate" to="0.0 5.0 0.0"/>
                     </transforms>
 
                     <primitives>
                     </primitives>
 
                     <descendants>
+                        <noderef id="rightarm"/>
+                        <noderef id="leftarm" />
                     </descendants>
                 </node>
+                        <node id="rightarm">
+                            <transforms>
+                                <transform type="translate" to="-1.5 0.0 0.0"/>
+                            </transforms>
+
+                            <primitives>
+                            </primitives>
+
+                            <descendants>
+                                <noderef id="arm"/>
+                            </descendants>
+                        </node>
+                        <node id="leftarm">
+                            <transforms>
+                                <transform type="translate" to="1.5 0.0 0.0"/>
+                                <transform type="rotate" axis="zz" angle="180"/>
+                            </transforms>
+
+                            <primitives>
+                            </primitives>
+
+                            <descendants>
+                                <noderef id="arm"/>
+                            </descendants>
+                        </node>
+                        <node id="arm">
+                            <transforms>
+                                <transform type="scale" factor="0.5 0.5 0.5"/>
+                            </transforms>
+
+                            <primitives>
+                            </primitives>
+
+                            <descendants>
+                                <noderef id="armpart"/>
+                                <noderef id="shoulderpart"/>
+                                <noderef id="hand"/>
+                            </descendants>
+                        </node>
+                                <node id="armpart">
+                                    <transforms>
+                                        <transform type="scale" factor="0.8 0.8 1.0"/>
+                                    </transforms>
+
+                                    <primitives>
+                                       <cylinder base="1.0" top="1.0" height="6.0" slices="16" stacks="16" />
+                                    </primitives>
+
+                                    <descendants>
+                                    </descendants>
+                                </node>
+                                <node id="shoulderpart">
+                                    <transforms>
+
+                                    </transforms>
+
+                                    <primitives>
+
+                                    </primitives>
+
+                                    <descendants>
+                                        <noderef id="sleeve"/>
+                                        <noderef id="sleeveend"/>
+                                    </descendants>
+                                </node>
+                                        <node id="sleeve">
+                                            <transforms>
+                                                <transform type="scale" factor="0.8 1.1 1.2"/>
+                                            </transforms>
+
+                                            <primitives>
+                                                <sphere radius="1" slices="16" stacks="16"/>
+                                            </primitives>
+
+                                            <descendants>
+                                            </descendants>
+                                        </node>
+                                        <node id="sleeveend">
+                                            <transforms>
+                                                <transform type="translate" to="0.0 0.0 0.5"/>
+                                                <transform type="scale" factor="0.38 0.38 0.38"/>
+                                                <transform type="rotate" axis="xx" angle="90"/>
+                                            </transforms>
+
+                                            <primitives>
+                                                <torus inner="1" outer="2" slices="16" loops="16"/>
+                                            </primitives>
+
+                                            <descendants>
+                                            </descendants>
+                                        </node>
+                                <node id="hand">
+                                    <transforms>
+                                        <transform type="translate" to="0.0 0.0 7.0"/>
+                                    </transforms>
+
+                                    <primitives>
+
+                                    </primitives>
+
+                                    <descendants>
+                                        <noderef id="palm"/>
+                                        <noderef id="finger1"/>
+                                        <noderef id="finger2"/>
+                                        <noderef id="finger3"/>
+                                        <noderef id="finger4"/>
+                                        <noderef id="finger5"/>
+                                    </descendants>
+                                </node>
+                                        <node id="palm">
+                                            <transforms>
+                                                <transform type="scale" factor="1.0 0.5 1.5"/>
+                                            </transforms>
+
+                                            <primitives>
+                                                <sphere radius="1" slices="16" stacks="16" />
+                                            </primitives>
+
+                                            <descendants>
+                                            </descendants>
+                                        </node>
+                                        <node id="finger1"><!-- thumb-->
+                                            <transforms>
+                                                <transform type="translate" to="0.8.0 0.0 0.0"/>
+                                                <transform type="rotate" axis="yy" angle="70"/>
+                                                <transform type="scale" factor="0.15 0.15 0.15"/>
+                                            </transforms>
+
+                                            <primitives>
+                                                <cylinder base="1.0" top="1.0" height="5.0" slices="16" stacks="16" />
+                                            </primitives>
+
+                                            <descendants>
+                                            </descendants>
+                                        </node>
+                                        <node id="finger2"><!-- index finger-->
+                                            <transforms>
+                                                <transform type="translate" to="0.5 0.0 1.1"/>
+                                                <transform type="scale" factor="0.15 0.15 0.15"/>
+                                            </transforms>
+
+                                            <primitives>
+                                                <cylinder base="1.0" top="1.0" height="6.0" slices="16" stacks="16" />
+                                            </primitives>
+
+                                            <descendants>
+                                            </descendants>
+                                        </node>
+                                        <node id="finger3"><!-- middle finger-->
+                                            <transforms>
+                                                <transform type="translate" to="0.0 0.0 1.1"/>
+                                                <transform type="scale" factor="0.15 0.15 0.15"/>
+                                            </transforms>
+
+                                            <primitives>
+                                                <cylinder base="1.0" top="1.0" height="6.0" slices="16" stacks="16" />
+                                            </primitives>
+
+                                            <descendants>
+                                            </descendants>
+                                        </node>
+                                        <node id="finger4"> <!-- ring finger-->
+                                            <transforms>
+                                                <transform type="translate" to="-0.5 0.0 1.1"/>
+                                                <transform type="scale" factor="0.15 0.15 0.15"/>
+                                            </transforms>
+
+                                            <primitives>
+                                                <cylinder base="1.0" top="1.0" height="6.0" slices="16" stacks="16" />
+                                            </primitives>
+
+                                            <descendants>
+                                            </descendants>
+                                        </node>
+                                        <node id="finger5"><!-- pinkie-->
+                                            <transforms>
+                                                <transform type="translate" to="-1.0 0.0 0.5"/>
+                                                <transform type="scale" factor="0.15 0.15 0.15"/>
+                                            </transforms>
+
+                                            <primitives>
+                                                <cylinder base="1.0" top="1.0" height="6.0" slices="16" stacks="16" />
+                                            </primitives>
+
+                                            <descendants>
+                                            </descendants>
+                                        </node>
+
+
+
                 <node id="legs">
                     <transforms>
                     </transforms>
