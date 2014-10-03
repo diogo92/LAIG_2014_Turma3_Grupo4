@@ -394,7 +394,26 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 
 
 				nodeElement = NULL;
+				nodeElement = node->FirstChildElement("appearanceref");
 
+				if(nodeElement == NULL){
+					printf("  element appearanceref not found\n");
+					exit(-1);
+				}
+				else{
+					string id = nodeElement->Attribute("id");
+
+					if(id.empty()){
+						printf("  attribute id not found\n");
+						exit(-1);
+					}
+
+					graphScene.graphNodes[atualnode].appear = &graphScene.appearances[id];
+				}
+
+				/********************/
+
+				nodeElement = NULL;
 				nodeElement = node->FirstChildElement("primitives");
 
 				if(nodeElement == NULL){

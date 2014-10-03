@@ -2,6 +2,7 @@
 #define GRAPHNODE_H
 
 #include "Node.h"
+#include "Appearance.h"
 #include <map>
 #include <string>
 
@@ -13,6 +14,7 @@ class GraphNode
 public:
 	GraphNode(void);
 	~GraphNode(void);
+	Appearance * appear;
 	Node * atualNode;
 	string atualNodeID;
 	map<string, GraphNode *> descendants;

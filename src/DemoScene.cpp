@@ -53,12 +53,12 @@ void DemoScene::init()
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, CGFlight::background_ambient);  // Define ambient light
 	
 	// Declares and enables a light
-	float light0_pos[4] = {4.0, 6.0, 5.0, 1.0};
+	float light0_pos[4] = {8.0, 12.0, 10.0, 3};
 	light0 = new CGFlight(GL_LIGHT0, light0_pos);
 	light0->enable();
 
 	// Defines a default normal
-	glNormal3f(0,0,1);
+	//glNormal3f(0,0,1);
 
 	setUpdatePeriod(30);
 }

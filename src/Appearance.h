@@ -1,22 +1,18 @@
 #ifndef _APPEARENCE_H_
 #define _APPEARENCE_H_
 
+#include <CGFappearance.h>
 #include <string>
 
 using std::string;
 
-class Appearance
+class Appearance: public CGFappearance
 {
 public:
-	Appearance(void);
-	Appearance(string id,float shininess, float ambient[4], float diffuse[4], float specular[4]);
-	~Appearance(void);
+	Appearance();
+	~Appearance();
+	Appearance(string appid,float shininess,float * amb,float * dif, float * spe);
 	string id;
-	string textureref;
-	float shininess;
-	float ambient[4];
-	float diffuse[4];
-	float specular[4];
 };
 
 #endif
