@@ -13,6 +13,7 @@
 #include "Torus.h"
 #include "Sphere.h"
 #include "Cylinder.h"
+#include "Appearance.h"
 
 class XMLScene
 {

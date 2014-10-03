@@ -3,6 +3,7 @@
 
 #include "Node.h"
 #include "GraphNode.h"
+#include "Appearance.h"
 #include <map>
 
 using std::map;
@@ -16,6 +17,7 @@ public:
 	map<string ,Node> nodes;
 	string rootNodeID;
 	map<string,GraphNode> graphNodes;
+	map<string,Appearance> appearances;
 	void draw();
 };
 

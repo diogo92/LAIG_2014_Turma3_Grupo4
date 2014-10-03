@@ -69,6 +69,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Appearance.cpp" />
     <ClCompile Include="src\Cylinder.cpp" />
     <ClCompile Include="src\DemoScene.cpp" />
     <ClCompile Include="src\ExampleObject.cpp" />
@@ -86,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\XMLScene.h" />
+    <ClInclude Include="src\Appearance.h" />
     <ClInclude Include="src\Cylinder.h" />
     <ClInclude Include="src\DemoScene.h" />
     <ClInclude Include="src\ExampleObject.h" />

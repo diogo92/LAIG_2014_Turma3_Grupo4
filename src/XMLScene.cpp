@@ -184,9 +184,9 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 				exit(-1);
 			}
 			
-			float ambr,ambg,ambb,amba;
-			float difr,difg,difb,difa;
-			float sper,speg,speb,spea;
+			float amb[4];
+			float dif[4];
+			float spe[4];
 
 			nodeAppearanceChild = findChildByAttribute(nodeAppearance,"type","ambient");
 			if(nodeAppearanceChild == NULL){
@@ -196,9 +196,9 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 			
 			temp = nodeAppearanceChild->Attribute("value");
 
-			if(temp.c_str() && sscanf(temp.c_str(),"%f %f %f %f",&ambr, &ambg, &ambb, &amba)==4)
+			if(temp.c_str() && sscanf(temp.c_str(),"%f %f %f %f",&amb[0], &amb[1], &amb[2], &amb[3])==4)
 			{
-				printf("  >> ambient (rgba): %f %f %f %f\n", ambr, ambg, ambb, amba);
+				printf("  >> ambient (rgba): %f %f %f %f\n", amb[0], amb[1], amb[2], amb[3]);
 			}
 			else {
 				printf("Error parsing ambient\n");
@@ -213,9 +213,9 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 			
 			temp = nodeAppearanceChild->Attribute("value");
 
-			if(temp.c_str() && sscanf(temp.c_str(),"%f %f %f %f",&difr, &difg, &difb, &difa)==4)
+			if(temp.c_str() && sscanf(temp.c_str(),"%f %f %f %f",&dif[0], &dif[1], &dif[2], &dif[3])==4)
 			{
-				printf("  >> diffuse (rgba): %f %f %f %f\n", difr, difg, difb, difa);
+				printf("  >> diffuse (rgba): %f %f %f %f\n", dif[0], dif[1], dif[2], dif[3]);
 			}
 			else {
 				printf("Error parsing diffuse\n");
@@ -230,15 +230,15 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 			
 			temp = nodeAppearanceChild->Attribute("value");
 
-			if(temp.c_str() && sscanf(temp.c_str(),"%f %f %f %f",&sper, &speg, &speb, &spea)==4)
+			if(temp.c_str() && sscanf(temp.c_str(),"%f %f %f %f",&spe[0], &spe[1], &spe[2], &spe[3])==4)
 			{
-				printf("  >> specular (rgba): %f %f %f %f\n", sper, speg, speb, spea);
+				printf("  >> specular (rgba): %f %f %f %f\n", spe[0], spe[1], spe[2], spe[3]);
 			}
 			else {
 				printf("Error parsing specular\n");
 				exit(-1);
 			}
-
+			graphScene.appearances[appid] = Appearance(appid,shininess,amb,dif,spe);
 			nodeAppearance = nodeAppearance->NextSiblingElement();
 			counter++;
 		}
