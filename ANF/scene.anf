@@ -4,7 +4,7 @@
 
         <drawing mode="fill" shading="flat" background="0.1 0.2 0.3 0.6" />
 
-        <culling face="none" order="ccw" />
+        <culling face="front" order="cw" />
  
     </globals>
     <appearances>
@@ -23,11 +23,13 @@
             <transforms>
             </transforms>
  
+            <appearanceref id="aparencia"/>
             <primitives>
              </primitives>
 
             <descendants>
                 <noderef id="homer" />
+                <noderef id="table" />
             </descendants>
         </node>
 
@@ -35,8 +37,10 @@
 
         <node id="homer">
             <transforms>
-				<transform type="translate" to="0.0 1.5 0.0"/>
+				<transform type="translate" to="0.0 8.5 0.0"/>
             </transforms>
+
+            <appearanceref id="aparencia"/>
 
             <primitives>
             </primitives>
@@ -54,6 +58,8 @@
                         <transform type="translate" to="0.0 6.0 0.0"/>
                     </transforms>
 
+                    <appearanceref id="aparencia"/>
+
                     <primitives>
                     </primitives>
                     <descendants>
@@ -70,6 +76,8 @@
                                 <transform type="rotate" axis="xx" angle="-90" />
                             </transforms>
 
+                            <appearanceref id="aparencia"/>
+
                             <primitives>
                               <cylinder base="0.5" top="0.5" height="1.5" slices="16" stacks="16" />
                             </primitives>
@@ -82,6 +90,8 @@
                                 <transform type="translate" to="0.0 1.5 0.0" />
                                 <transform type="scale" factor="0.5 0.5 0.5"/>
                             </transforms>
+
+                            <appearanceref id="aparencia"/>
 
                             <primitives>
                                 <sphere radius="1" slices="16" stacks="16" />
@@ -96,6 +106,8 @@
                                 <transform type="scale" factor="0.25 0.25 0.25"/>
                             </transforms>
 
+                            <appearanceref id="aparencia"/>
+
                             <primitives>
                             </primitives>
                             
@@ -109,6 +121,8 @@
                                         <transform type="translate" to="-0.75 0.0 0.0" />
                                     </transforms>
 
+                                    <appearanceref id="aparencia"/>
+
                                     <primitives>
                                         <sphere radius="1" slices="16" stacks="16" />
                                     </primitives>
@@ -120,6 +134,8 @@
                                     <transforms>
                                         <transform type="translate" to="0.75 0.0 0.0" />
                                     </transforms>
+
+                                    <appearanceref id="aparencia"/>
 
                                     <primitives>
                                         <sphere radius="1" slices="16" stacks="16" />
@@ -134,6 +150,8 @@
                                 <transform type="rotate" axis="xx" angle="90" />
                             </transforms>
 
+                            <appearanceref id="aparencia"/>
+
                             <primitives>
                             </primitives>
 
@@ -147,6 +165,8 @@
                                         <transform type="translate" to="0.0 0.1 -1.85" />
                                     </transforms>
 
+                                    <appearanceref id="aparencia"/>
+
                                     <primitives>
                                         <torus inner="0.01" outer="0.2" slices="16" loops="16"  />
                                     </primitives>
@@ -159,6 +179,8 @@
                                         <transform type="translate" to="0.0 -0.1 -1.85" />
                                     </transforms>
 
+                                    <appearanceref id="aparencia"/>
+
                                     <primitives>
                                         <torus inner="0.01" outer="0.2" slices="16" loops="16"  />
                                     </primitives>
@@ -170,6 +192,8 @@
                             <transforms>
                                 <transform type="scale" factor="0.5 0.5 0.5"/>
                             </transforms>
+
+                            <appearanceref id="aparencia"/>
 
                             <primitives>
                                     
@@ -188,6 +212,8 @@
                                         <transform type="rotate" axis="zz" angle="90"/>
                                     </transforms>
 
+                                    <appearanceref id="aparencia"/>
+
                                     <primitives>
                                         <torus inner="0.2" outer="0.3" slices="16" loops="16" />
                                     </primitives>
@@ -203,6 +229,8 @@
                                         <transform type="rotate" axis="zz" angle="90"/>
                                     </transforms>
 
+                                    <appearanceref id="aparencia"/>
+
                                     <primitives>
                                         <torus inner="0.2" outer="0.3" slices="16" loops="16" />
                                     </primitives>
@@ -216,6 +244,8 @@
                                 <transform type="scale" factor="0.1 0.2 0.1" />
                                 <transform type="translate" to="0.0 1.5 3.0"/> 
                             </transforms>
+
+                            <appearanceref id="aparencia"/>
 
                             <primitives>
                                 <torus inner="1" outer="2" slices="16" loops="16" />
@@ -231,6 +261,8 @@
                         <transform type="scale" factor="1.5 2.00 1.5"/>
                     </transforms>
 
+                    <appearanceref id="aparencia"/>
+
                     <primitives>
                         <sphere radius="1" slices="16" stacks="16"/>
                     </primitives>
@@ -243,6 +275,8 @@
                         <transform type="translate" to="0.0 5.0 0.0"/>
 						<transform type="rotate" axis="xx" angle="90"/>
                     </transforms>
+
+                    <appearanceref id="aparencia"/>
 
                     <primitives>
                     </primitives>
@@ -257,6 +291,8 @@
                                 <transform type="translate" to="-1.5 0.0 0.0"/>
                             </transforms>
 
+                            <appearanceref id="aparencia"/>
+
                             <primitives>
                             </primitives>
 
@@ -269,6 +305,8 @@
                                 <transform type="translate" to="1.5 0.0 0.0"/>
                             </transforms>
 
+                            <appearanceref id="aparencia"/>
+
                             <primitives>
                             </primitives>
 
@@ -280,6 +318,8 @@
                             <transforms>
                                 <transform type="scale" factor="0.5 0.5 0.5"/>
                             </transforms>
+
+                            <appearanceref id="aparencia"/>
 
                             <primitives>
                             </primitives>
@@ -295,6 +335,8 @@
                                         <transform type="scale" factor="0.8 0.8 1.0"/>
                                     </transforms>
 
+                                    <appearanceref id="aparencia"/>
+
                                     <primitives>
                                        <cylinder base="1.0" top="1.0" height="6.0" slices="16" stacks="16" />
                                     </primitives>
@@ -306,6 +348,8 @@
                                     <transforms>
 
                                     </transforms>
+
+                                    <appearanceref id="aparencia"/>
 
                                     <primitives>
 
@@ -321,6 +365,8 @@
                                                 <transform type="scale" factor="0.8 1.1 1.2"/>
                                             </transforms>
 
+                                            <appearanceref id="aparencia"/>
+
                                             <primitives>
                                                 <sphere radius="1" slices="16" stacks="16"/>
                                             </primitives>
@@ -335,6 +381,8 @@
                                                 <transform type="rotate" axis="xx" angle="90"/>
                                             </transforms>
 
+                                            <appearanceref id="aparencia"/>
+
                                             <primitives>
                                                 <torus inner="1" outer="2" slices="16" loops="16"/>
                                             </primitives>
@@ -347,6 +395,8 @@
                                         <transform type="translate" to="0.0 0.0 7.0"/>
 										<transform type="rotate" axis="zz" angle="90"/>
                                     </transforms>
+
+                                    <appearanceref id="aparencia"/>
 
                                     <primitives>
 
@@ -366,6 +416,8 @@
                                                 <transform type="scale" factor="1.0 0.5 1.5"/>
                                             </transforms>
 
+                                            <appearanceref id="aparencia"/>
+
                                             <primitives>
                                                 <sphere radius="1" slices="16" stacks="16" />
                                             </primitives>
@@ -380,6 +432,8 @@
                                                 <transform type="scale" factor="0.15 0.15 0.15"/>
                                             </transforms>
 
+                                            <appearanceref id="aparencia"/>
+
                                             <primitives>
                                                 <cylinder base="1.0" top="1.0" height="5.0" slices="16" stacks="16" />
                                             </primitives>
@@ -392,6 +446,8 @@
                                                 <transform type="translate" to="0.5 0.0 1.1"/>
                                                 <transform type="scale" factor="0.15 0.15 0.15"/>
                                             </transforms>
+
+                                            <appearanceref id="aparencia"/>
 
                                             <primitives>
                                                 <cylinder base="1.0" top="1.0" height="6.0" slices="16" stacks="16" />
@@ -406,6 +462,8 @@
                                                 <transform type="scale" factor="0.15 0.15 0.15"/>
                                             </transforms>
 
+                                            <appearanceref id="aparencia"/>
+
                                             <primitives>
                                                 <cylinder base="1.0" top="1.0" height="6.0" slices="16" stacks="16" />
                                             </primitives>
@@ -419,6 +477,8 @@
                                                 <transform type="scale" factor="0.15 0.15 0.15"/>
                                             </transforms>
 
+                                            <appearanceref id="aparencia"/>
+
                                             <primitives>
                                                 <cylinder base="1.0" top="1.0" height="6.0" slices="16" stacks="16" />
                                             </primitives>
@@ -431,6 +491,8 @@
                                                 <transform type="translate" to="-1.0 0.0 0.5"/>
                                                 <transform type="scale" factor="0.15 0.15 0.15"/>
                                             </transforms>
+
+                                            <appearanceref id="aparencia"/>
 
                                             <primitives>
                                                 <cylinder base="1.0" top="1.0" height="6.0" slices="16" stacks="16" />
@@ -448,6 +510,8 @@
 						<transform type="rotate" axis="xx" angle="90"/>
                     </transforms>
 
+                    <appearanceref id="aparencia"/>
+
                     <primitives>
                     </primitives>
 
@@ -461,6 +525,8 @@
 								<transform type="translate" to="-0.7 0.0 0.0"/>
 							</transforms>
 
+                            <appearanceref id="aparencia"/>
+
 							<primitives>
 							</primitives>
 
@@ -472,6 +538,8 @@
 							<transforms>
 								<transform type="translate" to="0.7 0.0 0.0"/>
 							</transforms>
+
+                            <appearanceref id="aparencia"/>
 
 							<primitives>
 							</primitives>
@@ -485,6 +553,8 @@
 										<transform type="scale" factor="0.5 0.5 0.5"/>
 									</transforms>
 
+                                    <appearanceref id="aparencia"/>
+
 									<primitives>
 									</primitives>
 
@@ -496,6 +566,8 @@
 										<node id="leglimb">
 											<transforms>
 											</transforms>
+
+                                            <appearanceref id="aparencia"/>
 
 											<primitives>
 												<cylinder base="1.2" top="1.2" height="9.0" slices="16" stacks="16" />
@@ -511,6 +583,8 @@
 												<transform type="scale" factor="1.3 0.6 1.6"/>
 											</transforms>
 
+                                            <appearanceref id="aparencia"/>
+
 											<primitives>
 												<sphere radius="1.0" slices="16" stacks="16" />
 											</primitives>
@@ -522,9 +596,198 @@
             <!-- Fim do bloco do nó "homer"
 
 
-
-
         -->
+        <!-- Início do bloco table, que representa a mesa desenhada na cena -->
+        <node id="table">
+            <transforms>
+            </transforms>
+
+            <appearanceref id="aparencia"/>
+
+            <primitives>
+            </primitives>
+
+            <descendants>
+                <noderef id="tabletop"/>
+                <noderef id="leg1"/>
+                <noderef id="leg2"/>
+                <noderef id="leg3"/>
+                <noderef id="leg4"/>
+            </descendants>
+        </node>
+                <node id="tabletop">
+                    <transforms>
+                    </transforms>
+
+                    <appearanceref id="aparencia"/>
+
+                    <primitives>
+                    </primitives>
+
+                    <descendants>
+                        <noderef id="cube"/>
+                    </descendants>
+                </node>
+                <node id="leg1">
+                    <transforms>
+                    </transforms>
+
+                    <appearanceref id="aparencia"/>
+
+                    <primitives>
+                    </primitives>
+
+                    <descendants>
+                        <noderef id="cube"/>
+                    </descendants>
+                </node>
+                <node id="leg2">
+                    <transforms>
+                    </transforms>
+
+                    <appearanceref id="aparencia"/>
+
+                    <primitives>
+                    </primitives>
+
+                    <descendants>
+                        <noderef id="cube"/>
+                    </descendants>
+                </node>
+                <node id="leg3">
+                    <transforms>
+                    </transforms>
+
+                    <appearanceref id="aparencia"/>
+
+                    <primitives>
+                    </primitives>
+
+                    <descendants>
+                        <noderef id="cube"/>
+                    </descendants>
+                </node>
+                <node id="leg4">
+                    <transforms>
+                    </transforms>
+
+                    <appearanceref id="aparencia"/>
+
+                    <primitives>
+                    </primitives>
+
+                    <descendants>
+                        <noderef id="cube"/>
+                    </descendants>
+                </node>
+                        <node id="cube">
+                            <transforms>
+                                <transform type="translate" to="-0.5 -0.5 -0.5"/>
+                            </transforms>
+
+                            <appearanceref id="aparencia"/>
+
+                            <primitives>
+                            </primitives>
+
+                            <descendants>
+                                <noderef id="side1"/>
+                                <noderef id="side2"/>
+                                <noderef id="side3"/>
+                                <noderef id="side4"/>
+                                <noderef id="side5"/>
+                                <noderef id="side6"/>
+                            </descendants>
+                        </node>
+
+                        <node id="side1"> <!-- TOPO -->
+                            <transforms>
+                                <transform type="translate" to="0.0 1.0 0.0"/>
+                                <transform type="rotate" axis="xx" angle="90"/>
+                            </transforms>
+
+                            <appearanceref id="aparencia"/>
+
+                            <primitives>
+                                <rectangle xy1="0.0 0.0" xy2="1.0 1.0"/>
+                            </primitives>
+
+                            <descendants>
+                            </descendants>
+                        </node>
+                        <node id="side2"> <!-- FUNDO -->
+                            <transforms>
+                                <transform type="translate" to="0.0 0.0 1.0"/>
+                                <transform type="rotate" axis="xx" angle="-90"/>
+                            </transforms>
+
+                            <appearanceref id="aparencia"/>
+
+                            <primitives>
+                                <rectangle xy1="0.0 0.0" xy2="1.0 1.0"/>
+                            </primitives>
+
+                            <descendants>
+                            </descendants>
+                        </node>
+                        <node id="side3"> <!-- lado zz-- -->
+                            <transforms>
+                            </transforms>
+
+                            <appearanceref id="aparencia"/>
+
+                            <primitives>
+                                <rectangle xy1="0.0 0.0" xy2="1.0 1.0"/>
+                            </primitives>
+
+                            <descendants>
+                            </descendants>
+                        </node>
+                        <node id="side4"> <!-- lado xx++ -->
+                            <transforms>
+                                <transform type="translate" to="1.0 0.0 0.0" />
+                                <transform type="rotate" axis="yy" angle="-90"/>
+                            </transforms>
+
+                            <appearanceref id="aparencia"/>
+
+                            <primitives>
+                                <rectangle xy1="0.0 0.0" xy2="1.0 1.0"/>
+                            </primitives>
+
+                            <descendants>
+                            </descendants>
+                        </node>
+                        <node id="side5"> <!-- lado xx-- -->
+                            <transforms>
+                                <transform type="translate" to="0.0 0.0 1.0"/>
+                                <transform type="rotate" axis="yy" angle="90"/>
+                            </transforms>
+
+                            <appearanceref id="aparencia"/>
+
+                            <primitives>
+                                <rectangle xy1="0.0 0.0" xy2="1.0 1.0"/>
+                            </primitives>
+
+                            <descendants>
+                            </descendants>
+                        </node>
+                        <node id="side6"> <!-- lado xx-- -->
+                            <transforms>
+                                <transform type="translate" to="1.0 0.0 1.0"/>
+                                <transform type="rotate" axis="yy" angle="180"/>
+                            </transforms>
+
+                            <appearanceref id="aparencia"/>
+
+                            <primitives>
+                                <rectangle xy1="0.0 0.0" xy2="1.0 1.0"/>
+                            </primitives>
+
+                            <descendants>
+                            </descendants>
+                        </node>
         
     </graph>
 </anf>
