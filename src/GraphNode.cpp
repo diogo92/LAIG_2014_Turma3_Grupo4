@@ -19,6 +19,8 @@ void GraphNode::draw(){
 	typedef std::map<std::string, GraphNode *>::iterator it_type;
 	for(it_type iterator = this->descendants.begin(); iterator != this->descendants.end(); iterator++) {
 		glPushMatrix();
+		if(iterator->second->inherited)
+			iterator->second->appear=this->appear;
 		iterator->second->draw();
 		glPopMatrix();
 		glColor4fv(currentColor);

@@ -407,8 +407,12 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 						printf("  attribute id not found\n");
 						exit(-1);
 					}
-
-					graphScene.graphNodes[atualnode].appear = &graphScene.appearances[id];
+					if(id=="inherited")
+						graphScene.graphNodes[atualnode].inherited=true;
+					else{
+						graphScene.graphNodes[atualnode].inherited=false;
+						graphScene.graphNodes[atualnode].appear = &graphScene.appearances[id];
+					}
 				}
 
 				/********************/

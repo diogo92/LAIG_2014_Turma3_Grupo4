@@ -19,6 +19,7 @@ public:
 	string atualNodeID;
 	map<string, GraphNode *> descendants;
 	void draw();
+	bool inherited;
 };
 
 #endif

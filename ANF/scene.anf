@@ -43,7 +43,7 @@
             <transforms>
             </transforms>
  
-            <appearanceref id="amarelo"/>
+            <appearanceref id="branco"/>
             <primitives>
              </primitives>
 
@@ -71,7 +71,7 @@
                     <transforms>
                     </transforms>
          
-                    <appearanceref id="cinza"/>
+                    <appearanceref id="inherited"/>
                     <primitives>
                         <rectangle xy1="0 0" xy2="10 10"/>
                      </primitives>
@@ -84,7 +84,7 @@
                         <transform type="rotate" axis="yy" angle="-90"/>
                     </transforms>
          
-                    <appearanceref id="cinza"/>
+                    <appearanceref id="inherited"/>
                     <primitives>
                         <rectangle xy1="0 0" xy2="10 10"/>
                      </primitives>
@@ -97,7 +97,7 @@
                         <transform type="rotate" axis="xx" angle="90"/>
                     </transforms>
          
-                    <appearanceref id="cinza"/>
+                    <appearanceref id="inherited"/>
                     <primitives>
                         <rectangle xy1="0 0" xy2="10 10"/>
                      </primitives>
@@ -132,7 +132,7 @@
 				<transform type="translate" to="0.0 1.5 0.0"/>
             </transforms>
 
-            <appearanceref id="amarelo"/>
+            <appearanceref id="inherited"/>
 
             <primitives>
             </primitives>
@@ -150,7 +150,7 @@
                         <transform type="translate" to="0.0 6.0 0.0"/>
                     </transforms>
 
-                    <appearanceref id="amarelo"/>
+                    <appearanceref id="inherited"/>
 
                     <primitives>
                     </primitives>
@@ -168,7 +168,7 @@
                                 <transform type="rotate" axis="xx" angle="-90" />
                             </transforms>
 
-                            <appearanceref id="amarelo"/>
+                            <appearanceref id="inherited"/>
 
                             <primitives>
                               <cylinder base="0.5" top="0.5" height="1.5" slices="16" stacks="16" />
@@ -183,7 +183,7 @@
                                 <transform type="scale" factor="0.5 0.5 0.5"/>
                             </transforms>
 
-                            <appearanceref id="amarelo"/>
+                            <appearanceref id="inherited"/>
 
                             <primitives>
                                 <sphere radius="1" slices="16" stacks="16" />
@@ -213,7 +213,7 @@
                                         <transform type="translate" to="-0.75 0.0 0.0" />
                                     </transforms>
 
-                                    <appearanceref id="branco"/>
+                                    <appearanceref id="inherited"/>
 
                                     <primitives>
                                         <sphere radius="1" slices="16" stacks="16" />
@@ -227,7 +227,7 @@
                                         <transform type="translate" to="0.75 0.0 0.0" />
                                     </transforms>
 
-                                    <appearanceref id="branco"/>
+                                    <appearanceref id="inherited"/>
 
                                     <primitives>
                                         <sphere radius="1" slices="16" stacks="16" />
@@ -257,7 +257,7 @@
                                         <transform type="translate" to="0.0 0.1 -1.85" />
                                     </transforms>
 
-                                    <appearanceref id="cinza"/>
+                                    <appearanceref id="inherited"/>
 
                                     <primitives>
                                         <torus inner="0.01" outer="0.2" slices="16" loops="16"  />
@@ -271,7 +271,7 @@
                                         <transform type="translate" to="0.0 -0.1 -1.85" />
                                     </transforms>
 
-                                    <appearanceref id="cinza"/>
+                                    <appearanceref id="inherited"/>
 
                                     <primitives>
                                         <torus inner="0.01" outer="0.2" slices="16" loops="16"  />
@@ -285,7 +285,7 @@
                                 <transform type="scale" factor="0.5 0.5 0.5"/>
                             </transforms>
 
-                            <appearanceref id="amarelo"/>
+                            <appearanceref id="inherited"/>
 
                             <primitives>
                                     
@@ -304,7 +304,7 @@
                                         <transform type="rotate" axis="zz" angle="90"/>
                                     </transforms>
 
-                                    <appearanceref id="amarelo"/>
+                                    <appearanceref id="inherited"/>
 
                                     <primitives>
                                         <torus inner="0.2" outer="0.3" slices="16" loops="16" />
@@ -321,7 +321,7 @@
                                         <transform type="rotate" axis="zz" angle="90"/>
                                     </transforms>
 
-                                    <appearanceref id="amarelo"/>
+                                    <appearanceref id="inherited"/>
 
                                     <primitives>
                                         <torus inner="0.2" outer="0.3" slices="16" loops="16" />
@@ -368,7 +368,7 @@
 						<transform type="rotate" axis="xx" angle="90"/>
                     </transforms>
 
-                    <appearanceref id="amarelo"/>
+                    <appearanceref id="inherited"/>
 
                     <primitives>
                     </primitives>
@@ -383,7 +383,7 @@
                                 <transform type="translate" to="-1.5 0.0 0.0"/>
                             </transforms>
 
-                            <appearanceref id="amarelo"/>
+                            <appearanceref id="inherited"/>
 
                             <primitives>
                             </primitives>
@@ -397,7 +397,7 @@
                                 <transform type="translate" to="1.5 0.0 0.0"/>
                             </transforms>
 
-                            <appearanceref id="amarelo"/>
+                            <appearanceref id="inherited"/>
 
                             <primitives>
                             </primitives>
@@ -411,7 +411,7 @@
                                 <transform type="scale" factor="0.5 0.5 0.5"/>
                             </transforms>
 
-                            <appearanceref id="amarelo"/>
+                            <appearanceref id="inherited"/>
 
                             <primitives>
                             </primitives>
@@ -427,7 +427,7 @@
                                         <transform type="scale" factor="0.8 0.8 1.0"/>
                                     </transforms>
 
-                                    <appearanceref id="amarelo"/>
+                                    <appearanceref id="inherited"/>
 
                                     <primitives>
                                        <cylinder base="1.0" top="1.0" height="6.0" slices="16" stacks="16" />
@@ -457,7 +457,7 @@
                                                 <transform type="scale" factor="0.8 1.1 1.2"/>
                                             </transforms>
 
-                                            <appearanceref id="branco"/>
+                                            <appearanceref id="inherited"/>
 
                                             <primitives>
                                                 <sphere radius="1" slices="16" stacks="16"/>
@@ -473,7 +473,7 @@
                                                 <transform type="rotate" axis="xx" angle="90"/>
                                             </transforms>
 
-                                            <appearanceref id="branco"/>
+                                            <appearanceref id="inherited"/>
 
                                             <primitives>
                                                 <torus inner="1" outer="2" slices="16" loops="16"/>
@@ -488,7 +488,7 @@
 										<transform type="rotate" axis="zz" angle="90"/>
                                     </transforms>
 
-                                    <appearanceref id="amarelo"/>
+                                    <appearanceref id="inherited"/>
 
                                     <primitives>
 
@@ -508,7 +508,7 @@
                                                 <transform type="scale" factor="1.0 0.5 1.5"/>
                                             </transforms>
 
-                                            <appearanceref id="amarelo"/>
+                                            <appearanceref id="inherited"/>
 
                                             <primitives>
                                                 <sphere radius="1" slices="16" stacks="16" />
@@ -524,7 +524,7 @@
                                                 <transform type="scale" factor="0.15 0.15 0.15"/>
                                             </transforms>
 
-                                            <appearanceref id="amarelo"/>
+                                            <appearanceref id="inherited"/>
 
                                             <primitives>
                                                 <cylinder base="1.0" top="1.0" height="5.0" slices="16" stacks="16" />
@@ -539,7 +539,7 @@
                                                 <transform type="scale" factor="0.15 0.15 0.15"/>
                                             </transforms>
 
-                                            <appearanceref id="amarelo"/>
+                                            <appearanceref id="inherited"/>
 
                                             <primitives>
                                                 <cylinder base="1.0" top="1.0" height="6.0" slices="16" stacks="16" />
@@ -554,7 +554,7 @@
                                                 <transform type="scale" factor="0.15 0.15 0.15"/>
                                             </transforms>
 
-                                            <appearanceref id="amarelo"/>
+                                            <appearanceref id="inherited"/>
 
                                             <primitives>
                                                 <cylinder base="1.0" top="1.0" height="6.0" slices="16" stacks="16" />
@@ -569,7 +569,7 @@
                                                 <transform type="scale" factor="0.15 0.15 0.15"/>
                                             </transforms>
 
-                                            <appearanceref id="amarelo"/>
+                                            <appearanceref id="inherited"/>
 
                                             <primitives>
                                                 <cylinder base="1.0" top="1.0" height="6.0" slices="16" stacks="16" />
@@ -584,7 +584,7 @@
                                                 <transform type="scale" factor="0.15 0.15 0.15"/>
                                             </transforms>
 
-                                            <appearanceref id="amarelo"/>
+                                            <appearanceref id="inherited"/>
 
                                             <primitives>
                                                 <cylinder base="1.0" top="1.0" height="6.0" slices="16" stacks="16" />
@@ -617,7 +617,7 @@
 								<transform type="translate" to="-0.7 0.0 0.0"/>
 							</transforms>
 
-                            <appearanceref id="azul"/>
+                            <appearanceref id="inherited"/>
 
 							<primitives>
 							</primitives>
@@ -631,7 +631,7 @@
 								<transform type="translate" to="0.7 0.0 0.0"/>
 							</transforms>
 
-                            <appearanceref id="azul"/>
+                            <appearanceref id="inherited"/>
 
 							<primitives>
 							</primitives>
@@ -645,7 +645,7 @@
 										<transform type="scale" factor="0.5 0.5 0.5"/>
 									</transforms>
 
-                                    <appearanceref id="azul"/>
+                                    <appearanceref id="inherited"/>
 
 									<primitives>
 									</primitives>
@@ -659,7 +659,7 @@
 											<transforms>
 											</transforms>
 
-                                            <appearanceref id="azul"/>
+                                            <appearanceref id="inherited"/>
 
 											<primitives>
 												<cylinder base="1.2" top="1.2" height="9.0" slices="16" stacks="16" />
@@ -714,7 +714,7 @@
                         <transform type="scale" factor="5.0 0.25 7.0"/>
                     </transforms>
 
-                    <appearanceref id="branco"/>
+                    <appearanceref id="inherited"/>
 
                     <primitives>
                     </primitives>
@@ -729,7 +729,7 @@
                         <transform type="scale" factor="0.4 4.0 0.4"/>
                     </transforms>
 
-                    <appearanceref id="branco"/>
+                    <appearanceref id="inherited"/>
 
                     <primitives>
                     </primitives>
@@ -744,7 +744,7 @@
                         <transform type="scale" factor="0.4 4.0 0.4"/>
                     </transforms>
 
-                    <appearanceref id="branco"/>
+                    <appearanceref id="inherited"/>
 
                     <primitives>
                     </primitives>
@@ -759,7 +759,7 @@
                         <transform type="scale" factor="0.4 4.0 0.4"/>
                     </transforms>
 
-                    <appearanceref id="branco"/>
+                    <appearanceref id="inherited"/>
 
                     <primitives>
                     </primitives>
@@ -774,7 +774,7 @@
                         <transform type="scale" factor="0.4 4.0 0.4"/>
                     </transforms>
 
-                    <appearanceref id="branco"/>
+                    <appearanceref id="inherited"/>
 
                     <primitives>
                     </primitives>
@@ -789,7 +789,7 @@
                                 <transform type="translate" to="-0.5 -0.5 -0.5"/>
                             </transforms>
 
-                            <appearanceref id="branco"/>
+                            <appearanceref id="inherited"/>
 
                             <primitives>
                             </primitives>
@@ -810,7 +810,7 @@
                                 <transform type="rotate" axis="xx" angle="90"/>
                             </transforms>
 
-                            <appearanceref id="branco"/>
+                            <appearanceref id="inherited"/>
 
                             <primitives>
                                 <rectangle xy1="0.0 0.0" xy2="1.0 1.0"/>
@@ -825,7 +825,7 @@
                                 <transform type="rotate" axis="xx" angle="-90"/>
                             </transforms>
 
-                            <appearanceref id="branco"/>
+                            <appearanceref id="inherited"/>
 
                             <primitives>
                                 <rectangle xy1="0.0 0.0" xy2="1.0 1.0"/>
@@ -838,7 +838,7 @@
                             <transforms>
                             </transforms>
 
-                            <appearanceref id="branco"/>
+                            <appearanceref id="inherited"/>
 
                             <primitives>
                                 <rectangle xy1="0.0 0.0" xy2="1.0 1.0"/>
@@ -853,7 +853,7 @@
                                 <transform type="rotate" axis="yy" angle="-90"/>
                             </transforms>
 
-                            <appearanceref id="branco"/>
+                            <appearanceref id="inherited"/>
 
                             <primitives>
                                 <rectangle xy1="0.0 0.0" xy2="1.0 1.0"/>
@@ -868,7 +868,7 @@
                                 <transform type="rotate" axis="yy" angle="90"/>
                             </transforms>
 
-                            <appearanceref id="branco"/>
+                            <appearanceref id="inherited"/>
 
                             <primitives>
                                 <rectangle xy1="0.0 0.0" xy2="1.0 1.0"/>
@@ -883,7 +883,7 @@
                                 <transform type="rotate" axis="yy" angle="180"/>
                             </transforms>
 
-                            <appearanceref id="branco"/>
+                            <appearanceref id="inherited"/>
 
                             <primitives>
                                 <rectangle xy1="0.0 0.0" xy2="1.0 1.0"/>
@@ -916,7 +916,7 @@
                         <transform type="translate" to="0.0 0.0 10.0"/>
                     </transforms>
 
-                    <appearanceref id="castanho"/>
+                    <appearanceref id="inherited"/>
 
                     <primitives>
                     </primitives>
@@ -931,7 +931,7 @@
 
                             </transforms>
 
-                            <appearanceref id="castanho"/>
+                            <appearanceref id="inherited"/>
 
                             <primitives>
                                 <cylinder base="2.0" top="1.0" height="5.0" slices="16" stacks="16" />
@@ -947,7 +947,7 @@
                                 <transform type="scale" factor="0.5 0.5 0.5"/>
                             </transforms>
 
-                            <appearanceref id="castanho"/>
+                            <appearanceref id="inherited"/>
 
                             <primitives>
                                 <torus inner="1" outer="2" slices="16" loops="16" />
@@ -960,7 +960,7 @@
                     <transforms>
                     </transforms>
 
-                    <appearanceref id="castanho"/>
+                    <appearanceref id="inherited"/>
 
                     <primitives>
                        
@@ -977,7 +977,7 @@
                                 <transform type="scale" factor="1.0 1.0 0.5"/>
                             </transforms>
 
-                            <appearanceref id="castanho"/>
+                            <appearanceref id="inherited"/>
 
                             <primitives>
                                 <sphere radius="4" slices="16" stacks="16" />
@@ -991,7 +991,7 @@
                             <transforms>
                             </transforms>
 
-                            <appearanceref id="castanho"/>
+                            <appearanceref id="inherited"/>
 
                             <primitives>
                                 <cylinder base="4" top="4" height="9" slices="16" stacks="16" />
