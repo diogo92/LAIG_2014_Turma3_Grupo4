@@ -4,7 +4,7 @@
 
         <drawing mode="fill" shading="flat" background="0.1 0.2 0.3 0.6" />
 
-        <culling face="front" order="cw" />
+        <culling face="none" order="cw" />
  
     </globals>
     <appearances>
@@ -48,12 +48,82 @@
              </primitives>
 
             <descendants>
+                <noderef id="objects" />
+                <noderef id="room" />
+            </descendants>
+        </node>
+
+        <node id="room">
+            <transforms>
+            </transforms>
+ 
+            <appearanceref id="cinza"/>
+            <primitives>
+             </primitives>
+
+            <descendants>
+                <noderef id="wall1" />
+                <noderef id="wall2" />
+                <noderef id="floor" />
+            </descendants>
+        </node>
+                <node id="wall1"> <!-- plane xy -->
+                    <transforms>
+                    </transforms>
+         
+                    <appearanceref id="cinza"/>
+                    <primitives>
+                        <rectangle xy1="0 0" xy2="10 10"/>
+                     </primitives>
+
+                    <descendants>
+                    </descendants>
+                </node>
+                <node id="wall2"> <!-- plane zy -->
+                    <transforms>
+                        <transform type="rotate" axis="yy" angle="-90"/>
+                    </transforms>
+         
+                    <appearanceref id="cinza"/>
+                    <primitives>
+                        <rectangle xy1="0 0" xy2="10 10"/>
+                     </primitives>
+
+                    <descendants>
+                    </descendants>
+                </node>
+                <node id="floor"> <!-- plane xz -->
+                    <transforms>
+                        <transform type="rotate" axis="xx" angle="90"/>
+                    </transforms>
+         
+                    <appearanceref id="cinza"/>
+                    <primitives>
+                        <rectangle xy1="0 0" xy2="10 10"/>
+                     </primitives>
+
+                    <descendants>
+                    </descendants>
+                </node>
+
+        <node id="objects">
+            <transforms>
+                <transform type="translate" to="5.0 0.0 2.5"/>
+                <transform type="scale" factor="0.5 0.5 0.5"/>
+            </transforms>
+ 
+            <appearanceref id="amarelo"/>
+            <primitives>
+             </primitives>
+
+            <descendants>
                 <noderef id="homer" />
                 <noderef id="table" />
                 <noderef id="beer"  />
                 <noderef id="donut" />
             </descendants>
         </node>
+
 
         <!-- Início do bloco do nó "homer", que representa a personagem desenhada na cena -->
 
