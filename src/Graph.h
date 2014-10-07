@@ -11,6 +11,12 @@ using std::string;
 
 class Graph
 {
+	struct Texture{
+		string id;
+		string file;
+		float texlength_s;
+		float texlength_t;
+	};
 public:
 	Graph(void);
 	~Graph(void);
@@ -18,6 +24,7 @@ public:
 	string rootNodeID;
 	map<string,GraphNode> graphNodes;
 	map<string,Appearance> appearances;
+	map<string,Texture> textures;
 	void draw();
 };
 

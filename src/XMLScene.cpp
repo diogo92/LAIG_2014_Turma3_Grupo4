@@ -151,6 +151,66 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 
 	}
 
+	textureElement = anfElement->FirstChildElement("textures");
+
+	if(textureElement == NULL){
+		printf("textures element not found\n");
+		exit(-1);
+	}
+	else{
+		printf("processing textures\n");
+		TiXmlElement *nodeTexture = textureElement->FirstChildElement("texture");
+		while(nodeTexture){
+			temp = nodeTexture->Attribute("id");
+			string texid = nodeTexture->Attribute("id");
+			float texlength_s;
+			float texlength_t;
+			if(texid.empty()){
+				printf("texture id not found\n");
+				exit(-1);
+			}
+			else{
+				printf(">> texture %s\n", texid.c_str());
+				graphScene.textures[texid].id=texid;
+			}
+
+			temp = nodeTexture->Attribute("file");
+			if(!temp.empty())
+			{
+				printf(">> file: %s\n",temp.c_str());
+				graphScene.textures[texid].file=temp;
+			}
+			else{
+				printf("texture file not found\n");
+				exit(-1);
+			}
+
+			temp = nodeTexture->Attribute("texlength_s");
+			if(temp.c_str() && sscanf(temp.c_str(),"%f",&texlength_s)==1)
+			{
+				printf(">> texlength_s: %f\n",texlength_s);
+				graphScene.textures[texid].texlength_s=texlength_s;
+			}
+			else{
+				printf("texture texlength_s not found\n");
+				exit(-1);
+			}
+
+			temp = nodeTexture->Attribute("texlength_t");
+			if(temp.c_str() && sscanf(temp.c_str(),"%f",&texlength_t)==1)
+			{
+				printf(">> texlength_t: %f\n",texlength_t);
+				graphScene.textures[texid].texlength_t=texlength_t;
+			}
+			else{
+				printf("texture texlength_t not found\n");
+				exit(-1);
+			}
+			
+			nodeTexture = nodeTexture->NextSiblingElement();
+		}
+	}
+
 	appearanceElement = anfElement->FirstChildElement("appearances");
 
 	if (appearanceElement == NULL){
@@ -182,6 +242,15 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 			else{
 				printf("appearance shininess not found\n");
 				exit(-1);
+			}
+			string texid;
+			bool hastexture=false;
+			if(nodeAppearance->Attribute("textureref")){
+				temp=nodeAppearance->Attribute("textureref");
+				
+					hastexture=true;
+					texid=temp;
+				
 			}
 			
 			float amb[4];
@@ -239,6 +308,11 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 				exit(-1);
 			}
 			graphScene.appearances[appid] = Appearance(appid,shininess,amb,dif,spe);
+			if(hastexture){
+				graphScene.appearances[appid].setTexture(/*graphScene.textures[texid].file*/"wood.png");
+				graphScene.appearances[appid].setTextureWrap(graphScene.textures[texid].texlength_s,graphScene.textures[texid].texlength_t);
+			}
+			
 			nodeAppearance = nodeAppearance->NextSiblingElement();
 			counter++;
 		}

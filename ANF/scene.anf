@@ -7,28 +7,33 @@
         <culling face="none" order="cw" />
  
     </globals>
+
+    <textures>      
+          <texture id="wood" file="wood.jpg" texlength_s="1" texlength_t="1" />
+    </textures>
+
     <appearances>
-        <appearance id="amarelo" shininess="0.1" textureref="qualquercoisa" >
+        <appearance id="amarelo" shininess="0.1" >
                <component type="ambient" value="1 1 0 0.2" />
                <component type="diffuse" value="1 1 0 0.2" />
                <component type="specular" value="1 1 0 0.2" />
         </appearance>
-        <appearance id="cinza" shininess="0.1" textureref="qualquercoisa" >
+        <appearance id="cinza" shininess="0.1" >
                <component type="ambient" value="0.4 0.4 0.4 0.2" />
                <component type="diffuse" value="0.4 0.4 0.4 0.2" />
                <component type="specular" value="0.4 0.4 0.4 0.2" />
         </appearance>
-        <appearance id="branco" shininess="0.1" textureref="qualquercoisa" >
+        <appearance id="branco" shininess="0.1" textureref="wood" >
                <component type="ambient" value="1 1 1 0.2" />
                <component type="diffuse" value="1 1 1 0.2" />
                <component type="specular" value="1 1 1 0.2" />
         </appearance>
-        <appearance id="azul" shininess="0.1" textureref="qualquercoisa" >
+        <appearance id="azul" shininess="0.1" >
                <component type="ambient" value="0.44 0.82 0.99 0.2" />
                <component type="diffuse" value="0.44 0.82 0.99 0.2" />
                <component type="specular" value="0.44 0.82 0.99 0.2" />
         </appearance>
-        <appearance id="castanho" shininess="0.1" textureref="qualquercoisa" >
+        <appearance id="castanho" shininess="0.1" >
                <component type="ambient" value="0.82 0.7 0.44 0.2" />
                <component type="diffuse" value="0.82 0.7 0.44 0.2" />
                <component type="specular" value="0.82 0.7 0.44 0.2" />

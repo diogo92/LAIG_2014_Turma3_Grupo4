@@ -11,7 +11,9 @@ using std::string;
 
 class GraphNode
 {
+	
 public:
+	
 	GraphNode(void);
 	~GraphNode(void);
 	Appearance * appear;
