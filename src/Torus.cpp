@@ -19,8 +19,13 @@ Torus::Torus(double raioInterior, double raioExterior, double lados, int loops){
 
 void Torus::draw() 
 {
+
 	glBegin(GL_TRIANGLE_STRIP);
 	for(unsigned int i=0;i<vertices.size();i++){
+	/*	glMatrixMode(GL_TEXTURE);
+			glLoadIdentity();
+			glScalef(abs(coordX1-coordX2)/this->tex_s,abs(coordY1-coordY2)/this->tex_t,1);
+		glMatrixMode(GL_MODELVIEW);*/
 		glTexCoord2f(tex[i].x,tex[i].y);
 		glNormal3f(normal[i].x,normal[i].y,normal[i].z);
 		glVertex3f(vertices[i].x,vertices[i].y,vertices[i].z);
@@ -45,6 +50,7 @@ void Torus::calcVertices(int i,int j){
 	float z = cosAngAux2*r;
 	vertices.push_back(Vertice(x,y,z));
 	normal.push_back(Vertice(sinAngAux2*cosAngAux1,sinAngAux1,cosAngAux2*cosAngAux1));
+	
 	tex.push_back(Vertice(calcTex, angAuxTex,0));
 	
 }

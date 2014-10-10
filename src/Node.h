@@ -17,6 +17,8 @@ public:
 	string id;
 	vector<VisualObject *> primitives;
 	GLfloat matrix[16];
+	float tex_s;
+	float tex_t;
 };
 
 #endif

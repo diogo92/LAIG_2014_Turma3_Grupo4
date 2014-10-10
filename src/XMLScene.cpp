@@ -307,10 +307,15 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 				printf("Error parsing specular\n");
 				exit(-1);
 			}
+			
+			
 			graphScene.appearances[appid] = Appearance(appid,shininess,amb,dif,spe);
+
 			if(hastexture){
-				graphScene.appearances[appid].setTexture(/*graphScene.textures[texid].file*/"wood.png");
-				graphScene.appearances[appid].setTextureWrap(graphScene.textures[texid].texlength_s,graphScene.textures[texid].texlength_t);
+				graphScene.appearances[appid].setTexture(graphScene.textures[texid].file);
+				graphScene.appearances[appid].setTextureWrap(GL_REPEAT,GL_REPEAT);
+				graphScene.appearances[appid].s=graphScene.textures[texid].texlength_s;
+				graphScene.appearances[appid].t=graphScene.textures[texid].texlength_t;
 			}
 			
 			nodeAppearance = nodeAppearance->NextSiblingElement();

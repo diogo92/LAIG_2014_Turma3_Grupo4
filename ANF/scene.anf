@@ -9,7 +9,13 @@
     </globals>
 
     <textures>      
-          <texture id="wood" file="wood.jpg" texlength_s="1" texlength_t="1" />
+          <texture id="wood" file="wood.png" texlength_s="1" texlength_t="1" />
+          <texture id="olhos" file="olhos.png" texlength_s="1" texlength_t="1" />
+          <texture id="donut" file="donut.png" texlength_s="1.0" texlength_t="1.0" />
+          <texture id="cerveja" file="duff.png" texlength_s="1.0" texlength_t="0.5" />
+          <texture id="wall1" file="wall1.png" texlength_s="10.0" texlength_t="10.0" />
+          <texture id="wall2" file="wall2.png" texlength_s="10.0" texlength_t="10.0" />
+          <texture id="floor" file="floor.png" texlength_s="1.0" texlength_t="1.0" />
     </textures>
 
     <appearances>
@@ -23,7 +29,7 @@
                <component type="diffuse" value="0.4 0.4 0.4 0.2" />
                <component type="specular" value="0.4 0.4 0.4 0.2" />
         </appearance>
-        <appearance id="branco" shininess="0.1" textureref="wood" >
+        <appearance id="branco" shininess="0.1" >
                <component type="ambient" value="1 1 1 0.2" />
                <component type="diffuse" value="1 1 1 0.2" />
                <component type="specular" value="1 1 1 0.2" />
@@ -38,6 +44,41 @@
                <component type="diffuse" value="0.82 0.7 0.44 0.2" />
                <component type="specular" value="0.82 0.7 0.44 0.2" />
         </appearance>
+        <appearance id="mesa" shininess="0.1" textureref="wood" >
+               <component type="ambient" value="0.82 0.7 0.44 0.2" />
+               <component type="diffuse" value="0.82 0.7 0.44 0.2" />
+               <component type="specular" value="0.82 0.7 0.44 0.2" />
+        </appearance>
+        <appearance id="olhos" shininess="0.1" textureref="olhos">
+               <component type="ambient" value="0.82 0.7 0.44 0.2" />
+               <component type="diffuse" value="0.82 0.7 0.44 0.2" />
+               <component type="specular" value="0.82 0.7 0.44 0.2" />
+        </appearance>
+        <appearance id="donut" shininess="0.1" textureref="donut">
+               <component type="ambient" value="0.82 0.7 0.44 0.2" />
+               <component type="diffuse" value="0.82 0.7 0.44 0.2" />
+               <component type="specular" value="0.82 0.7 0.44 0.2" />
+        </appearance>
+        <appearance id="cerveja" shininess="0.1" textureref="cerveja">
+               <component type="ambient" value="0.82 0.7 0.44 0.2" />
+               <component type="diffuse" value="0.82 0.7 0.44 0.2" />
+               <component type="specular" value="0.82 0.7 0.44 0.2" />
+        </appearance>
+        <appearance id="wall1" shininess="0.1" textureref="wall1">
+               <component type="ambient" value="0.82 0.7 0.44 0.2" />
+               <component type="diffuse" value="0.82 0.7 0.44 0.2" />
+               <component type="specular" value="0.82 0.7 0.44 0.2" />
+        </appearance>
+        <appearance id="wall2" shininess="0.1" textureref="wall2">
+               <component type="ambient" value="0.82 0.7 0.44 0.2" />
+               <component type="diffuse" value="0.82 0.7 0.44 0.2" />
+               <component type="specular" value="0.82 0.7 0.44 0.2" />
+        </appearance>
+        <appearance id="floor" shininess="0.1" textureref="floor">
+               <component type="ambient" value="0.82 0.7 0.44 0.2" />
+               <component type="diffuse" value="0.82 0.7 0.44 0.2" />
+               <component type="specular" value="0.82 0.7 0.44 0.2" />
+        </appearance>
     </appearances>
 
     <!-- Início do bloco de grafo -->
@@ -48,7 +89,7 @@
             <transforms>
             </transforms>
  
-            <appearanceref id="branco"/>
+            <appearanceref id="cerveja"/>
             <primitives>
              </primitives>
 
@@ -74,9 +115,11 @@
         </node>
                 <node id="wall1"> <!-- plane xy -->
                     <transforms>
+                        <transform type="rotate" axis="xx" angle="180"/>
+                        <transform type="rotate" axis="zz" angle="-90"/>
                     </transforms>
          
-                    <appearanceref id="inherited"/>
+                    <appearanceref id="wall1"/>
                     <primitives>
                         <rectangle xy1="0 0" xy2="10 10"/>
                      </primitives>
@@ -86,10 +129,12 @@
                 </node>
                 <node id="wall2"> <!-- plane zy -->
                     <transforms>
+                        <transform type="rotate" axis="zz" angle="180"/>
+                        <transform type="rotate" axis="xx" angle="90"/>
                         <transform type="rotate" axis="yy" angle="-90"/>
                     </transforms>
          
-                    <appearanceref id="inherited"/>
+                    <appearanceref id="wall2"/>
                     <primitives>
                         <rectangle xy1="0 0" xy2="10 10"/>
                      </primitives>
@@ -102,7 +147,7 @@
                         <transform type="rotate" axis="xx" angle="90"/>
                     </transforms>
          
-                    <appearanceref id="inherited"/>
+                    <appearanceref id="floor"/>
                     <primitives>
                         <rectangle xy1="0 0" xy2="10 10"/>
                      </primitives>
@@ -203,7 +248,7 @@
                                 <transform type="scale" factor="0.25 0.25 0.25"/>
                             </transforms>
 
-                            <appearanceref id="branco"/>
+                            <appearanceref id="olhos"/>
 
                             <primitives>
                             </primitives>
@@ -216,6 +261,8 @@
                                 <node id="righteye">
                                     <transforms>
                                         <transform type="translate" to="-0.75 0.0 0.0" />
+                                        <transform type="rotate" axis="xx" angle="90"/>
+                                        <transform type="rotate" axis="zz" angle="180"/>
                                     </transforms>
 
                                     <appearanceref id="inherited"/>
@@ -230,6 +277,8 @@
                                 <node id="lefteye">
                                     <transforms>
                                         <transform type="translate" to="0.75 0.0 0.0" />
+                                        <transform type="rotate" axis="xx" angle="90"/>
+                                        <transform type="rotate" axis="zz" angle="180"/>
                                     </transforms>
 
                                     <appearanceref id="inherited"/>
@@ -701,7 +750,7 @@
                 <transform type="rotate" axis="yy" angle="90"/>
             </transforms>
 
-            <appearanceref id="branco"/>
+            <appearanceref id="mesa"/>
 
             <primitives>
             </primitives>
@@ -996,7 +1045,7 @@
                             <transforms>
                             </transforms>
 
-                            <appearanceref id="inherited"/>
+                            <appearanceref id="cerveja"/>
 
                             <primitives>
                                 <cylinder base="4" top="4" height="9" slices="16" stacks="16" />
@@ -1012,7 +1061,7 @@
                 <transform type="scale" factor="0.3 0.2 0.3"/>
             </transforms>
 
-            <appearanceref id="castanho"/>
+            <appearanceref id="donut"/>
 
             <primitives>
                 <torus inner="1" outer="1.5" slices="16" loops="16"/>

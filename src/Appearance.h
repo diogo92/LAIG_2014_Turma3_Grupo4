@@ -12,7 +12,9 @@ public:
 	Appearance();
 	~Appearance();
 	Appearance(string appid,float shininess,float * amb,float * dif, float * spe);
+	Appearance(string appid,float shininess,float * amb,float * dif, float * spe, int s, int t, string texfile);
 	string id;
+	float s,t;
 };
 
 #endif
