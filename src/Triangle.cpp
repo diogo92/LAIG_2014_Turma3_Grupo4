@@ -24,14 +24,27 @@ Triangle::Triangle(double x1, double y1, double z1, double x2, double y2, double
 	a=sqrt(pow((x1-x3),2)+pow((y1-y3),2)+pow((z1-z3),2));
 	b=sqrt(pow((x2-x1),2)+pow((y2-y1),2)+pow((z2-z1),2));
 	c=sqrt(pow((x3-x2),2)+pow((y3-y2),2)+pow((z3-z2),2));
-	cosB=((a*a)-(b*b)+(c*c))/(2*a);
-	sinB=sqrt(1-(cosB*cosB));
+	cosB=((a*a)-(b*b)+(c*c))/(2*a*c);
+	sinB=sqrt(abs(1-(cosB*cosB)));
 }
 
 void Triangle::draw(void){
+	glMatrixMode(GL_TEXTURE);
+		
+		glLoadIdentity();
+		glScalef(1/this->tex_s,1/this->tex_t,1);
+		
+	glMatrixMode(GL_MODELVIEW);
 	glBegin(GL_TRIANGLES);
-	glNormal3f(normal.x,normal.y,normal.z);glTexCoord2f(0,0);glVertex3f(coordX1,coordY1,coordZ1);
-	glNormal3f(normal.x,normal.y,normal.z);glTexCoord2f(c,0);glVertex3f(coordX2,coordY2,coordZ2);
-	glNormal3f(normal.x,normal.y,normal.z);glTexCoord2f(c-(a*cosB),a*sinB);glVertex3f(coordX3,coordY3,coordZ3);
+	glNormal3f(normal.x,normal.y,normal.z);glTexCoord2f(abs(c-(a*cosB)),abs(a*sinB));glVertex3f(coordX1,coordY1,coordZ1);
+	glNormal3f(normal.x,normal.y,normal.z);glTexCoord2f(0,0);glVertex3f(coordX2,coordY2,coordZ2);
+	glNormal3f(normal.x,normal.y,normal.z);glTexCoord2f(c,0);glVertex3f(coordX3,coordY3,coordZ3);
 	glEnd();
+
+	glMatrixMode(GL_TEXTURE);
+		
+		glScalef(this->tex_s,this->tex_t,1);
+		
+	glMatrixMode(GL_MODELVIEW);
+	
 }

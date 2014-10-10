@@ -19,18 +19,21 @@ Torus::Torus(double raioInterior, double raioExterior, double lados, int loops){
 
 void Torus::draw() 
 {
-
+	glMatrixMode(GL_TEXTURE);
+		glLoadIdentity();
+		glScalef(1/this->tex_s,1/this->tex_t,1);
+	glMatrixMode(GL_MODELVIEW);
 	glBegin(GL_TRIANGLE_STRIP);
 	for(unsigned int i=0;i<vertices.size();i++){
-	/*	glMatrixMode(GL_TEXTURE);
-			glLoadIdentity();
-			glScalef(abs(coordX1-coordX2)/this->tex_s,abs(coordY1-coordY2)/this->tex_t,1);
-		glMatrixMode(GL_MODELVIEW);*/
+		
 		glTexCoord2f(tex[i].x,tex[i].y);
 		glNormal3f(normal[i].x,normal[i].y,normal[i].z);
 		glVertex3f(vertices[i].x,vertices[i].y,vertices[i].z);
 	}
 	glEnd();
+	glMatrixMode(GL_TEXTURE);
+		glScalef(this->tex_s,this->tex_t,1);
+	glMatrixMode(GL_MODELVIEW);
 }
 
 void Torus::calcVertices(int i,int j){

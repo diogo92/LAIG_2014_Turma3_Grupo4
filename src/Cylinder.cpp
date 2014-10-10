@@ -19,7 +19,13 @@ Cylinder::~Cylinder(){
 }
 void Cylinder::draw() 
 {
-	
+	glMatrixMode(GL_TEXTURE);
+		
+		glLoadIdentity();
+		glScalef(1/this->tex_s,1/this->tex_t,1);
+		
+	glMatrixMode(GL_MODELVIEW);
+
 	gluQuadricOrientation(obj,GLU_OUTSIDE);
 	gluQuadricTexture(obj,GLU_TRUE);
 	gluCylinder(obj, raioBase, raioTopo, altura, lados, andares);
@@ -34,6 +40,12 @@ void Cylinder::draw()
 		glPopMatrix();
 	
 	}
+
+	glMatrixMode(GL_TEXTURE);
+		
+		glScalef(this->tex_s,this->tex_t,1);
+		
+	glMatrixMode(GL_MODELVIEW);
 	
 }
 

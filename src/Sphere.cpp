@@ -20,7 +20,18 @@ Sphere::~Sphere(){
 }
 
 void Sphere::draw() {
+		glMatrixMode(GL_TEXTURE);
+		
+		glLoadIdentity();
+		glScalef(1/this->tex_s,1/this->tex_t,1);
+		
+	glMatrixMode(GL_MODELVIEW);
 	gluSphere(obj,raio,lados,andares);
+		glMatrixMode(GL_TEXTURE);
+		
+		glScalef(this->tex_s,this->tex_t,1);
+		
+	glMatrixMode(GL_MODELVIEW);
 }
 
 
