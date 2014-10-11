@@ -239,10 +239,11 @@ void XMLScene::parseCameras(Graph &graphScene){
 					exit(-1);
 				}
 				graphScene.cameras[id]= Camera(id,near,far,angle,pos,target);
+				graphScene.cameras[id].type=1;
 				if(id==initialID){
 					graphScene.cameras[id].initial=true;
 					graphScene.cameras[id].isActive=true;
-					graphScene.cameras[id].type=1;
+
 				}
 			}
 
@@ -310,10 +311,11 @@ void XMLScene::parseCameras(Graph &graphScene){
 					exit(-1);
 				}
 				graphScene.cameras[id]= Camera(id,direction,near,far,left,right,top,bottom);
+				graphScene.cameras[id].type=0;
 				if(id==initialID){
 					graphScene.cameras[id].initial=true;
 					graphScene.cameras[id].isActive=true;
-					graphScene.cameras[id].type=0;
+					
 				}
 			}
 			else{

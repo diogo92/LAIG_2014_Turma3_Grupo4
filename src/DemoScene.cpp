@@ -110,17 +110,18 @@ void DemoScene::setCamera(){
 			glMatrixMode(GL_PROJECTION);
 			glLoadIdentity();
 			if(iterator->second.type==0){//is ortho camera
-				glOrtho(iterator->second.left,iterator->second.right,iterator->second.bottom,iterator->second.top,iterator->second.near,iterator->second.far);
+				//glOrtho(iterator->second.left,iterator->second.right,iterator->second.bottom,iterator->second.top,iterator->second.near,iterator->second.far);
+				glOrtho(-15.0f,15.0f,-15.0f,15.0f,10.0f,0.0f);
 				glMatrixMode(GL_MODELVIEW);
 				glLoadIdentity();
-				gluLookAt(5,5,5,5,5,0,0,1,0);
+				//gluLookAt(0,0,1,0,0,0,0,1,0);
 			}
 			else if(iterator->second.type==1){//is perspective camera
 				gluPerspective(iterator->second.angle,CGFapplication::xy_aspect,iterator->second.near,iterator->second.far);
 				glMatrixMode(GL_MODELVIEW);
 				glLoadIdentity();
 				gluLookAt(iterator->second.pos[0],iterator->second.pos[1],iterator->second.pos[2],iterator->second.target[0],iterator->second.target[1],iterator->second.target[2],0,1,0);
-			
+				
 			}
 
 			else{
@@ -129,11 +130,12 @@ void DemoScene::setCamera(){
 			}
 
 
-			//glMatrixMode(GL_MODELVIEW);
-			//glLoadIdentity();
-			CGFscene::activeCamera->applyView();
+		/*	glMatrixMode(GL_MODELVIEW);
+			glLoadIdentity();
+			CGFscene::activeCamera->applyView();*/
+			break;
 		}
-		break;
+		
 	}
 }
 
