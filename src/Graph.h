@@ -4,6 +4,7 @@
 #include "Node.h"
 #include "GraphNode.h"
 #include "Appearance.h"
+#include "Camera.h"
 #include <map>
 
 using std::map;
@@ -25,6 +26,7 @@ public:
 	map<string,GraphNode> graphNodes;
 	map<string,Appearance> appearances;
 	map<string,Texture> textures;
+	map<string,Camera>  cameras;
 	void draw();
 };
 

@@ -4,7 +4,7 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 {
 
 	// Read XML from file
-	string temp;
+
 	doc=new TiXmlDocument( filename );
 	bool loadOkay = doc->LoadFile();
 
@@ -23,7 +23,23 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 	}
 
 	globalsElement = anfElement->FirstChildElement( "globals" );
+	cameraElement = anfElement->FirstChildElement("cameras");
+	textureElement = anfElement->FirstChildElement("textures");
+	appearanceElement = anfElement->FirstChildElement("appearances");
+	graphElement = anfElement->FirstChildElement("graph");
 
+	parseGlobals(globals);
+	parseCameras(graphScene);
+	parseTextures(graphScene);
+	parseAppearances(graphScene);
+	parseGraph(graphScene);
+	
+
+	
+
+}
+
+void XMLScene::parseGlobals(GlobalData &globals){
 	if (globalsElement == NULL)
 		printf("globals block not found!\n");
 	else
@@ -150,9 +166,168 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 		}
 
 	}
+}
+void XMLScene::parseCameras(Graph &graphScene){
+	if(cameraElement == NULL){
+		printf("cameras element not found\n");
+		exit(-1);
+	}
 
-	textureElement = anfElement->FirstChildElement("textures");
+	else{
+		printf("processing cameras\n");
 
+		temp = cameraElement->Attribute("initial");
+
+		if(temp.empty()){
+			printf("camera attribute initial not found\n");
+			exit(-1);
+		}
+
+		string initialID=temp;
+
+		TiXmlElement *nodeCamera=cameraElement->FirstChildElement();
+		int count=0;
+		while(nodeCamera){
+			string type=nodeCamera->Value();
+			string id=nodeCamera->Attribute("id");
+			if(type=="perspective"){
+				printf(">> processing perspective camera %s\n",id.c_str());
+				float near,far,angle,pos[3],target[3];
+				temp=nodeCamera->Attribute("near");
+				if(temp.c_str() && sscanf(temp.c_str(),"%f",&near)==1)
+				{
+					printf(">> perspective camera near = %f\n", near);
+				}
+				else {
+					printf("Error parsing near attribute");
+					exit(-1);
+				}
+				temp=nodeCamera->Attribute("far");
+				if(temp.c_str() && sscanf(temp.c_str(),"%f",&far)==1)
+				{
+					printf(">> perspective camera far = %f\n", far);
+				}
+				else {
+					printf("Error parsing far attribute");
+					exit(-1);
+				}
+				temp=nodeCamera->Attribute("angle");
+				if(temp.c_str() && sscanf(temp.c_str(),"%f",&angle)==1)
+				{
+					printf(">> perspective camera angle = %f\n", angle);
+				}
+				else {
+					printf("Error parsing angle attribute");
+					exit(-1);
+				}
+				temp=nodeCamera->Attribute("pos");
+				if(temp.c_str() && sscanf(temp.c_str(),"%f %f %f",&pos[0], &pos[1], &pos[2])==3)
+				{
+					printf(">> perspective camera pos: %f %f %f\n", pos[0], pos[1], pos[2]);
+				}
+				else {
+					printf("Error parsing perspective camera position");
+					exit(-1);
+				}
+				temp=nodeCamera->Attribute("target");
+				if(temp.c_str() && sscanf(temp.c_str(),"%f %f %f",&target[0], &target[1], &target[2])==3)
+				{
+					printf(">> perspective camera target: %f %f %f\n", target[0], target[1], target[2]);
+				}
+				else {
+					printf("Error parsing perspective camera target");
+					exit(-1);
+				}
+				graphScene.cameras[id]= Camera(id,near,far,angle,pos,target);
+				if(id==initialID){
+					graphScene.cameras[id].initial=true;
+					graphScene.cameras[id].isActive=true;
+					graphScene.cameras[id].type=1;
+				}
+			}
+
+			else if(type=="ortho"){
+				printf(">> processing ortho camera %s\n",id.c_str());
+				string direction;
+				float near,far,left,right,top,bottom;
+				direction=nodeCamera->Attribute("direction");
+				if(direction.empty()){
+					printf("Error parsing ortho camera direction");
+					exit(-1);
+				}
+				temp=nodeCamera->Attribute("near");
+				if(temp.c_str() && sscanf(temp.c_str(),"%f",&near)==1)
+				{
+					printf(">> ortho camera near = %f\n", near);
+				}
+				else {
+					printf("Error parsing near attribute");
+					exit(-1);
+				}
+				temp=nodeCamera->Attribute("far");
+				if(temp.c_str() && sscanf(temp.c_str(),"%f",&far)==1)
+				{
+					printf(">> ortho camera far = %f\n", far);
+				}
+				else {
+					printf("Error parsing far attribute");
+					exit(-1);
+				}
+				temp=nodeCamera->Attribute("left");
+				if(temp.c_str() && sscanf(temp.c_str(),"%f",&left)==1)
+				{
+					printf(">> ortho camera left = %f\n", left);
+				}
+				else {
+					printf("Error parsing left attribute");
+					exit(-1);
+				}
+				temp=nodeCamera->Attribute("right");
+				if(temp.c_str() && sscanf(temp.c_str(),"%f",&right)==1)
+				{
+					printf(">> ortho camera right = %f\n", right);
+				}
+				else {
+					printf("Error parsing right attribute");
+					exit(-1);
+				}
+				temp=nodeCamera->Attribute("top");
+				if(temp.c_str() && sscanf(temp.c_str(),"%f",&top)==1)
+				{
+					printf(">> ortho camera top = %f\n", top);
+				}
+				else {
+					printf("Error parsing top attribute");
+					exit(-1);
+				}
+				temp=nodeCamera->Attribute("bottom");
+				if(temp.c_str() && sscanf(temp.c_str(),"%f",&bottom)==1)
+				{
+					printf(">> ortho camera bottom = %f\n", bottom);
+				}
+				else {
+					printf("Error parsing bottom attribute");
+					exit(-1);
+				}
+				graphScene.cameras[id]= Camera(id,direction,near,far,left,right,top,bottom);
+				if(id==initialID){
+					graphScene.cameras[id].initial=true;
+					graphScene.cameras[id].isActive=true;
+					graphScene.cameras[id].type=0;
+				}
+			}
+			else{
+				printf("wrong camera type");
+				exit(-1);
+			}
+			nodeCamera=nodeCamera->NextSiblingElement();
+		}
+
+	}
+
+}
+void XMLScene::parseLights(){}
+void XMLScene::parseTextures(Graph &graphScene){
 	if(textureElement == NULL){
 		printf("textures element not found\n");
 		exit(-1);
@@ -210,9 +385,8 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 			nodeTexture = nodeTexture->NextSiblingElement();
 		}
 	}
-
-	appearanceElement = anfElement->FirstChildElement("appearances");
-
+}
+void XMLScene::parseAppearances(Graph &graphScene){
 	if (appearanceElement == NULL){
 		printf("appearances element not found\n");
 		exit(-1);
@@ -326,9 +500,8 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 			exit(-1);
 		}
 	}
-
-	graphElement = anfElement->FirstChildElement("graph");
-
+}
+void XMLScene::parseGraph(Graph &graphScene){
 	if (graphElement == NULL){
 		printf("graph element not found\n");
 		exit(-1);
@@ -407,13 +580,13 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 								float angle,axisx = 0,axisy = 0, axisz = 0;
 								if(!temp.empty())
 								{
-									if(temp == "xx" || temp == "yy" || temp == "zz"){
+									if(temp == "x" || temp == "y" || temp == "z"){
 										axis = temp;
 										printf("  >> axis: %s\n", axis.c_str());
-										if(temp == "xx"){
+										if(temp == "x"){
 											axisx = 1;
 										}
-										else if(temp == "yy"){
+										else if(temp == "y"){
 											axisy = 1;
 										} else {
 											axisz = 1;
@@ -464,7 +637,7 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 						nodeElement = nodeElement->NextSiblingElement();
 					}
 					float m[16];
-					glGetFloatv(GL_MODELVIEW_MATRIX, &m[0]);//graphScene.nodes[atualnode].matrix[0]
+					glGetFloatv(GL_MODELVIEW_MATRIX, &m[0]);
 					for(int i = 0; i<16; i++)
 						graphScene.nodes[atualnode].matrix[i] = m[i];
 
@@ -732,7 +905,6 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 
 						nodeElement = nodeElement->NextSiblingElement();
 					}
-					// primitives here
 				}
 
 				nodeElement = NULL;
@@ -760,7 +932,6 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 								if ( graphScene.nodes.find(atualdescendant) == graphScene.nodes.end() ) {
 									graphScene.nodes[atualdescendant] = Node(atualdescendant);
 								}
-								//graphScene.nodes[atualnode].descendants.push_back(&graphScene.nodes[atualdescendant]);
 								if ( graphScene.graphNodes.find(atualdescendant) == graphScene.graphNodes.end() ) {
 									graphScene.graphNodes[atualdescendant] = GraphNode();
 									graphScene.graphNodes[atualdescendant].atualNodeID = atualdescendant;
@@ -779,9 +950,7 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 			node = node->NextSiblingElement();
 		}
 	}
-
 }
-
 XMLScene::~XMLScene()
 {
 	delete(doc);

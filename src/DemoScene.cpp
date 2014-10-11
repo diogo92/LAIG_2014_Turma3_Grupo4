@@ -62,7 +62,8 @@ void DemoScene::init()
 
 	// Defines a default normal
 	//glNormal3f(0,0,1);
-
+	
+	
 	setUpdatePeriod(30);
 }
 
@@ -82,9 +83,9 @@ void DemoScene::display()
 	// Initialize Model-View matrix as identity (no transformation
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-
+	setCamera();
 	// Apply transformations corresponding to the camera position relative to the origin
-	CGFscene::activeCamera->applyView();
+	//CGFscene::activeCamera->applyView();
 
 	// Draw (and update) light
 	light0->draw();
@@ -100,6 +101,40 @@ void DemoScene::display()
 	// while the graphics card is showing the contents of another buffer - the front buffer
 	// glutSwapBuffers() will swap pointers so that the back buffer becomes the front buffer and vice-versa
 	glutSwapBuffers();
+}
+
+void DemoScene::setCamera(){
+	typedef std::map<std::string, Camera >::iterator it_type;
+	for(it_type iterator = graphScene.cameras.begin(); iterator != graphScene.cameras.end(); iterator++) {
+		if(iterator->second.initial){
+			glMatrixMode(GL_PROJECTION);
+			glLoadIdentity();
+			if(iterator->second.type==0){//is ortho camera
+				glOrtho(iterator->second.left,iterator->second.right,iterator->second.bottom,iterator->second.top,iterator->second.near,iterator->second.far);
+				glMatrixMode(GL_MODELVIEW);
+				glLoadIdentity();
+				gluLookAt(5,5,5,5,5,0,0,1,0);
+			}
+			else if(iterator->second.type==1){//is perspective camera
+				gluPerspective(iterator->second.angle,CGFapplication::xy_aspect,iterator->second.near,iterator->second.far);
+				glMatrixMode(GL_MODELVIEW);
+				glLoadIdentity();
+				gluLookAt(iterator->second.pos[0],iterator->second.pos[1],iterator->second.pos[2],iterator->second.target[0],iterator->second.target[1],iterator->second.target[2],0,1,0);
+			
+			}
+
+			else{
+				printf("Camera error\n");
+				exit(-1);
+			}
+
+
+			//glMatrixMode(GL_MODELVIEW);
+			//glLoadIdentity();
+			CGFscene::activeCamera->applyView();
+		}
+		break;
+	}
 }
 
 DemoScene::~DemoScene()
