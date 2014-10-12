@@ -5,10 +5,14 @@
 #include "GraphNode.h"
 #include "Appearance.h"
 #include "Camera.h"
+#include "Light.h"
+#include <vector>
+
 #include <map>
 
 using std::map;
 using std::string;
+using std::vector;
 
 class Graph
 {
@@ -27,6 +31,7 @@ public:
 	map<string,Appearance> appearances;
 	map<string,Texture> textures;
 	map<string,Camera>  cameras;
+	vector<Light*> lights;
 	void draw();
 };
 

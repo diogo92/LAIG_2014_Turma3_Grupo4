@@ -53,12 +53,14 @@ void DemoScene::init()
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, CGFlight::background_ambient);  // Define ambient light
 	
 	// Declares and enables a light
-	float light0_pos[4] = {8.0, 12.0, 10.0, 3};
+	/*float light0_pos[4] = {8.0, 12.0, 10.0, 3};
 	light0 = new CGFlight(GL_LIGHT0, light0_pos);
 	light0->setKc(0.5);
 	light0->setKl(0.5);
 	light0->setKq(0.5);
-	light0->enable();
+	light0->enable();*/
+
+	setLights();
 
 	// Defines a default normal
 	//glNormal3f(0,0,1);
@@ -83,13 +85,16 @@ void DemoScene::display()
 	// Initialize Model-View matrix as identity (no transformation
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	setCamera();
+//	setCamera();
 	// Apply transformations corresponding to the camera position relative to the origin
-	//CGFscene::activeCamera->applyView();
+	CGFscene::activeCamera->applyView();
 
+	for(int i=0;i<graphScene.lights.size();i++){
+		if(graphScene.lights.at(i)->marked)
+			graphScene.lights.at(i)->draw();
+	}
 	// Draw (and update) light
-	light0->draw();
-
+//	light0->draw();
 	// Draw axis
 	axis.draw();
 
@@ -103,6 +108,37 @@ void DemoScene::display()
 	glutSwapBuffers();
 }
 
+void DemoScene::setLights(){
+	for(unsigned int i=0;i<graphScene.lights.size();i++){
+		if (graphScene.lights.at(i)->type=="omni"){
+			glLightfv(GL_LIGHT0+graphScene.lights.at(i)->number,GL_SPECULAR,graphScene.lights.at(i)->spe);
+			glLightfv(GL_LIGHT0+graphScene.lights.at(i)->number,GL_AMBIENT,graphScene.lights.at(i)->amb);
+			glLightfv(GL_LIGHT0+graphScene.lights.at(i)->number,GL_DIFFUSE,graphScene.lights.at(i)->dif);
+
+			if(graphScene.lights.at(i)->enabled){
+				graphScene.lights.at(i)->enable();
+				glEnable(GL_LIGHT0+graphScene.lights.at(i)->number);
+			}
+			else
+				graphScene.lights.at(i)->disable();
+			
+		}
+		else{
+			glLightfv(GL_LIGHT0+graphScene.lights.at(i)->number,GL_SPECULAR,graphScene.lights.at(i)->spe);
+			glLightfv(GL_LIGHT0+graphScene.lights.at(i)->number,GL_AMBIENT,graphScene.lights.at(i)->amb);
+			glLightfv(GL_LIGHT0+graphScene.lights.at(i)->number,GL_DIFFUSE,graphScene.lights.at(i)->dif);
+			glLightf(GL_LIGHT0+graphScene.lights.at(i)->number,GL_SPOT_CUTOFF,graphScene.lights.at(i)->angle);
+			glLightf(GL_LIGHT0+graphScene.lights.at(i)->number,GL_SPOT_EXPONENT,graphScene.lights.at(i)->exponent);
+			glLightfv(GL_LIGHT0+graphScene.lights.at(i)->number,GL_SPOT_DIRECTION,graphScene.lights.at(i)->tar);
+			if(graphScene.lights.at(i)->enabled){
+				graphScene.lights.at(i)->enable();
+				glEnable(GL_LIGHT0+graphScene.lights.at(i)->number);
+			}
+			else
+				graphScene.lights.at(i)->disable();
+		}
+	}
+}
 void DemoScene::setCamera(){
 	typedef std::map<std::string, Camera >::iterator it_type;
 	for(it_type iterator = graphScene.cameras.begin(); iterator != graphScene.cameras.end(); iterator++) {
@@ -132,11 +168,6 @@ void DemoScene::setCamera(){
 				printf("Camera error\n");
 				exit(-1);
 			}
-
-
-		/*	glMatrixMode(GL_MODELVIEW);
-			glLoadIdentity();
-			CGFscene::activeCamera->applyView();*/
 			break;
 		}
 		

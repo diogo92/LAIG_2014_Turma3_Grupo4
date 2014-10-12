@@ -24,19 +24,17 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 
 	globalsElement = anfElement->FirstChildElement( "globals" );
 	cameraElement = anfElement->FirstChildElement("cameras");
+	lightElement = anfElement->FirstChildElement("lights");
 	textureElement = anfElement->FirstChildElement("textures");
 	appearanceElement = anfElement->FirstChildElement("appearances");
 	graphElement = anfElement->FirstChildElement("graph");
 
 	parseGlobals(globals);
 	parseCameras(graphScene);
+	parseLights(graphScene);
 	parseTextures(graphScene);
 	parseAppearances(graphScene);
 	parseGraph(graphScene);
-	
-
-	
-
 }
 
 void XMLScene::parseGlobals(GlobalData &globals){
@@ -186,7 +184,6 @@ void XMLScene::parseCameras(Graph &graphScene){
 		string initialID=temp;
 
 		TiXmlElement *nodeCamera=cameraElement->FirstChildElement();
-		int count=0;
 		while(nodeCamera){
 			string type=nodeCamera->Value();
 			string id=nodeCamera->Attribute("id");
@@ -328,7 +325,248 @@ void XMLScene::parseCameras(Graph &graphScene){
 	}
 
 }
-void XMLScene::parseLights(){}
+void XMLScene::parseLights(Graph &graphScene){
+	if(lightElement == NULL){
+		printf("cameras element not found\n");
+		exit(-1);
+	}
+
+	else{
+		int count=0;
+		printf("processing lights\n");
+		TiXmlElement *nodeLight=lightElement->FirstChildElement("light");
+		TiXmlElement *nodeLightChild;
+		while(nodeLight){
+			if(count>8){
+				printf(">> no more than 8 lights can exist\n");
+				break;
+			}
+			string id=nodeLight->Attribute("id");
+			string type=nodeLight->Attribute("type");
+			bool enabled,marker;
+			float pos[4],amb[4],dif[4],spe[4];
+			if(type=="omni"){
+				printf(">> processing omni light %s\n",id.c_str());
+				temp=nodeLight->Attribute("enabled");
+				if(temp=="true"){
+					enabled=true;
+					printf("omni light enabled: true\n");
+				}
+				else if(temp=="false"){
+					enabled=false;
+					printf("omni light enabled: false\n");
+				}
+				else{
+					printf("error parsing omni light attribute enabled");
+					exit(-1);
+				}
+				temp=nodeLight->Attribute("marker");
+				if(temp=="true"){
+					marker=true;
+					printf("omni light marker: true\n");
+				}
+				else if(temp=="false"){
+					marker=false;
+					printf("omni light marker: false\n");
+				}
+				else{
+					printf("error parsing omni light attribute marker");
+					exit(-1);
+				}
+				temp=nodeLight->Attribute("pos");
+				if(temp.c_str() && sscanf(temp.c_str(),"%f %f %f",&pos[0], &pos[1], &pos[2])==3)
+				{
+					printf(">> omni light pos: %f %f %f\n", pos[0], pos[1], pos[2]);
+				}
+				else {
+					printf("Error parsing omni light position");
+					exit(-1);
+				}
+
+				nodeLightChild = findChildByAttribute(nodeLight,"type","ambient");
+				if(nodeLightChild == NULL){
+					printf("light ambient not found\n");
+					exit(-1);
+				}
+			
+				temp = nodeLightChild->Attribute("value");
+
+				if(temp.c_str() && sscanf(temp.c_str(),"%f %f %f %f",&amb[0], &amb[1], &amb[2], &amb[3])==4)
+				{
+					printf("  >> ambient (rgba): %f %f %f %f\n", amb[0], amb[1], amb[2], amb[3]);
+				}
+				else {
+					printf("Error parsing ambient\n");
+					exit(-1);
+				}
+
+				nodeLightChild = findChildByAttribute(nodeLight,"type","diffuse");
+				if(nodeLightChild == NULL){
+					printf("light diffuse not found\n");
+					exit(-1);
+				}
+			
+				temp = nodeLightChild->Attribute("value");
+
+				if(temp.c_str() && sscanf(temp.c_str(),"%f %f %f %f",&dif[0], &dif[1], &dif[2], &dif[3])==4)
+				{
+					printf("  >> diffuse (rgba): %f %f %f %f\n", dif[0], dif[1], dif[2], dif[3]);
+				}
+				else {
+					printf("Error parsing diffuse\n");
+					exit(-1);
+				}
+
+				nodeLightChild = findChildByAttribute(nodeLight,"type","specular");
+				if(nodeLightChild == NULL){
+					printf("light specular not found\n");
+					exit(-1);
+				}
+			
+				temp = nodeLightChild->Attribute("value");
+
+				if(temp.c_str() && sscanf(temp.c_str(),"%f %f %f %f",&spe[0], &spe[1], &spe[2], &spe[3])==4)
+				{
+					printf("  >> specular (rgba): %f %f %f %f\n", spe[0], spe[1], spe[2], spe[3]);
+				}
+				else {
+					printf("Error parsing specular\n");
+					exit(-1);
+				}
+				pos[3]=1.0;
+				Light* l=new Light(count,id,type,enabled,marker,pos,amb,dif,spe);
+				graphScene.lights.push_back(l);
+
+			}
+			else if(type=="spot"){
+				float tar[3],angle,exponent;
+				printf(">> processing spot light %s\n",id.c_str());
+				temp=nodeLight->Attribute("enabled");
+				if(temp=="true"){
+					enabled=true;
+					printf("spot light enabled: true\n");
+				}
+				else if(temp=="false"){
+					enabled=false;
+					printf("spot light enabled: false\n");
+				}
+				else{
+					printf("error parsing spot light attribute enabled");
+					exit(-1);
+				}
+				temp=nodeLight->Attribute("marker");
+				if(temp=="true"){
+					marker=true;
+					printf("spot light marker: true\n");
+				}
+				else if(temp=="false"){
+					marker=false;
+					printf("spot light marker: false\n");
+				}
+				else{
+					printf("error parsing spot light attribute marker");
+					exit(-1);
+				}
+				temp=nodeLight->Attribute("pos");
+				if(temp.c_str() && sscanf(temp.c_str(),"%f %f %f",&pos[0], &pos[1], &pos[2])==3)
+				{
+					printf(">> spot light pos: %f %f %f\n", pos[0], pos[1], pos[2]);
+				}
+				else {
+					printf("Error parsing spot light position");
+					exit(-1);
+				}
+
+				temp=nodeLight->Attribute("target");
+				if(temp.c_str() && sscanf(temp.c_str(),"%f %f %f",&tar[0], &tar[1], &tar[2])==3)
+				{
+					printf(">> spot light target: %f %f %f\n", tar[0], tar[1], tar[2]);
+				}
+				else {
+					printf("Error parsing spot light target");
+					exit(-1);
+				}
+				temp=nodeLight->Attribute("angle");
+				if(temp.c_str() && sscanf(temp.c_str(),"%f",&angle)==1){
+					printf(">> spot light angle: %f\n",angle);
+				}
+				else {
+					printf("Error parsing spot light angle");
+					exit(-1);
+				}
+				temp=nodeLight->Attribute("exponent");
+				if(temp.c_str() && sscanf(temp.c_str(),"%f",&exponent)==1){
+					printf(">> spot light exponent: %f\n",exponent);
+				}
+				else {
+					printf("Error parsing spot light exponent");
+					exit(-1);
+				}
+
+				nodeLightChild = findChildByAttribute(nodeLight,"type","ambient");
+				if(nodeLightChild == NULL){
+					printf("light ambient not found\n");
+					exit(-1);
+				}
+			
+				temp = nodeLightChild->Attribute("value");
+
+				if(temp.c_str() && sscanf(temp.c_str(),"%f %f %f %f",&amb[0], &amb[1], &amb[2], &amb[3])==4)
+				{
+					printf("  >> ambient (rgba): %f %f %f %f\n", amb[0], amb[1], amb[2], amb[3]);
+				}
+				else {
+					printf("Error parsing ambient\n");
+					exit(-1);
+				}
+
+				nodeLightChild = findChildByAttribute(nodeLight,"type","diffuse");
+				if(nodeLightChild == NULL){
+					printf("light diffuse not found\n");
+					exit(-1);
+				}
+			
+				temp = nodeLightChild->Attribute("value");
+
+				if(temp.c_str() && sscanf(temp.c_str(),"%f %f %f %f",&dif[0], &dif[1], &dif[2], &dif[3])==4)
+				{
+					printf("  >> diffuse (rgba): %f %f %f %f\n", dif[0], dif[1], dif[2], dif[3]);
+				}
+				else {
+					printf("Error parsing diffuse\n");
+					exit(-1);
+				}
+
+				nodeLightChild = findChildByAttribute(nodeLight,"type","specular");
+				if(nodeLightChild == NULL){
+					printf("light specular not found\n");
+					exit(-1);
+				}
+			
+				temp = nodeLightChild->Attribute("value");
+
+				if(temp.c_str() && sscanf(temp.c_str(),"%f %f %f %f",&spe[0], &spe[1], &spe[2], &spe[3])==4)
+				{
+					printf("  >> specular (rgba): %f %f %f %f\n", spe[0], spe[1], spe[2], spe[3]);
+				}
+				else {
+					printf("Error parsing specular\n");
+					exit(-1);
+				}
+				pos[3]=1.0;
+				Light* l=new Light(count,id,type,enabled,marker,pos,tar,angle,exponent,amb,dif,spe);
+				graphScene.lights.push_back(l);
+			}
+
+			else{
+				printf("error parsing lights");
+				exit(-1);
+			}
+			count++;
+			nodeLight=nodeLight->NextSiblingElement();
+		}
+	}
+}
 void XMLScene::parseTextures(Graph &graphScene){
 	if(textureElement == NULL){
 		printf("textures element not found\n");
@@ -530,8 +768,9 @@ void XMLScene::parseGraph(Graph &graphScene){
 		TiXmlElement *node = graphElement->FirstChildElement();
 		TiXmlElement *nodeElement;
 		bool found = false;
+		bool existsPrim;
+		bool existsDesc;
 		while(node){
-
 			nodeElement = NULL;
 			temp = node->Attribute("id");
 			atualnode = node->Attribute("id");
@@ -541,6 +780,8 @@ void XMLScene::parseGraph(Graph &graphScene){
 				exit(-1);
 			}
 			else {
+				existsPrim=false;
+				existsDesc=false;
 				printf(">> node id: %s\n",atualnode.c_str());
 				if ( graphScene.nodes.find(atualnode) == graphScene.nodes.end() ) {
 					graphScene.nodes[temp] = Node(atualnode);
@@ -645,8 +886,13 @@ void XMLScene::parseGraph(Graph &graphScene){
 
 				}
 				
-
-
+				TiXmlElement *prim=node->FirstChildElement("primitives");
+				if(prim!=NULL)
+					existsPrim=true;
+				TiXmlElement *desc=node->FirstChildElement("descendants");
+				if(desc!=NULL)
+					existsDesc=true;
+				
 				nodeElement = NULL;
 				nodeElement = node->FirstChildElement("appearanceref");
 
@@ -661,7 +907,7 @@ void XMLScene::parseGraph(Graph &graphScene){
 						printf("  attribute id not found\n");
 						exit(-1);
 					}
-					if(id=="inherited")
+					if(id=="inherit")
 						graphScene.graphNodes[atualnode].inherited=true;
 					else{
 						graphScene.graphNodes[atualnode].inherited=false;
@@ -674,11 +920,11 @@ void XMLScene::parseGraph(Graph &graphScene){
 				nodeElement = NULL;
 				nodeElement = node->FirstChildElement("primitives");
 
-				if(nodeElement == NULL){
-					printf("  block primitives not found\n");
+				if(nodeElement == NULL && !existsDesc){
+					printf("  blocks primitives and descendants not found\n");
 					exit(-1);
 				}
-				else{
+				else if(nodeElement !=NULL){
 					nodeElement = nodeElement->FirstChildElement();
 					while(nodeElement){
 						temp = (char *) nodeElement->Value();
@@ -915,11 +1161,11 @@ void XMLScene::parseGraph(Graph &graphScene){
 
 				string atualdescendant;
 
-				if(nodeElement == NULL){
-					printf("  block descendants not found\n");
+				if(nodeElement == NULL && !existsPrim){
+					printf("  blocks descendants and primitives not found\n");
 					exit(-1);
 				}
-				else{
+				else if(nodeElement !=NULL){
 					nodeElement = nodeElement->FirstChildElement("noderef");
 					while(nodeElement){
 							temp = nodeElement->Attribute("id");

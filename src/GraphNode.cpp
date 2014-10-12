@@ -3,6 +3,7 @@
 
 GraphNode::GraphNode(void)
 {
+
 }
 
 

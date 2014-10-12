@@ -15,6 +15,8 @@
 #include "Cylinder.h"
 #include "Appearance.h"
 #include "Camera.h"
+#include "Light.h"
+
 class XMLScene
 {
 public:
@@ -24,7 +26,7 @@ public:
 	static TiXmlElement *findChildByAttribute(TiXmlElement *parent,const char * attr, const char *val);
 	void parseGlobals(GlobalData &globals);
 	void parseCameras(Graph &graphScene);
-	void parseLights();
+	void parseLights(Graph &graphScene);
 	void parseTextures(Graph &graphScene);
 	void parseAppearances(Graph &graphScene);
 	void parseGraph(Graph &graphScene);
@@ -36,6 +38,7 @@ protected:
 	TiXmlElement* textureElement;
 	TiXmlElement* appearanceElement;
 	TiXmlElement* cameraElement;
+	TiXmlElement* lightElement;
 
 	TiXmlElement* textsElement;
 	TiXmlElement* leavesElement;

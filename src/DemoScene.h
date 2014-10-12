@@ -17,6 +17,7 @@ public:
 	void update(unsigned long t);
 	~DemoScene();
 	void setCamera();
+	void setLights();
 private:
 	CGFlight* light0;
 	CGFobject* test;
