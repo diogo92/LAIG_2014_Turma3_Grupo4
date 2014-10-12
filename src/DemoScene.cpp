@@ -110,11 +110,15 @@ void DemoScene::setCamera(){
 			glMatrixMode(GL_PROJECTION);
 			glLoadIdentity();
 			if(iterator->second.type==0){//is ortho camera
-				//glOrtho(iterator->second.left,iterator->second.right,iterator->second.bottom,iterator->second.top,iterator->second.near,iterator->second.far);
-				glOrtho(-15.0f,15.0f,-15.0f,15.0f,10.0f,0.0f);
+				glOrtho(iterator->second.left,iterator->second.right,iterator->second.bottom,iterator->second.top,iterator->second.near,iterator->second.far);
 				glMatrixMode(GL_MODELVIEW);
 				glLoadIdentity();
-				//gluLookAt(0,0,1,0,0,0,0,1,0);
+				if(iterator->second.direction=="x")
+					gluLookAt(1,0,0,0,0,0,0,1,0);
+				else if(iterator->second.direction=="y")
+					gluLookAt(0,1,0,0,0,0,0,0,-1);
+				else
+					gluLookAt(0,0,1,0,0,0,0,1,0);
 			}
 			else if(iterator->second.type==1){//is perspective camera
 				gluPerspective(iterator->second.angle,CGFapplication::xy_aspect,iterator->second.near,iterator->second.far);
