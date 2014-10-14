@@ -12,9 +12,26 @@ void DemoScene::init()
 {
 	XMLScene anf("scene.anf", globals, graphScene);
 
-	// Enables lighting computations
-	glEnable(GL_LIGHTING);
+	if(globals.lightEnabled){
+		glEnable(GL_LIGHTING);
+	}
+	else{
+		glDisable(GL_LIGHTING);
+	}
 
+	if(globals.doublesided){
+		glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
+	}
+	else{
+		glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
+	}
+
+	if(globals.lightLocal){
+		glLightModelf(GL_LIGHT_MODEL_LOCAL_VIEWER,0.5);
+	}
+
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, globals.lightAmbient);
+	
 	if (globals.cullingFace == 0){
 		glDisable(GL_CULL_FACE);
 	}
@@ -51,10 +68,6 @@ void DemoScene::init()
 	if(globals.drawShading == 1){
 		glShadeModel(GL_SMOOTH);
 	}
-
-	// Sets up some lighting parameters
-	glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
-	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, CGFlight::background_ambient);  // Define ambient light
 	
 	// Declares and enables a light
 	/*float light0_pos[4] = {8.0, 12.0, 10.0, 3};
@@ -118,8 +131,12 @@ void DemoScene::setLights(){
 		glLightfv(GL_LIGHT0+graphScene.lights.at(i)->number,GL_SPECULAR,graphScene.lights.at(i)->spe);
 		glLightfv(GL_LIGHT0+graphScene.lights.at(i)->number,GL_AMBIENT,graphScene.lights.at(i)->amb);
 		glLightfv(GL_LIGHT0+graphScene.lights.at(i)->number,GL_DIFFUSE,graphScene.lights.at(i)->dif);
+		glLightf(GL_LIGHT0+graphScene.lights.at(i)->number,GL_LINEAR_ATTENUATION,1.0);
 		if (graphScene.lights.at(i)->type=="spot"){
-
+			glLightfv(GL_LIGHT0+graphScene.lights.at(i)->number,GL_SPOT_DIRECTION,graphScene.lights.at(i)->tar);
+			glLightf(GL_LIGHT0+graphScene.lights.at(i)->number, GL_CONSTANT_ATTENUATION, 2.0);
+			glLightf(GL_LIGHT0+graphScene.lights.at(i)->number, GL_SPOT_EXPONENT, GL_LIGHT0+graphScene.lights.at(i)->exponent);
+			glLightf(GL_LIGHT0+graphScene.lights.at(i)->number,GL_SPOT_CUTOFF,GL_LIGHT0+graphScene.lights.at(i)->angle);
 			if(graphScene.lights.at(i)->enabled){
 				graphScene.lights.at(i)->enable();
 				glEnable(GL_LIGHT0+graphScene.lights.at(i)->number);
@@ -150,7 +167,7 @@ void DemoScene::setCamera(){
 				else
 					gluLookAt(0,0,1,0,0,0,0,1,0);
 			}
-			else if(iterator->second.type==1){//is perspective camera
+			else if(iterator->second.type==1){
 				gluPerspective(iterator->second.angle,CGFapplication::xy_aspect,iterator->second.near,iterator->second.far);
 				glMatrixMode(GL_MODELVIEW);
 				glLoadIdentity();
