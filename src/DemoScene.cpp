@@ -1,6 +1,6 @@
 #include "DemoScene.h"
 #include "CGFaxis.h"
-#include <glut.h>
+
 //#include "CGFappearance.h"
 
 #include "XMLScene.h"
@@ -53,8 +53,9 @@ void DemoScene::init()
 	}
 
 	// Sets up some lighting parameters
-	glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
+	glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, CGFlight::background_ambient);  // Define ambient light
+	
 	// Declares and enables a light
 	/*float light0_pos[4] = {8.0, 12.0, 10.0, 3};
 	light0 = new CGFlight(GL_LIGHT0, light0_pos);
@@ -114,16 +115,11 @@ void DemoScene::display()
 void DemoScene::setLights(){
 
 	for(unsigned int i=0;i<graphScene.lights.size();i++){
-
 		glLightfv(GL_LIGHT0+graphScene.lights.at(i)->number,GL_SPECULAR,graphScene.lights.at(i)->spe);
 		glLightfv(GL_LIGHT0+graphScene.lights.at(i)->number,GL_AMBIENT,graphScene.lights.at(i)->amb);
 		glLightfv(GL_LIGHT0+graphScene.lights.at(i)->number,GL_DIFFUSE,graphScene.lights.at(i)->dif);
-		glLightf(GL_LIGHT0+graphScene.lights.at(i)->number,GL_LINEAR_ATTENUATION,1.0);
 		if (graphScene.lights.at(i)->type=="spot"){
-			glLightfv(GL_LIGHT0+graphScene.lights.at(i)->number,GL_SPOT_DIRECTION,graphScene.lights.at(i)->tar);
-			glLightf(GL_LIGHT0+graphScene.lights.at(i)->number, GL_CONSTANT_ATTENUATION, 2.0);
-			glLightf(GL_LIGHT0+graphScene.lights.at(i)->number, GL_SPOT_EXPONENT, GL_LIGHT0+graphScene.lights.at(i)->exponent);
-			glLightf(GL_LIGHT0+graphScene.lights.at(i)->number,GL_SPOT_CUTOFF,GL_LIGHT0+graphScene.lights.at(i)->angle);
+
 			if(graphScene.lights.at(i)->enabled){
 				graphScene.lights.at(i)->enable();
 				glEnable(GL_LIGHT0+graphScene.lights.at(i)->number);
@@ -132,7 +128,6 @@ void DemoScene::setLights(){
 				graphScene.lights.at(i)->disable();
 				glDisable(GL_LIGHT0+graphScene.lights.at(i)->number);
 			}
-			
 			
 		}
 		
