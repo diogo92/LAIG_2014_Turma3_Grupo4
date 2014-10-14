@@ -53,7 +53,7 @@ void DemoScene::init()
 	}
 
 	// Sets up some lighting parameters
-	glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
+	glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, CGFlight::background_ambient);  // Define ambient light
 	
 	// Declares and enables a light
@@ -113,34 +113,24 @@ void DemoScene::display()
 }
 
 void DemoScene::setLights(){
+
 	for(unsigned int i=0;i<graphScene.lights.size();i++){
-		if (graphScene.lights.at(i)->type=="omni"){
-			glLightfv(GL_LIGHT0+graphScene.lights.at(i)->number,GL_SPECULAR,graphScene.lights.at(i)->spe);
-			glLightfv(GL_LIGHT0+graphScene.lights.at(i)->number,GL_AMBIENT,graphScene.lights.at(i)->amb);
-			glLightfv(GL_LIGHT0+graphScene.lights.at(i)->number,GL_DIFFUSE,graphScene.lights.at(i)->dif);
+		glLightfv(GL_LIGHT0+graphScene.lights.at(i)->number,GL_SPECULAR,graphScene.lights.at(i)->spe);
+		glLightfv(GL_LIGHT0+graphScene.lights.at(i)->number,GL_AMBIENT,graphScene.lights.at(i)->amb);
+		glLightfv(GL_LIGHT0+graphScene.lights.at(i)->number,GL_DIFFUSE,graphScene.lights.at(i)->dif);
+		if (graphScene.lights.at(i)->type=="spot"){
 
 			if(graphScene.lights.at(i)->enabled){
 				graphScene.lights.at(i)->enable();
 				glEnable(GL_LIGHT0+graphScene.lights.at(i)->number);
 			}
-			else
+			else{
 				graphScene.lights.at(i)->disable();
+				glDisable(GL_LIGHT0+graphScene.lights.at(i)->number);
+			}
 			
 		}
-		else{
-			glLightfv(GL_LIGHT0+graphScene.lights.at(i)->number,GL_SPECULAR,graphScene.lights.at(i)->spe);
-			glLightfv(GL_LIGHT0+graphScene.lights.at(i)->number,GL_AMBIENT,graphScene.lights.at(i)->amb);
-			glLightfv(GL_LIGHT0+graphScene.lights.at(i)->number,GL_DIFFUSE,graphScene.lights.at(i)->dif);
-			glLightf(GL_LIGHT0+graphScene.lights.at(i)->number,GL_SPOT_CUTOFF,graphScene.lights.at(i)->angle);
-			glLightf(GL_LIGHT0+graphScene.lights.at(i)->number,GL_SPOT_EXPONENT,graphScene.lights.at(i)->exponent);
-			glLightfv(GL_LIGHT0+graphScene.lights.at(i)->number,GL_SPOT_DIRECTION,graphScene.lights.at(i)->tar);
-			if(graphScene.lights.at(i)->enabled){
-				graphScene.lights.at(i)->enable();
-				glEnable(GL_LIGHT0+graphScene.lights.at(i)->number);
-			}
-			else
-				graphScene.lights.at(i)->disable();
-		}
+		
 	}
 }
 void DemoScene::setCamera(){
