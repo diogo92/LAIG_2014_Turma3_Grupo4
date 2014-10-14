@@ -4,14 +4,30 @@
 
         <drawing mode="fill" shading="flat" background="0.1 0.2 0.3 0.6" />
 
+        <lighting doublesided="false" local="true" enabled="true" ambient="0.2 0.2 0.2 1" />
         <culling face="none" order="cw" />
  
     </globals>
 
-     <cameras initial="sss" >
-        <perspective id="ss" near="0.1" far="300" angle="45" pos="50 50 50" target="0 0 0" />
-        <ortho id="sss" direction="y" near="-25" far="25" left="0" right="10" top="0" bottom="-10" />
+     <cameras initial="ss" >
+        <perspective id="ss" near="0.1" far="300" angle="45" pos="5 5 5" target="0 0 0" />
+        <ortho id="sss" direction="x" near="-25" far="25" left="-10" right="0" top="10" bottom="0" />
     </cameras>
+
+    <lights>
+            <light id="ss" type="omni" enabled="false" marker="false" pos="5 5 5" >
+               <component type="ambient" value="0.1 0.1 0.1 1" />
+               <component type="diffuse" value="0.1 0.1 0.1 1" />
+               <component type="specular" value="0.1 0.1 0.1 1" />
+            </light>
+            <light id="sss" type="spot" enabled="true" marker="true" pos="5 5 5" target="0 0 0" 
+                angle="1" exponent="0" >
+                <component type="ambient" value="0.2 0.2 0.2 1" />
+               <component type="diffuse" value="0.2 0.2 0.2 1" />
+               <component type="specular" value="0.2 0.2 0.2 1" />
+
+            </light>
+    </lights>
 
     <textures>      
           <texture id="wood" file="wood.png" texlength_s="1" texlength_t="1" />
@@ -95,26 +111,10 @@
             </transforms>
  
             <appearanceref id="cerveja"/>
-            <primitives>
-             </primitives>
 
             <descendants>
                 <noderef id="objects" />
                 <noderef id="room" />
-                <noderef id="test"/>
-            </descendants>
-        </node>
-        <node id="test">
-            <transforms>
-                <transform type="translate" to="10 10 10"/>
-            </transforms>
- 
-            <appearanceref id="wall2"/>
-            <primitives>
-                <triangle xyz1="0 10 0" xyz2="0 0 0" xyz3="10 0 0"/>
-             </primitives>
-
-            <descendants>
             </descendants>
         </node>
 
@@ -123,8 +123,6 @@
             </transforms>
  
             <appearanceref id="cinza"/>
-            <primitives>
-             </primitives>
 
             <descendants>
                 <noderef id="wall1" />
@@ -142,9 +140,6 @@
                     <primitives>
                         <rectangle xy1="0 0" xy2="10 10"/>
                      </primitives>
-
-                    <descendants>
-                    </descendants>
                 </node>
                 <node id="wall2"> <!-- plane zy -->
                     <transforms>
@@ -157,9 +152,6 @@
                     <primitives>
                         <rectangle xy1="0 0" xy2="10 10"/>
                      </primitives>
-
-                    <descendants>
-                    </descendants>
                 </node>
                 <node id="floor"> <!-- plane xz -->
                     <transforms>
@@ -170,9 +162,6 @@
                     <primitives>
                         <rectangle xy1="0 0" xy2="10 10"/>
                      </primitives>
-
-                    <descendants>
-                    </descendants>
                 </node>
 
         <node id="objects">
@@ -182,8 +171,6 @@
             </transforms>
  
             <appearanceref id="amarelo"/>
-            <primitives>
-             </primitives>
 
             <descendants>
                 <noderef id="homer" />
@@ -201,11 +188,7 @@
 				<transform type="translate" to="0.0 1.5 0.0"/>
             </transforms>
 
-            <appearanceref id="inherited"/>
-
-            <primitives>
-            </primitives>
-
+            <appearanceref id="inherit"/>
             <descendants>
                 <noderef id="head"/>
                 <noderef id="torso"/>
@@ -219,10 +202,7 @@
                         <transform type="translate" to="0.0 6.0 0.0"/>
                     </transforms>
 
-                    <appearanceref id="inherited"/>
-
-                    <primitives>
-                    </primitives>
+                    <appearanceref id="inherit"/>
                     <descendants>
                         <noderef id="cil"/>
                         <noderef id="top"/>
@@ -237,14 +217,11 @@
                                 <transform type="rotate" axis="x" angle="-90" />
                             </transforms>
 
-                            <appearanceref id="inherited"/>
+                            <appearanceref id="inherit"/>
 
                             <primitives>
                               <cylinder base="0.5" top="0.5" height="1.5" slices="16" stacks="16" />
                             </primitives>
-
-                            <descendants>
-                            </descendants>
                         </node>
                         <node id="top">
                             <transforms>
@@ -252,14 +229,11 @@
                                 <transform type="scale" factor="0.5 0.5 0.5"/>
                             </transforms>
 
-                            <appearanceref id="inherited"/>
+                            <appearanceref id="inherit"/>
 
                             <primitives>
                                 <sphere radius="1" slices="16" stacks="16" />
                             </primitives>
-                            
-                            <descendants>
-                            </descendants>
                         </node>
                         <node id="eyes">
                             <transforms>
@@ -268,9 +242,6 @@
                             </transforms>
 
                             <appearanceref id="olhos"/>
-
-                            <primitives>
-                            </primitives>
                             
                             <descendants>
                                 <noderef id="righteye"/>
@@ -284,14 +255,11 @@
                                         <transform type="rotate" axis="z" angle="180"/>
                                     </transforms>
 
-                                    <appearanceref id="inherited"/>
+                                    <appearanceref id="inherit"/>
 
                                     <primitives>
                                         <sphere radius="1" slices="16" stacks="16" />
                                     </primitives>
-                                    
-                                    <descendants>
-                                    </descendants>
                                 </node>
                                 <node id="lefteye">
                                     <transforms>
@@ -300,14 +268,11 @@
                                         <transform type="rotate" axis="z" angle="180"/>
                                     </transforms>
 
-                                    <appearanceref id="inherited"/>
+                                    <appearanceref id="inherit"/>
 
                                     <primitives>
                                         <sphere radius="1" slices="16" stacks="16" />
                                     </primitives>
-                                    
-                                    <descendants>
-                                    </descendants>
                                 </node>
 
                         <node id="hair">
@@ -317,9 +282,6 @@
 
                             <appearanceref id="cinza"/>
 
-                            <primitives>
-                            </primitives>
-
                             <descendants>
                                 <noderef id="backhair"/>
                                 <noderef id="fronthair"/>
@@ -328,41 +290,35 @@
                                 <node id="backhair">
                                     <transforms>
                                         <transform type="translate" to="0.0 0.1 -1.85" />
+                                        <transform type="rotate" axis="x" angle="-90"/>
                                     </transforms>
 
-                                    <appearanceref id="inherited"/>
+                                    <appearanceref id="inherit"/>
 
                                     <primitives>
                                         <torus inner="0.01" outer="0.2" slices="16" loops="16"  />
                                     </primitives>
                                     
-                                    <descendants>
-                                    </descendants>
                                 </node>
                                 <node id="fronthair">
                                     <transforms>
                                         <transform type="translate" to="0.0 -0.1 -1.85" />
+                                        <transform type="rotate" axis="x" angle="-90"/>
                                     </transforms>
 
-                                    <appearanceref id="inherited"/>
+                                    <appearanceref id="inherit"/>
 
                                     <primitives>
                                         <torus inner="0.01" outer="0.2" slices="16" loops="16"  />
                                     </primitives>
                                     
-                                    <descendants>
-                                    </descendants>
                                 </node>
                         <node id="ears">
                             <transforms>
                                 <transform type="scale" factor="0.5 0.5 0.5"/>
                             </transforms>
 
-                            <appearanceref id="inherited"/>
-
-                            <primitives>
-                                    
-                            </primitives>
+                            <appearanceref id="inherit"/>
 
                             <descendants>
                                 <noderef id="rightear"/>
@@ -373,41 +329,37 @@
                                     <transforms>
                                         <transform type="translate" to="0.0 0.0 -2.0"/>
                                         <transform type="rotate" axis="y" angle="-70"/>
-                                        <transform type="translate" to="2.0 1.7 0.0"/>
+                                        <transform type="translate" to="2.2 1.7 0.0"/>
                                         <transform type="rotate" axis="z" angle="90"/>
+                                        <transform type="rotate" axis="x" angle="-90"/>
                                     </transforms>
 
-                                    <appearanceref id="inherited"/>
+                                    <appearanceref id="inherit"/>
 
                                     <primitives>
                                         <torus inner="0.2" outer="0.3" slices="16" loops="16" />
                                     </primitives>
-
-                                    <descendants>
-                                    </descendants>
                                 </node>
                                 <node id="leftear">
                                     <transforms>
                                         <transform type="translate" to="0.0 0.0 -2.0"/>
                                         <transform type="rotate" axis="y" angle="70"/>
-                                        <transform type="translate" to="-2.0 1.7 0.0"/>
+                                        <transform type="translate" to="-2.2 1.7 0.0"/>
                                         <transform type="rotate" axis="z" angle="90"/>
+                                        <transform type="rotate" axis="x" angle="-90"/>
                                     </transforms>
 
-                                    <appearanceref id="inherited"/>
+                                    <appearanceref id="inherit"/>
 
                                     <primitives>
                                         <torus inner="0.2" outer="0.3" slices="16" loops="16" />
                                     </primitives>
-
-
-                                    <descendants>
-                                    </descendants>
                                 </node>
                         <node id="mouth">
                             <transforms>
                                 <transform type="scale" factor="0.1 0.2 0.1" />
                                 <transform type="translate" to="0.0 1.5 3.0"/> 
+                                        <transform type="rotate" axis="x" angle="-90"/>
                             </transforms>
 
                             <appearanceref id="castanho"/>
@@ -415,9 +367,6 @@
                             <primitives>
                                 <torus inner="1" outer="2" slices="16" loops="16" />
                             </primitives>
-
-                            <descendants>
-                            </descendants>
                         </node>
 
                 <node id="torso">
@@ -431,9 +380,6 @@
                     <primitives>
                         <sphere radius="1" slices="16" stacks="16"/>
                     </primitives>
-
-                    <descendants>
-                    </descendants>
                 </node>
                 <node id="arms">
                     <transforms>
@@ -441,10 +387,7 @@
 						<transform type="rotate" axis="x" angle="90"/>
                     </transforms>
 
-                    <appearanceref id="inherited"/>
-
-                    <primitives>
-                    </primitives>
+                    <appearanceref id="inherit"/>
 
                     <descendants>
                         <noderef id="rightarm"/>
@@ -456,10 +399,7 @@
                                 <transform type="translate" to="-1.5 0.0 0.0"/>
                             </transforms>
 
-                            <appearanceref id="inherited"/>
-
-                            <primitives>
-                            </primitives>
+                            <appearanceref id="inherit"/>
 
                             <descendants>
                                 <noderef id="arm"/>
@@ -470,10 +410,7 @@
                                 <transform type="translate" to="1.5 0.0 0.0"/>
                             </transforms>
 
-                            <appearanceref id="inherited"/>
-
-                            <primitives>
-                            </primitives>
+                            <appearanceref id="inherit"/>
 
                             <descendants>
                                 <noderef id="arm"/>
@@ -484,10 +421,7 @@
                                 <transform type="scale" factor="0.5 0.5 0.5"/>
                             </transforms>
 
-                            <appearanceref id="inherited"/>
-
-                            <primitives>
-                            </primitives>
+                            <appearanceref id="inherit"/>
 
                             <descendants>
                                 <noderef id="armpart"/>
@@ -500,14 +434,12 @@
                                         <transform type="scale" factor="0.8 0.8 1.0"/>
                                     </transforms>
 
-                                    <appearanceref id="inherited"/>
+                                    <appearanceref id="inherit"/>
 
                                     <primitives>
                                        <cylinder base="1.0" top="1.0" height="6.0" slices="16" stacks="16" />
                                     </primitives>
 
-                                    <descendants>
-                                    </descendants>
                                 </node>
                                 <node id="shoulderpart">
                                     <transforms>
@@ -515,10 +447,6 @@
                                     </transforms>
 
                                     <appearanceref id="branco"/>
-
-                                    <primitives>
-
-                                    </primitives>
 
                                     <descendants>
                                         <noderef id="sleeve"/>
@@ -530,30 +458,26 @@
                                                 <transform type="scale" factor="0.8 1.1 1.2"/>
                                             </transforms>
 
-                                            <appearanceref id="inherited"/>
+                                            <appearanceref id="inherit"/>
 
                                             <primitives>
                                                 <sphere radius="1" slices="16" stacks="16"/>
                                             </primitives>
 
-                                            <descendants>
-                                            </descendants>
                                         </node>
                                         <node id="sleeveend">
                                             <transforms>
                                                 <transform type="translate" to="0.0 0.0 0.5"/>
-                                                <transform type="scale" factor="0.38 0.38 0.38"/>
-                                                <transform type="rotate" axis="x" angle="90"/>
+                                                <transform type="scale" factor="0.4 0.4 0.4"/>
+                                                
                                             </transforms>
 
-                                            <appearanceref id="inherited"/>
+                                            <appearanceref id="inherit"/>
 
                                             <primitives>
                                                 <torus inner="1" outer="2" slices="16" loops="16"/>
                                             </primitives>
 
-                                            <descendants>
-                                            </descendants>
                                         </node>
                                 <node id="hand">
                                     <transforms>
@@ -561,11 +485,7 @@
 										<transform type="rotate" axis="z" angle="90"/>
                                     </transforms>
 
-                                    <appearanceref id="inherited"/>
-
-                                    <primitives>
-
-                                    </primitives>
+                                    <appearanceref id="inherit"/>
 
                                     <descendants>
                                         <noderef id="palm"/>
@@ -581,14 +501,12 @@
                                                 <transform type="scale" factor="1.0 0.5 1.5"/>
                                             </transforms>
 
-                                            <appearanceref id="inherited"/>
+                                            <appearanceref id="inherit"/>
 
                                             <primitives>
                                                 <sphere radius="1" slices="16" stacks="16" />
                                             </primitives>
 
-                                            <descendants>
-                                            </descendants>
                                         </node>
                                         <node id="finger1"><!-- thumb-->
                                             <transforms>
@@ -597,14 +515,11 @@
                                                 <transform type="scale" factor="0.15 0.15 0.15"/>
                                             </transforms>
 
-                                            <appearanceref id="inherited"/>
+                                            <appearanceref id="inherit"/>
 
                                             <primitives>
                                                 <cylinder base="1.0" top="1.0" height="5.0" slices="16" stacks="16" />
                                             </primitives>
-
-                                            <descendants>
-                                            </descendants>
                                         </node>
                                         <node id="finger2"><!-- index finger-->
                                             <transforms>
@@ -612,14 +527,12 @@
                                                 <transform type="scale" factor="0.15 0.15 0.15"/>
                                             </transforms>
 
-                                            <appearanceref id="inherited"/>
+                                            <appearanceref id="inherit"/>
 
                                             <primitives>
                                                 <cylinder base="1.0" top="1.0" height="6.0" slices="16" stacks="16" />
                                             </primitives>
 
-                                            <descendants>
-                                            </descendants>
                                         </node>
                                         <node id="finger3"><!-- middle finger-->
                                             <transforms>
@@ -627,14 +540,12 @@
                                                 <transform type="scale" factor="0.15 0.15 0.15"/>
                                             </transforms>
 
-                                            <appearanceref id="inherited"/>
+                                            <appearanceref id="inherit"/>
 
                                             <primitives>
                                                 <cylinder base="1.0" top="1.0" height="6.0" slices="16" stacks="16" />
                                             </primitives>
 
-                                            <descendants>
-                                            </descendants>
                                         </node>
                                         <node id="finger4"> <!-- ring finger-->
                                             <transforms>
@@ -642,14 +553,12 @@
                                                 <transform type="scale" factor="0.15 0.15 0.15"/>
                                             </transforms>
 
-                                            <appearanceref id="inherited"/>
+                                            <appearanceref id="inherit"/>
 
                                             <primitives>
                                                 <cylinder base="1.0" top="1.0" height="6.0" slices="16" stacks="16" />
                                             </primitives>
 
-                                            <descendants>
-                                            </descendants>
                                         </node>
                                         <node id="finger5"><!-- pinkie-->
                                             <transforms>
@@ -657,14 +566,12 @@
                                                 <transform type="scale" factor="0.15 0.15 0.15"/>
                                             </transforms>
 
-                                            <appearanceref id="inherited"/>
+                                            <appearanceref id="inherit"/>
 
                                             <primitives>
                                                 <cylinder base="1.0" top="1.0" height="6.0" slices="16" stacks="16" />
                                             </primitives>
 
-                                            <descendants>
-                                            </descendants>
                                         </node>
 
 
@@ -677,9 +584,6 @@
 
                     <appearanceref id="azul"/>
 
-                    <primitives>
-                    </primitives>
-
                     <descendants>
 						<noderef id="rightleg"/>
 						<noderef id="leftleg"/>
@@ -690,10 +594,7 @@
 								<transform type="translate" to="-0.7 0.0 0.0"/>
 							</transforms>
 
-                            <appearanceref id="inherited"/>
-
-							<primitives>
-							</primitives>
+                            <appearanceref id="inherit"/>
 
 							<descendants>
 								<noderef id="leg"/>
@@ -704,10 +605,7 @@
 								<transform type="translate" to="0.7 0.0 0.0"/>
 							</transforms>
 
-                            <appearanceref id="inherited"/>
-
-							<primitives>
-							</primitives>
+                            <appearanceref id="inherit"/>
 
 							<descendants>
 								<noderef id="leg"/>
@@ -718,10 +616,7 @@
 										<transform type="scale" factor="0.5 0.5 0.5"/>
 									</transforms>
 
-                                    <appearanceref id="inherited"/>
-
-									<primitives>
-									</primitives>
+                                    <appearanceref id="inherit"/>
 
 									<descendants>
 										<noderef id="leglimb"/>
@@ -732,14 +627,12 @@
 											<transforms>
 											</transforms>
 
-                                            <appearanceref id="inherited"/>
+                                            <appearanceref id="inherit"/>
 
 											<primitives>
 												<cylinder base="1.2" top="1.2" height="9.0" slices="16" stacks="16" />
 											</primitives>
 
-											<descendants>
-											</descendants>
 										</node>
 										<node id="shoe">
 											<transforms>
@@ -754,8 +647,6 @@
 												<sphere radius="1.0" slices="16" stacks="16" />
 											</primitives>
 
-											<descendants>
-											</descendants>
 										</node>
 
             <!-- Fim do bloco do nó "homer"
@@ -771,9 +662,6 @@
 
             <appearanceref id="mesa"/>
 
-            <primitives>
-            </primitives>
-
             <descendants>
                 <noderef id="tabletop"/>
                 <noderef id="leg1"/>
@@ -787,10 +675,7 @@
                         <transform type="scale" factor="5.0 0.25 7.0"/>
                     </transforms>
 
-                    <appearanceref id="inherited"/>
-
-                    <primitives>
-                    </primitives>
+                    <appearanceref id="inherit"/>
 
                     <descendants>
                         <noderef id="cube"/>
@@ -802,10 +687,7 @@
                         <transform type="scale" factor="0.4 4.0 0.4"/>
                     </transforms>
 
-                    <appearanceref id="inherited"/>
-
-                    <primitives>
-                    </primitives>
+                    <appearanceref id="inherit"/>
 
                     <descendants>
                         <noderef id="cube"/>
@@ -817,10 +699,7 @@
                         <transform type="scale" factor="0.4 4.0 0.4"/>
                     </transforms>
 
-                    <appearanceref id="inherited"/>
-
-                    <primitives>
-                    </primitives>
+                    <appearanceref id="inherit"/>
 
                     <descendants>
                         <noderef id="cube"/>
@@ -832,10 +711,7 @@
                         <transform type="scale" factor="0.4 4.0 0.4"/>
                     </transforms>
 
-                    <appearanceref id="inherited"/>
-
-                    <primitives>
-                    </primitives>
+                    <appearanceref id="inherit"/>
 
                     <descendants>
                         <noderef id="cube"/>
@@ -847,10 +723,7 @@
                         <transform type="scale" factor="0.4 4.0 0.4"/>
                     </transforms>
 
-                    <appearanceref id="inherited"/>
-
-                    <primitives>
-                    </primitives>
+                    <appearanceref id="inherit"/>
 
                     <descendants>
                         <noderef id="cube"/>
@@ -862,10 +735,7 @@
                                 <transform type="translate" to="-0.5 -0.5 -0.5"/>
                             </transforms>
 
-                            <appearanceref id="inherited"/>
-
-                            <primitives>
-                            </primitives>
+                            <appearanceref id="inherit"/>
 
                             <descendants>
                                 <noderef id="side1"/>
@@ -883,14 +753,12 @@
                                 <transform type="rotate" axis="x" angle="90"/>
                             </transforms>
 
-                            <appearanceref id="inherited"/>
+                            <appearanceref id="inherit"/>
 
                             <primitives>
                                 <rectangle xy1="0.0 0.0" xy2="1.0 1.0"/>
                             </primitives>
 
-                            <descendants>
-                            </descendants>
                         </node>
                         <node id="side2"> <!-- FUNDO -->
                             <transforms>
@@ -898,27 +766,23 @@
                                 <transform type="rotate" axis="x" angle="-90"/>
                             </transforms>
 
-                            <appearanceref id="inherited"/>
+                            <appearanceref id="inherit"/>
 
                             <primitives>
                                 <rectangle xy1="0.0 0.0" xy2="1.0 1.0"/>
                             </primitives>
 
-                            <descendants>
-                            </descendants>
                         </node>
                         <node id="side3"> <!-- lado z neg -->
                             <transforms>
                             </transforms>
 
-                            <appearanceref id="inherited"/>
+                            <appearanceref id="inherit"/>
 
                             <primitives>
                                 <rectangle xy1="0.0 0.0" xy2="1.0 1.0"/>
                             </primitives>
 
-                            <descendants>
-                            </descendants>
                         </node>
                         <node id="side4"> <!-- lado x pos -->
                             <transforms>
@@ -926,14 +790,12 @@
                                 <transform type="rotate" axis="y" angle="-90"/>
                             </transforms>
 
-                            <appearanceref id="inherited"/>
+                            <appearanceref id="inherit"/>
 
                             <primitives>
                                 <rectangle xy1="0.0 0.0" xy2="1.0 1.0"/>
                             </primitives>
 
-                            <descendants>
-                            </descendants>
                         </node>
                         <node id="side5"> <!-- lado x neg -->
                             <transforms>
@@ -941,14 +803,12 @@
                                 <transform type="rotate" axis="y" angle="90"/>
                             </transforms>
 
-                            <appearanceref id="inherited"/>
+                            <appearanceref id="inherit"/>
 
                             <primitives>
                                 <rectangle xy1="0.0 0.0" xy2="1.0 1.0"/>
                             </primitives>
 
-                            <descendants>
-                            </descendants>
                         </node>
                         <node id="side6"> <!-- lado x pos -->
                             <transforms>
@@ -956,14 +816,12 @@
                                 <transform type="rotate" axis="y" angle="180"/>
                             </transforms>
 
-                            <appearanceref id="inherited"/>
+                            <appearanceref id="inherit"/>
 
                             <primitives>
                                 <rectangle xy1="0.0 0.0" xy2="1.0 1.0"/>
                             </primitives>
 
-                            <descendants>
-                            </descendants>
                         </node>
         
 
@@ -976,9 +834,6 @@
 
             <appearanceref id="castanho"/>
 
-            <primitives>
-            </primitives>
-
             <descendants>
                 <noderef id="beertop"/>
                 <noderef id="beerbody"/>
@@ -989,10 +844,7 @@
                         <transform type="translate" to="0.0 0.0 10.0"/>
                     </transforms>
 
-                    <appearanceref id="inherited"/>
-
-                    <primitives>
-                    </primitives>
+                    <appearanceref id="inherit"/>
 
                     <descendants>
                         <noderef id="beerneck"/>
@@ -1004,40 +856,31 @@
 
                             </transforms>
 
-                            <appearanceref id="inherited"/>
+                            <appearanceref id="inherit"/>
 
                             <primitives>
                                 <cylinder base="2.0" top="1.0" height="5.0" slices="16" stacks="16" />
                             </primitives>
 
-                            <descendants>
-                            </descendants>
                         </node>
                         <node id="beerborder">
                             <transforms>
                                 <transform type="translate" to="0.0 0.0 5.0"/>
-                                <transform type="rotate" axis="x" angle="90"/>
                                 <transform type="scale" factor="0.5 0.5 0.5"/>
                             </transforms>
 
-                            <appearanceref id="inherited"/>
+                            <appearanceref id="inherit"/>
 
                             <primitives>
                                 <torus inner="1" outer="2" slices="16" loops="16" />
                             </primitives>
 
-                            <descendants>
-                            </descendants>
                         </node>
                 <node id="beerbody">
                     <transforms>
                     </transforms>
 
-                    <appearanceref id="inherited"/>
-
-                    <primitives>
-                       
-                    </primitives>
+                    <appearanceref id="inherit"/>
 
                     <descendants>
                         <noderef id="beerbodytop"/>
@@ -1050,14 +893,11 @@
                                 <transform type="scale" factor="1.0 1.0 0.5"/>
                             </transforms>
 
-                            <appearanceref id="inherited"/>
+                            <appearanceref id="inherit"/>
 
                             <primitives>
                                 <sphere radius="4" slices="16" stacks="16" />
                             </primitives>
-
-                            <descendants>
-                            </descendants>
 
                         </node>
                         <node id="beerbodybottom">
@@ -1070,14 +910,12 @@
                                 <cylinder base="4" top="4" height="9" slices="16" stacks="16" />
                             </primitives>
 
-                            <descendants>
-                            </descendants>
-
                         </node>
         <node id="donut">
             <transforms>
                 <transform type="translate" to="2.5 4.3 6.0"/>
-                <transform type="scale" factor="0.3 0.2 0.3"/>
+                <transform type="rotate" axis="x" angle="-90"/>
+                <transform type="scale" factor="0.3 0.3 0.2"/>
             </transforms>
 
             <appearanceref id="donut"/>
@@ -1085,9 +923,6 @@
             <primitives>
                 <torus inner="1" outer="1.5" slices="16" loops="16"/>
             </primitives>
-
-            <descendants>
-            </descendants>
 
         </node>
 

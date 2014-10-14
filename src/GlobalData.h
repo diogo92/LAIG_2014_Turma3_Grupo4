@@ -11,6 +11,8 @@ public:
 	float drawBackground[4]; // values range [0,1]
 	unsigned char cullingFace; // 0 = none; 1 = back; 2 = front; 3 = both;
 	unsigned char cullingOrder; // 0 = ccw; 1 = cw;
+	bool lightEnabled, doublesided,lightLocal;
+	float lightAmbient[4];
 
 };
 

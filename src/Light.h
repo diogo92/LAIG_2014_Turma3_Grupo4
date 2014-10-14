@@ -14,7 +14,7 @@ public:
 	string id,type;
 	unsigned int number;
 	bool enabled,marked;
-	float /*pos[4],*/tar[3],angle,exponent,amb[4],dif[4],spe[4];
+	float /*pos[4],*/tar[3],angulo,expoente,amb[4],dif[4],spe[4];
 };
 
 #endif

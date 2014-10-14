@@ -109,6 +109,90 @@ void XMLScene::parseGlobals(GlobalData &globals){
 			exit (-1);
 		}
 
+		TiXmlElement* lightingElement=globalsElement->FirstChildElement("lighting");
+		if (lightingElement)
+		{
+			temp = lightingElement->Attribute("doublesided");
+
+			if (!temp.empty()){
+				if(strcmp(temp.c_str(),"false") == 0){
+					globals.doublesided = false;
+				}
+				else if(strcmp(temp.c_str(),"true") == 0){
+					globals.doublesided = true;
+				}
+				else{
+					printf("Invalid value at lighting doublesided\n");
+					exit(-1);
+				}
+				printf(">> lighting doublesided: %s\n", temp.c_str());
+			}
+			else{
+				printf("Error parsing lighting doublesided\n");
+				exit(-1);
+			}
+
+			temp = lightingElement->Attribute("local");
+
+			if (!temp.empty()){
+				if(strcmp(temp.c_str(),"true") == 0){
+					globals.lightLocal = true;
+				}
+				else if(strcmp(temp.c_str(),"false") == 0){
+					globals.lightLocal = false;
+				}
+				else{
+					printf("Invalid value at lighting local\n");
+					exit(-1);
+				}
+				printf(">> lighting local: %s\n", temp.c_str());
+			}
+			else{
+				printf("Error parsing lighting local\n");
+				exit(-1);
+			}
+
+			temp = lightingElement->Attribute("enabled");
+
+			if (!temp.empty()){
+				if(strcmp(temp.c_str(),"true") == 0){
+					globals.lightEnabled = true;
+				}
+				else if(strcmp(temp.c_str(),"false") == 0){
+					globals.lightEnabled = false;
+				}
+				else{
+					printf("Invalid value at lighting enabled\n");
+					exit(-1);
+				}
+				printf(">> lighting enabled: %s\n", temp.c_str());
+			}
+			else{
+				printf("Error parsing lighting enabled\n");
+				exit(-1);
+			}
+
+			float r,g,b,a;
+			temp = lightingElement->Attribute("ambient");
+
+			if(temp.c_str() && sscanf(temp.c_str(),"%f %f %f %f",&r, &g, &b, &a)==4)
+			{
+				globals.lightAmbient[0] = r;
+				globals.lightAmbient[1] = g;
+				globals.lightAmbient[2] = b;
+				globals.lightAmbient[3] = a;
+				printf(">> lighting ambient (rgba): %f %f %f %f\n", r, g, b, a);
+			}
+			else {
+				printf("Error parsing lighting ambient");
+				exit(-1);
+			}
+		}
+		else {
+			printf("lighting not found\n");
+			exit (-1);
+		}
+
 		TiXmlElement* cullingElement=globalsElement->FirstChildElement("culling");
 		if (cullingElement)
 		{
@@ -433,7 +517,7 @@ void XMLScene::parseLights(Graph &graphScene){
 					printf("Error parsing specular\n");
 					exit(-1);
 				}
-				pos[3]=1.0;
+				pos[3]=0.5;
 				Light* l=new Light(count,id,type,enabled,marker,pos,amb,dif,spe);
 				graphScene.lights.push_back(l);
 
