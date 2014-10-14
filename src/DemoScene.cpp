@@ -1,12 +1,11 @@
 #include "DemoScene.h"
 #include "CGFaxis.h"
 
-//#include "CGFappearance.h"
-
 #include "XMLScene.h"
+#include "NewGraph.h"
 
 GlobalData globals;
-Graph graphScene;
+NewGraph graphScene;
 
 void DemoScene::init() 
 {
@@ -107,7 +106,7 @@ void DemoScene::display()
 	// Apply transformations corresponding to the camera position relative to the origin
 	CGFscene::activeCamera->applyView();
 
-	for(int i=0;i<graphScene.lights.size();i++){
+	for(unsigned int i=0;i<graphScene.lights.size();i++){
 		if(graphScene.lights.at(i)->marked)
 			graphScene.lights.at(i)->draw();
 	}

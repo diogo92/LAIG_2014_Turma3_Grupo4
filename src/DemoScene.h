@@ -4,7 +4,6 @@
 #include "CGFscene.h"
 #include "CGFshader.h"
 #include "CGFapplication.h"
-#include "Graph.h"
 #include <map>
 #include <string>
 #include <typeinfo>

@@ -1,6 +1,6 @@
 #include "XMLScene.h"
 
-XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
+XMLScene::XMLScene(char *filename, GlobalData &globals, NewGraph &graphScene)
 {
 
 	// Read XML from file
@@ -249,7 +249,7 @@ void XMLScene::parseGlobals(GlobalData &globals){
 
 	}
 }
-void XMLScene::parseCameras(Graph &graphScene){
+void XMLScene::parseCameras(NewGraph &graphScene){
 	if(cameraElement == NULL){
 		printf("cameras element not found\n");
 		exit(-1);
@@ -409,7 +409,7 @@ void XMLScene::parseCameras(Graph &graphScene){
 	}
 
 }
-void XMLScene::parseLights(Graph &graphScene){
+void XMLScene::parseLights(NewGraph &graphScene){
 	if(lightElement == NULL){
 		printf("lights element not found\n");
 		exit(-1);
@@ -651,7 +651,7 @@ void XMLScene::parseLights(Graph &graphScene){
 		}
 	}
 }
-void XMLScene::parseTextures(Graph &graphScene){
+void XMLScene::parseTextures(NewGraph &graphScene){
 	if(textureElement == NULL){
 		printf("textures element not found\n");
 		exit(-1);
@@ -710,7 +710,7 @@ void XMLScene::parseTextures(Graph &graphScene){
 		}
 	}
 }
-void XMLScene::parseAppearances(Graph &graphScene){
+void XMLScene::parseAppearances(NewGraph &graphScene){
 	if (appearanceElement == NULL){
 		printf("appearances element not found\n");
 		exit(-1);
@@ -825,7 +825,7 @@ void XMLScene::parseAppearances(Graph &graphScene){
 		}
 	}
 }
-void XMLScene::parseGraph(Graph &graphScene){
+void XMLScene::parseGraph(NewGraph &graphScene){
 	if (graphElement == NULL){
 		printf("graph element not found\n");
 		exit(-1);
@@ -842,11 +842,7 @@ void XMLScene::parseGraph(Graph &graphScene){
 		}
 		else {
 			printf(">> graph rootid: %s\n", atualnode.c_str());
-			graphScene.rootNodeID = graphElement->Attribute("rootid");
-			graphScene.nodes[atualnode] = Node(atualnode);
-			graphScene.graphNodes[atualnode] = GraphNode();
-			graphScene.graphNodes[atualnode].atualNodeID = atualnode;
-			graphScene.graphNodes[atualnode].atualNode = &graphScene.nodes[atualnode];
+			graphScene.rootNode = graphElement->Attribute("rootid");
 		}
 
 		TiXmlElement *node = graphElement->FirstChildElement();
@@ -868,7 +864,11 @@ void XMLScene::parseGraph(Graph &graphScene){
 				existsDesc=false;
 				printf(">> node id: %s\n",atualnode.c_str());
 				if ( graphScene.nodes.find(atualnode) == graphScene.nodes.end() ) {
-					graphScene.nodes[temp] = Node(atualnode);
+					graphScene.nodes[atualnode] = NewNode(atualnode);
+				}
+				else{
+					printf(">> node %s already exists\n",atualnode.c_str());
+					exit(-1);
 				}
 
 				nodeElement = node->FirstChildElement("transforms");
@@ -992,24 +992,21 @@ void XMLScene::parseGraph(Graph &graphScene){
 						exit(-1);
 					}
 					if(id=="inherit")
-						graphScene.graphNodes[atualnode].inherited=true;
+						graphScene.nodes[atualnode].inherited=true;
 					else{
-						graphScene.graphNodes[atualnode].inherited=false;
-						graphScene.graphNodes[atualnode].appear = &graphScene.appearances[id];
+						graphScene.nodes[atualnode].inherited=false;
+						graphScene.nodes[atualnode].appear = &graphScene.appearances[id];
 					}
 				}
 
 				/********************/
 
-				nodeElement = NULL;
-				nodeElement = node->FirstChildElement("primitives");
-
-				if(nodeElement == NULL && !existsDesc){
+				if(prim == NULL && !existsDesc){
 					printf("  blocks primitives and descendants not found\n");
 					exit(-1);
 				}
-				else if(nodeElement !=NULL){
-					nodeElement = nodeElement->FirstChildElement();
+				else if(prim !=NULL){
+					nodeElement = prim->FirstChildElement();
 					while(nodeElement){
 						temp = (char *) nodeElement->Value();
 
@@ -1261,18 +1258,19 @@ void XMLScene::parseGraph(Graph &graphScene){
 							}
 							else{
 								printf("  >> descendant %s\n",atualdescendant.c_str());
-								if ( graphScene.nodes.find(atualdescendant) == graphScene.nodes.end() ) {
+								/*if ( graphScene.nodes.find(atualdescendant) == graphScene.nodes.end() ) {
 									graphScene.nodes[atualdescendant] = Node(atualdescendant);
 								}
 								if ( graphScene.graphNodes.find(atualdescendant) == graphScene.graphNodes.end() ) {
-									graphScene.graphNodes[atualdescendant] = GraphNode();
-									graphScene.graphNodes[atualdescendant].atualNodeID = atualdescendant;
+									graphScene.graphNodes[atualdescendant] = GraphNode(atualdescendant);
 									if(graphScene.nodes.find(atualdescendant) == graphScene.nodes.end()){
 										graphScene.nodes[atualdescendant] = Node(atualdescendant);
 									}
 									graphScene.graphNodes[atualdescendant].atualNode = &graphScene.nodes[atualdescendant];
 								}
 								graphScene.graphNodes[atualnode].descendants[atualdescendant] = &graphScene.graphNodes[atualdescendant];
+								*/
+								graphScene.nodes[atualnode].childs.push_back(atualdescendant);
 							}
 						nodeElement = nodeElement->NextSiblingElement();
 					}

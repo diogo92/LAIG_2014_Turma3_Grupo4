@@ -75,11 +75,9 @@
     <ClCompile Include="src\DemoScene.cpp" />
     <ClCompile Include="src\ExampleObject.cpp" />
     <ClCompile Include="src\GlobalData.cpp" />
-    <ClCompile Include="src\Graph.cpp" />
-    <ClCompile Include="src\GraphNode.cpp" />
     <ClCompile Include="src\Light.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\Node.cpp" />
+    <ClCompile Include="src\NewGraph.cpp" />
     <ClCompile Include="src\Rectangle.cpp" />
     <ClCompile Include="src\Sphere.cpp" />
     <ClCompile Include="src\Torus.cpp" />
@@ -95,10 +93,8 @@
     <ClInclude Include="src\DemoScene.h" />
     <ClInclude Include="src\ExampleObject.h" />
     <ClInclude Include="src\GlobalData.h" />
-    <ClInclude Include="src\Graph.h" />
-    <ClInclude Include="src\GraphNode.h" />
     <ClInclude Include="src\Light.h" />
-    <ClInclude Include="src\Node.h" />
+    <ClInclude Include="src\NewGraph.h" />
     <ClInclude Include="src\Rectangle.h" />
     <ClInclude Include="src\Sphere.h" />
     <ClInclude Include="src\Torus.h" />
