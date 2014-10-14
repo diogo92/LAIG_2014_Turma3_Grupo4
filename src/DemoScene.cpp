@@ -131,8 +131,12 @@ void DemoScene::setLights(){
 		glLightfv(GL_LIGHT0+graphScene.lights.at(i)->number,GL_SPECULAR,graphScene.lights.at(i)->spe);
 		glLightfv(GL_LIGHT0+graphScene.lights.at(i)->number,GL_AMBIENT,graphScene.lights.at(i)->amb);
 		glLightfv(GL_LIGHT0+graphScene.lights.at(i)->number,GL_DIFFUSE,graphScene.lights.at(i)->dif);
+		glLightf(GL_LIGHT0+graphScene.lights.at(i)->number,GL_LINEAR_ATTENUATION,1.0);
 		if (graphScene.lights.at(i)->type=="spot"){
-
+			glLightfv(GL_LIGHT0+graphScene.lights.at(i)->number,GL_SPOT_DIRECTION,graphScene.lights.at(i)->tar);
+			glLightf(GL_LIGHT0+graphScene.lights.at(i)->number, GL_CONSTANT_ATTENUATION, 2.0);
+			glLightf(GL_LIGHT0+graphScene.lights.at(i)->number, GL_SPOT_EXPONENT, GL_LIGHT0+graphScene.lights.at(i)->exponent);
+			glLightf(GL_LIGHT0+graphScene.lights.at(i)->number,GL_SPOT_CUTOFF,GL_LIGHT0+graphScene.lights.at(i)->angle);
 			if(graphScene.lights.at(i)->enabled){
 				graphScene.lights.at(i)->enable();
 				glEnable(GL_LIGHT0+graphScene.lights.at(i)->number);
