@@ -17,10 +17,11 @@ void Rectangle::draw(){
 	glMatrixMode(GL_MODELVIEW);
 
 	glBegin(GL_QUADS);
-		glTexCoord2d(0,0);glNormal3f(0,1,0);glVertex3d(coordX1,coordY1,0);
-		glTexCoord2d(1,0);glNormal3f(0,1,0);glVertex3d(coordX1,coordY2,0);
-		glTexCoord2d(1,1);glNormal3f(0,1,0);glVertex3d(coordX2,coordY2,0);
+	
 		glTexCoord2d(0,1);glNormal3f(0,1,0);glVertex3d(coordX2,coordY1,0);
+		glTexCoord2d(1,1);glNormal3f(0,1,0);glVertex3d(coordX2,coordY2,0);
+		glTexCoord2d(1,0);glNormal3f(0,1,0);glVertex3d(coordX1,coordY2,0);
+		glTexCoord2d(0,0);glNormal3f(0,1,0);glVertex3d(coordX1,coordY1,0);
 	glEnd();
 
 	glMatrixMode(GL_TEXTURE);

@@ -19,6 +19,7 @@ Torus::Torus(double raioInterior, double raioExterior, double lados, int loops){
 
 void Torus::draw() 
 {
+	glRotatef(90,1,0,0);
 	glMatrixMode(GL_TEXTURE);
 		glLoadIdentity();
 		glScalef(1/this->tex_s,1/this->tex_t,1);
@@ -34,6 +35,7 @@ void Torus::draw()
 	glMatrixMode(GL_TEXTURE);
 		glScalef(this->tex_s,this->tex_t,1);
 	glMatrixMode(GL_MODELVIEW);
+	glRotatef(-90,1,0,0);
 }
 
 void Torus::calcVertices(int i,int j){

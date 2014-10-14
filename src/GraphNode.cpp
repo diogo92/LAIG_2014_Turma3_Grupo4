@@ -15,7 +15,7 @@ void GraphNode::draw(){
 	glMultMatrixf(&this->atualNode->matrix[0]);
 	this->appear->apply();
 	for(int i=0;i<this->atualNode->primitives.size();i++){
-
+		this->atualNode->primitives.at(i)->draw();
 	}
 	this->atualNode->tex_s=this->appear->s;
 	this->atualNode->tex_t=this->appear->t;

@@ -327,7 +327,7 @@ void XMLScene::parseCameras(Graph &graphScene){
 }
 void XMLScene::parseLights(Graph &graphScene){
 	if(lightElement == NULL){
-		printf("cameras element not found\n");
+		printf("lights element not found\n");
 		exit(-1);
 	}
 

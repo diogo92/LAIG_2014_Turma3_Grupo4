@@ -48,6 +48,10 @@ void DemoScene::init()
 		glPolygonMode( GL_FRONT_AND_BACK, GL_POINT );
 	}
 
+	if(globals.drawShading == 1){
+		glShadeModel(GL_SMOOTH);
+	}
+
 	// Sets up some lighting parameters
 	glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, CGFlight::background_ambient);  // Define ambient light
@@ -94,7 +98,7 @@ void DemoScene::display()
 			graphScene.lights.at(i)->draw();
 	}
 	// Draw (and update) light
-//	light0->draw();
+	//light0->draw();
 	// Draw axis
 	axis.draw();
 
