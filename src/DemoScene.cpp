@@ -12,9 +12,26 @@ void DemoScene::init()
 {
 	XMLScene anf("scene.anf", globals, graphScene);
 
-	// Enables lighting computations
-	glEnable(GL_LIGHTING);
+	if(globals.lightEnabled){
+		glEnable(GL_LIGHTING);
+	}
+	else{
+		glDisable(GL_LIGHTING);
+	}
 
+	if(globals.doublesided){
+		glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
+	}
+	else{
+		glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
+	}
+
+	if(globals.lightLocal){
+		glLightModelf(GL_LIGHT_MODEL_LOCAL_VIEWER,0.5);
+	}
+
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, globals.lightAmbient);
+	
 	if (globals.cullingFace == 0){
 		glDisable(GL_CULL_FACE);
 	}
@@ -51,10 +68,6 @@ void DemoScene::init()
 	if(globals.drawShading == 1){
 		glShadeModel(GL_SMOOTH);
 	}
-
-	// Sets up some lighting parameters
-	glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
-	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, CGFlight::background_ambient);  // Define ambient light
 	
 	// Declares and enables a light
 	/*float light0_pos[4] = {8.0, 12.0, 10.0, 3};
