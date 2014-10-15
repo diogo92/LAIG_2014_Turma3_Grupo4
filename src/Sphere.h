@@ -6,10 +6,10 @@
 class Sphere : public VisualObject {
 	int lados;
 	int andares;
-	int raio;
+	float raio;
 	GLUquadricObj *obj;
 	public:
-		Sphere(double raio, int slices, int stacks);
+		Sphere(float raio, int slices, int stacks);
 		~Sphere();
 	    void draw();
 };

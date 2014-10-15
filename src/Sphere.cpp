@@ -1,6 +1,6 @@
 #include "Sphere.h"
 #include "math.h"
-Sphere::Sphere(double raio, int slices, int stacks) {
+Sphere::Sphere(float raio, int slices, int stacks) {
 	this->lados = slices;
 	this->raio=raio;
 	this->andares = stacks;
