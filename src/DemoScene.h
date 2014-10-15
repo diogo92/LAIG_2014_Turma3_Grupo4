@@ -20,6 +20,7 @@ public:
 private:
 	CGFlight* light0;
 	CGFobject* test;
+	vector<CGFlight*> lights;
 	
 };
 

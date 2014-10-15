@@ -421,7 +421,7 @@ void XMLScene::parseLights(NewGraph &graphScene){
 		TiXmlElement *nodeLight=lightElement->FirstChildElement("light");
 		TiXmlElement *nodeLightChild;
 		while(nodeLight){
-			if(count>8){
+			if(count>=8){
 				printf(">> no more than 8 lights can exist\n");
 				break;
 			}
@@ -517,7 +517,7 @@ void XMLScene::parseLights(NewGraph &graphScene){
 					printf("Error parsing specular\n");
 					exit(-1);
 				}
-				pos[3]=0.5;
+				pos[3]=0;
 				Light* l=new Light(count,id,type,enabled,marker,pos,amb,dif,spe);
 				graphScene.lights.push_back(l);
 
@@ -1164,7 +1164,6 @@ void XMLScene::parseGraph(NewGraph &graphScene){
 								printf("  error parsing stacks\n");
 								exit(-1);
 							}
-
 							graphScene.nodes[atualnode].primitives.push_back(new Sphere(radius,slices,stacks));
 						}
 						else if(strcmp(temp.c_str(),"cylinder") == 0){

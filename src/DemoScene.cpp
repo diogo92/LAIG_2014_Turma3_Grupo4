@@ -26,12 +26,12 @@ void DemoScene::init()
 	}
 
 	if(globals.lightLocal){
-		glLightModelf(GL_LIGHT_MODEL_LOCAL_VIEWER,0.5);
+		glLightModelf(GL_LIGHT_MODEL_LOCAL_VIEWER,GL_TRUE);
 	}
-	/*glEnable(GL_LIGHTING);
-	glLightModelf(GL_LIGHT_MODEL_TWO_SIDE,GL_FALSE);
-	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, CGFlight::background_ambient);*/
-	
+	else{
+		glLightModelf(GL_LIGHT_MODEL_LOCAL_VIEWER,GL_FALSE);
+	}
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, globals.lightAmbient);
 	if (globals.cullingFace == 0){
 		glDisable(GL_CULL_FACE);
 	}
@@ -68,7 +68,11 @@ void DemoScene::init()
 	if(globals.drawShading == 1){
 		glShadeModel(GL_SMOOTH);
 	}
-	
+	else{
+		glShadeModel(GL_FLAT);
+	}
+	glEnable(GL_NORMALIZE);
+	glNormal3f(0,0,1);
 	// Declares and enables a light
 	/*float light0_pos[4] = {5, 5, 5, 1};
 	light0 = new CGFlight(GL_LIGHT0, light0_pos);
@@ -76,7 +80,7 @@ void DemoScene::init()
 	light0->setKl(0.5);
 	light0->setKq(0.5);
 	light0->enable();*/
-
+	
 	setLights();
 
 	// Defines a default normal
@@ -103,12 +107,12 @@ void DemoScene::display()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 //	setCamera();
-	// Apply transformations corresponding to the camera position relative to the origin
+	//Apply transformations corresponding to the camera position relative to the origin
 	CGFscene::activeCamera->applyView();
 
 	for(unsigned int i=0;i<graphScene.lights.size();i++){
 		if(graphScene.lights.at(i)->marked)
-			graphScene.lights.at(i)->draw();
+			lights.at(i)->draw();
 	}
 	// Draw (and update) light
 //	light0->draw();
@@ -126,20 +130,47 @@ void DemoScene::display()
 }
 
 void DemoScene::setLights(){
+	for(int i=0;i<graphScene.lights.size();i++){
+		if(graphScene.lights.at(i)->type=="omni"){
+			this->lights.push_back(new CGFlight(GL_LIGHT0+i,graphScene.lights.at(i)->pos));
+			this->lights.at(i)->setAmbient(graphScene.lights.at(i)->amb);
+			this->lights.at(i)->setSpecular(graphScene.lights.at(i)->spe);
+			this->lights.at(i)->setDiffuse(graphScene.lights.at(i)->dif);
+		}
+		else{
+			this->lights.push_back(new CGFlight(GL_LIGHT0+i,graphScene.lights.at(i)->pos,graphScene.lights.at(i)->tar));
+			this->lights.at(i)->setAmbient(graphScene.lights.at(i)->amb);
+			this->lights.at(i)->setSpecular(graphScene.lights.at(i)->spe);
+			this->lights.at(i)->setDiffuse(graphScene.lights.at(i)->dif);
+			glLightf(GL_LIGHT0+i, GL_SPOT_EXPONENT, graphScene.lights.at(i)->expoente);
+			glLightf(GL_LIGHT0+i,GL_SPOT_CUTOFF,graphScene.lights.at(i)->angulo);
+		}
 
-	for(unsigned int i=0;i<graphScene.lights.size();i++){
+		if(graphScene.lights.at(i)->enabled){
+				this->lights.at(i)->enable();
+				glEnable(GL_LIGHT0+i);
+			}
+			else{
+				this->lights.at(i)->disable();
+				glDisable(GL_LIGHT0+i);
+			}
+	}
+/*	for(unsigned int i=0;i<graphScene.lights.size();i++){
 		glLightfv(GL_LIGHT0+graphScene.lights.at(i)->number,GL_SPECULAR,graphScene.lights.at(i)->spe);
 		glLightfv(GL_LIGHT0+graphScene.lights.at(i)->number,GL_AMBIENT,graphScene.lights.at(i)->amb);
 		glLightfv(GL_LIGHT0+graphScene.lights.at(i)->number,GL_DIFFUSE,graphScene.lights.at(i)->dif);
-		glLightf(GL_LIGHT0+graphScene.lights.at(i)->number,GL_LINEAR_ATTENUATION,0.5);
-		glLightf(GL_LIGHT0+graphScene.lights.at(i)->number,GL_CONSTANT_ATTENUATION,0.5);
-		glLightf(GL_LIGHT0+graphScene.lights.at(i)->number,GL_QUADRATIC_ATTENUATION,0.5);
+		glLightf(GL_LIGHT0+graphScene.lights.at(i)->number,GL_LINEAR_ATTENUATION,0);
+		glLightf(GL_LIGHT0+graphScene.lights.at(i)->number,GL_CONSTANT_ATTENUATION,0);
+		glLightf(GL_LIGHT0+graphScene.lights.at(i)->number,GL_QUADRATIC_ATTENUATION,1);
 
 		if (graphScene.lights.at(i)->type=="spot"){
 			glLightfv(GL_LIGHT0+graphScene.lights.at(i)->number,GL_SPOT_DIRECTION,graphScene.lights.at(i)->tar);
-		//	glLightf(GL_LIGHT0+graphScene.lights.at(i)->number, GL_SPOT_EXPONENT, graphScene.lights.at(i)->expoente);
-		//	glLightf(GL_LIGHT0+graphScene.lights.at(i)->number,GL_SPOT_CUTOFF,graphScene.lights.at(i)->angulo);
-			if(graphScene.lights.at(i)->enabled){
+			glLightf(GL_LIGHT0+graphScene.lights.at(i)->number, GL_SPOT_EXPONENT, graphScene.lights.at(i)->expoente);
+			glLightf(GL_LIGHT0+graphScene.lights.at(i)->number,GL_SPOT_CUTOFF,graphScene.lights.at(i)->angulo);
+			
+			
+		}
+		if(graphScene.lights.at(i)->enabled){
 				graphScene.lights.at(i)->enable();
 				glEnable(GL_LIGHT0+graphScene.lights.at(i)->number);
 			}
@@ -147,10 +178,10 @@ void DemoScene::setLights(){
 				graphScene.lights.at(i)->disable();
 				glDisable(GL_LIGHT0+graphScene.lights.at(i)->number);
 			}
-			
-		}
 		
-	}
+	}*/
+
+
 }
 void DemoScene::setCamera(){
 	typedef std::map<std::string, Camera >::iterator it_type;

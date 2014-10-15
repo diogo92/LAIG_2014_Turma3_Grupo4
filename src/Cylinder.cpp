@@ -19,15 +19,16 @@ Cylinder::~Cylinder(){
 }
 void Cylinder::draw() 
 {
-	glMatrixMode(GL_TEXTURE);
+	/*glMatrixMode(GL_TEXTURE);
 		
 		glLoadIdentity();
 		glScalef(1/this->tex_s,1/this->tex_t,1);
 		
-	glMatrixMode(GL_MODELVIEW);
+	glMatrixMode(GL_MODELVIEW);*/
 
 	gluQuadricOrientation(obj,GLU_OUTSIDE);
 	gluQuadricTexture(obj,GLU_TRUE);
+	gluQuadricNormals(obj, GLU_SMOOTH);
 	gluCylinder(obj, raioBase, raioTopo, altura, lados, andares);
 	if(raioTopo>0){
 		glPushMatrix();
@@ -41,11 +42,11 @@ void Cylinder::draw()
 	
 	}
 
-	glMatrixMode(GL_TEXTURE);
+	/*glMatrixMode(GL_TEXTURE);
 		
 		glScalef(this->tex_s,this->tex_t,1);
 		
-	glMatrixMode(GL_MODELVIEW);
+	glMatrixMode(GL_MODELVIEW);*/
 	
 }
 
