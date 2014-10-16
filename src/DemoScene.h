@@ -23,6 +23,7 @@ public:
 	vector<Light* > graphLights;
 	map<string,Camera> cameras;
 	void setLightVector();
+	void processCameras();
 private:
 	CGFlight* light0;
 	CGFobject* test;

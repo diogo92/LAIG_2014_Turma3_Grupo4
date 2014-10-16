@@ -55,15 +55,7 @@ void DemoScene::init()
 		glFrontFace(GL_CW);
 	}
 
-	if(globals.drawMode == 0){
-		glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
-	}
-	else if(globals.drawMode == 1){
-		glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
-	}
-	else if(globals.drawMode == 2){
-		glPolygonMode( GL_FRONT_AND_BACK, GL_POINT );
-	}
+	
 	drawMode=globals.drawMode;
 	if(globals.drawShading == 1){
 		glShadeModel(GL_SMOOTH);
@@ -73,17 +65,16 @@ void DemoScene::init()
 	}
 	glEnable(GL_NORMALIZE);
 	glNormal3f(0,0,1);
-	// Declares and enables a light
-	/*float light0_pos[4] = {5, 5, 5, 1};
-	light0 = new CGFlight(GL_LIGHT0, light0_pos);
-	light0->setKc(0.5);
-	light0->setKl(0.5);
-	light0->setKq(0.5);
-	light0->enable();*/
 	
 	setLightVector();
 	setLights();
-	
+	typedef std::map<std::string, Camera >::iterator it_type;
+	int c=0;
+	for(it_type iterator = graphScene.cameras.begin(); iterator != graphScene.cameras.end(); iterator++,c++) {
+		if(iterator->second.isActive)
+			activeCameraNumber=c;
+	}
+	this->cameras=graphScene.cameras;
 	setCamera();
 	// Defines a default normal
 	//glNormal3f(0,0,1);
@@ -100,10 +91,24 @@ void DemoScene::update(unsigned long t)
 {
 	
 }
+
+void DemoScene::processCameras(){
+	setCamera();
+}
+
+
 	
 void DemoScene::display() 
 {
-
+	if(drawMode == 0){
+		glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+	}
+	else if(drawMode == 1){
+		glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
+	}
+	else if(drawMode == 2){
+		glPolygonMode( GL_FRONT_AND_BACK, GL_POINT );
+	}
 	// ---- BEGIN Background, camera and axis setup
 	
 	// Clear image and depth buffer everytime we update the scene
@@ -111,17 +116,15 @@ void DemoScene::display()
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 	// Initialize Model-View matrix as identity (no transformation
 	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();;
+	glLoadIdentity();
 	//Apply transformations corresponding to the camera position relative to the origin
-	CGFscene::activeCamera->applyView();
-
+	//CGFscene::activeCamera->applyView();
+	setLights();
+	setCamera();
 	for(unsigned int i=0;i<graphScene.lights.size();i++){
 		if(graphScene.lights.at(i)->marked)
 			lights.at(i)->draw();
 	}
-	// Draw (and update) light
-//	light0->draw();
-	// Draw axis
 	axis.draw();
 
 	graphScene.draw();
@@ -151,26 +154,23 @@ void DemoScene::setLights(){
 			glLightf(GL_LIGHT0+i,GL_SPOT_CUTOFF,graphLights.at(i)->angulo);
 		}
 
-		if(graphScene.lights.at(i)->enabled){
+		if(graphLights.at(i)->state==1){
 				this->lights.at(i)->enable();
 				glEnable(GL_LIGHT0+i);
-				graphLights.at(i)->state=1;
+				
 			}
 			else{
 				this->lights.at(i)->disable();
 				glDisable(GL_LIGHT0+i);
-				graphLights.at(i)->state=0;
 			}
 	}
 
 }
 void DemoScene::setCamera(){
-	this->cameras=graphScene.cameras;
 	int i=0;
 	typedef std::map<std::string, Camera >::iterator it_type;
 	for(it_type iterator = graphScene.cameras.begin(); iterator != graphScene.cameras.end(); iterator++,i++) {
-		if(iterator->second.initial){
-			activeCameraNumber=i;
+		if(activeCameraNumber==i){
 			glMatrixMode(GL_PROJECTION);
 			glLoadIdentity();
 			if(iterator->second.type==0){//is ortho camera
@@ -200,6 +200,7 @@ void DemoScene::setCamera(){
 		}
 		
 	}
+	
 }
 
 DemoScene::~DemoScene()

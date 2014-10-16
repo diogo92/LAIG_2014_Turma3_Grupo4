@@ -2,31 +2,48 @@
 
     <globals>
 
-        <drawing mode="fill" shading="flat" background="0.1 0.2 0.3 0.6" />
+        <drawing mode="fill" shading="gouraud" background="0.1 0.2 0.3 0.6" />
 
         <lighting doublesided="false" local="true" enabled="true" ambient="0.2 0.2 0.2 1" />
         <culling face="none" order="cw" />
  
     </globals>
 
-     <cameras initial="ss" >
-        <perspective id="ss" near="0.1" far="300" angle="45" pos="5 5 5" target="0 0 0" />
-        <ortho id="sss" direction="x" near="-25" far="25" left="-10" right="0" top="10" bottom="0" />
+     <cameras initial="perspective 01" >
+        <perspective id="perspective 01" near="0.1" far="300" angle="45" pos="10 10 10" target="0 0 0" />
+        <perspective id="perspective 02" near="0.1" far="300" angle="45" pos="5 10 20" target="5 5 5" />
+        <ortho id="ortho 1" direction="x" near="-25" far="25" left="-10" right="0" top="10" bottom="0" />
+        <ortho id="ortho 2" direction="y" near="-25" far="25" left="0" right="10" top="0" bottom="-10" />
+        <ortho id="ortho 3" direction="z" near="-25" far="25" left="0" right="10" top="10" bottom="0" />
     </cameras>
 
     <lights>
-            <light id="ss" type="omni" enabled="false" marker="false" pos="5 5 5" >
+            <light id="omni 1" type="omni" enabled="true" marker="false" pos="5 15 5" >
                <component type="ambient" value="0.1 0.1 0.1 1" />
                <component type="diffuse" value="0.1 0.1 0.1 1" />
                <component type="specular" value="0.1 0.1 0.1 1" />
             </light>
-            <light id="sss" type="spot" enabled="true" marker="true" pos="5 5 5" target="0 0 0" 
-                angle="1" exponent="0" >
-                <component type="ambient" value="0.2 0.2 0.2 1" />
-               <component type="diffuse" value="0.2 0.2 0.2 1" />
-               <component type="specular" value="0.2 0.2 0.2 1" />
 
+            <light id="omni 2" type="omni" enabled="false" marker="false" pos="10 15 10" >
+               <component type="ambient" value="0.1 0.1 0.1 1" />
+               <component type="diffuse" value="0.1 0.1 0.1 1" />
+               <component type="specular" value="0.1 0.1 0.1 1" />
             </light>
+
+            <light id="spot 1" type="spot" enabled="true" marker="true" pos="10 10 0" target="0 -1 0" 
+                angle="45" exponent="300" >
+                <component type="ambient" value="0.2 0.2 0.2 0.2" />
+               <component type="diffuse" value="0.2 1 0.2 1" />
+               <component type="specular" value="0.2 0.2 1 0.2" />
+            </light>
+
+            <light id="spot 2" type="spot" enabled="false" marker="true" pos="0 10 10" target="0 -1 0" 
+                angle="45" exponent="300" >
+                <component type="ambient" value="0.2 0.2 0.2 0.2" />
+               <component type="diffuse" value="0.2 1 0.2 1" />
+               <component type="specular" value="0.2 0.2 1 0.2" />
+            </light>
+
     </lights>
 
     <textures>      
@@ -71,9 +88,9 @@
                <component type="specular" value="0.82 0.7 0.44 0.2" />
         </appearance>
         <appearance id="olhos" shininess="0.1" textureref="olhos">
-               <component type="ambient" value="0.82 0.7 0.44 0.2" />
-               <component type="diffuse" value="0.82 0.7 0.44 0.2" />
-               <component type="specular" value="0.82 0.7 0.44 0.2" />
+               <component type="ambient" value="1 1 1 0.2" />
+               <component type="diffuse" value="1 1 1 0.2" />
+               <component type="specular" value="1 1 1 0.2" />
         </appearance>
         <appearance id="donut" shininess="0.1" textureref="donut">
                <component type="ambient" value="0.82 0.7 0.44 0.2" />

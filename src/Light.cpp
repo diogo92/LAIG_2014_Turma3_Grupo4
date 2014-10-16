@@ -12,6 +12,9 @@ Light::Light(unsigned int number, string id,string type,bool enabled, bool marke
 		this->spe[i]=spe[i];
 		this->pos[i]=pos[i];
 	}
+	if(enabled)
+		state=1;
+	else state=0;
 };
 
 Light::Light(unsigned int number, string id,string type,bool enabled, bool marked,float pos[4],float tar[3],float angulo, float exponente, float amb[4],float dif[4], float spe[4]){
@@ -29,4 +32,7 @@ Light::Light(unsigned int number, string id,string type,bool enabled, bool marke
 		this->tar[i]=tar[i];
 		this->pos[i]=pos[i];
 	}
+	if(enabled)
+		state=1;
+	else state=0;
 }
