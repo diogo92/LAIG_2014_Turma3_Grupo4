@@ -7,7 +7,7 @@
 #include <map>
 #include <string>
 #include <typeinfo>
-
+#include "NewGraph.h"
 class DemoScene : public CGFscene
 {
 public:
@@ -17,10 +17,15 @@ public:
 	~DemoScene();
 	void setCamera();
 	void setLights();
+	int drawMode;
+	int activeCameraNumber;
+	vector<CGFlight* > lights;
+	vector<Light* > graphLights;
+	map<string,Camera> cameras;
+	void setLightVector();
 private:
 	CGFlight* light0;
 	CGFobject* test;
-	vector<CGFlight*> lights;
 	
 };
 

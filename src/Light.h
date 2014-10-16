@@ -13,6 +13,7 @@ public:
 	string id,type;
 	unsigned int number;
 	bool enabled,marked;
+	int state;
 	float pos[4],tar[3],angulo,expoente,amb[4],dif[4],spe[4];
 };
 

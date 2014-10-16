@@ -5,7 +5,7 @@
 
 #include <iostream>
 #include <exception>
-
+#include "DemoInterface.h"
 #include "CGFapplication.h"
 #include "DemoScene.h"
 
@@ -21,7 +21,7 @@ int main(int argc, char* argv[]) {
 		app.init(&argc, argv);
 
 		app.setScene(new DemoScene());
-		app.setInterface(new CGFinterface());
+		app.setInterface(new DemoInterface());
 		
 		app.run();
 	}
