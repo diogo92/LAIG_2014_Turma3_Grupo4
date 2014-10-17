@@ -2,10 +2,10 @@
 #include "CGFaxis.h"
 
 #include "XMLScene.h"
-#include "NewGraph.h"
+#include "Graph.h"
 
 GlobalData globals;
-NewGraph graphScene;
+Graph graphScene;
 
 void DemoScene::init() 
 {
@@ -138,7 +138,7 @@ void DemoScene::display()
 }
 
 void DemoScene::setLights(){
-	for(int i=0;i<graphLights.size();i++){
+	for(unsigned int i=0;i<graphLights.size();i++){
 		if(graphScene.lights.at(i)->type=="omni"){
 			this->lights.push_back(new CGFlight(GL_LIGHT0+i,graphLights.at(i)->pos));
 			this->lights.at(i)->setAmbient(graphLights.at(i)->amb);

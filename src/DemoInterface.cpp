@@ -26,7 +26,7 @@ void DemoInterface::initGUI()
 	}
 	addColumnToPanel(panel);
 
-	for(int i=0;i<((DemoScene *) scene)->graphLights.size();i++){
+	for(unsigned int i=0;i<((DemoScene *) scene)->graphLights.size();i++){
 		addCheckboxToPanel(panel,(char*)((DemoScene *) scene)->graphLights.at(i)->id.c_str(),(int *)&((DemoScene *) scene)->graphLights.at(i)->state,atual);
 	}
 

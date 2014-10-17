@@ -1,6 +1,6 @@
 #include "XMLScene.h"
 
-XMLScene::XMLScene(char *filename, GlobalData &globals, NewGraph &graphScene)
+XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 {
 
 	// Read XML from file
@@ -249,7 +249,7 @@ void XMLScene::parseGlobals(GlobalData &globals){
 
 	}
 }
-void XMLScene::parseCameras(NewGraph &graphScene){
+void XMLScene::parseCameras(Graph &graphScene){
 	if(cameraElement == NULL){
 		printf("cameras element not found\n");
 		exit(-1);
@@ -409,7 +409,7 @@ void XMLScene::parseCameras(NewGraph &graphScene){
 	}
 
 }
-void XMLScene::parseLights(NewGraph &graphScene){
+void XMLScene::parseLights(Graph &graphScene){
 	if(lightElement == NULL){
 		printf("lights element not found\n");
 		exit(-1);
@@ -651,7 +651,7 @@ void XMLScene::parseLights(NewGraph &graphScene){
 		}
 	}
 }
-void XMLScene::parseTextures(NewGraph &graphScene){
+void XMLScene::parseTextures(Graph &graphScene){
 	if(textureElement == NULL){
 		printf("textures element not found\n");
 		exit(-1);
@@ -710,7 +710,7 @@ void XMLScene::parseTextures(NewGraph &graphScene){
 		}
 	}
 }
-void XMLScene::parseAppearances(NewGraph &graphScene){
+void XMLScene::parseAppearances(Graph &graphScene){
 	if (appearanceElement == NULL){
 		printf("appearances element not found\n");
 		exit(-1);
@@ -825,7 +825,7 @@ void XMLScene::parseAppearances(NewGraph &graphScene){
 		}
 	}
 }
-void XMLScene::parseGraph(NewGraph &graphScene){
+void XMLScene::parseGraph(Graph &graphScene){
 	if (graphElement == NULL){
 		printf("graph element not found\n");
 		exit(-1);
@@ -864,7 +864,7 @@ void XMLScene::parseGraph(NewGraph &graphScene){
 				existsDesc=false;
 				printf(">> node id: %s\n",atualnode.c_str());
 				if ( graphScene.nodes.find(atualnode) == graphScene.nodes.end() ) {
-					graphScene.nodes[atualnode] = NewNode(atualnode);
+					graphScene.nodes[atualnode] = Node(atualnode);
 				}
 				else{
 					printf(">> node %s already exists\n",atualnode.c_str());

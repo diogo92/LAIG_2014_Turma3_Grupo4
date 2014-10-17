@@ -7,7 +7,7 @@
 #include <map>
 #include <string>
 #include <typeinfo>
-#include "NewGraph.h"
+#include "Graph.h"
 class DemoScene : public CGFscene
 {
 public:
