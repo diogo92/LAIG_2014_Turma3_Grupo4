@@ -73,6 +73,7 @@ void DemoScene::setGlobals(const GlobalData &globals){
 	glEnable(GL_NORMALIZE);
 	glNormal3f(0,0,1);
 }
+
 void DemoScene::init() 
 {
 
@@ -111,8 +112,6 @@ void DemoScene::update(unsigned long t)
 void DemoScene::processCameras(){
 	setCamera();
 }
-
-
 	
 void DemoScene::display() 
 {
@@ -132,7 +131,6 @@ void DemoScene::display()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	setLights();
 	setCamera();
 	for(unsigned int i=0;i<graphScene.lights.size();i++){
 		if(graphScene.lights.at(i)->marked)
@@ -174,6 +172,7 @@ void DemoScene::setLights(){
 	}
 
 }
+
 void DemoScene::setCamera(){
 	int i=0;
 	typedef std::map<std::string, Camera >::iterator it_type;
