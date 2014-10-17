@@ -205,6 +205,8 @@ void DemoScene::setCamera(){
 
 DemoScene::~DemoScene()
 {
-	delete(light0);
-	delete(test);
+	for(int i =0;i<lights.size();i++){
+		delete(this->lights.at(i));
+		delete(this->graphLights.at(i));
+	}
 }

@@ -25,9 +25,6 @@ public:
 	void setLightVector();
 	void processCameras();
 private:
-	CGFlight* light0;
-	CGFobject* test;
-	
 };
 
 #endif
