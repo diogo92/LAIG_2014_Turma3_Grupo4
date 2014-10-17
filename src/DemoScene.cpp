@@ -9,7 +9,21 @@ Graph graphScene;
 
 void DemoScene::init() 
 {
-	XMLScene anf("scene.anf", globals, graphScene);
+
+	printf("Write name of file ANF to be read.\n>> ");
+	char line[256];
+	if(fgets(line, sizeof(line), stdin)){
+		if(sscanf(line,"%s\n",line)==1){
+			printf("Trying to open file %s...\n",line);
+		}
+		else{
+			printf("Error obtaining filename.\nDefault \"scene.anf\" will be used.\n");
+		}
+	}
+	else{
+		printf("Error obtaining filename.\nDefault \"scene.anf\" will be used.\n");
+	}
+	XMLScene anf(line, globals, graphScene);
 
 	if(globals.lightEnabled){
 		glEnable(GL_LIGHTING);

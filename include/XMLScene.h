@@ -35,10 +35,6 @@ protected:
 	TiXmlElement* appearanceElement;
 	TiXmlElement* cameraElement;
 	TiXmlElement* lightElement;
-
-	TiXmlElement* textsElement;
-	TiXmlElement* leavesElement;
-	TiXmlElement* nodesElement;
 };
 
 #endif
