@@ -1,13 +1,20 @@
 #ifndef DEMOSCENE_H
 #define DEMOSCENE_H
 
+#ifdef _MSC_VER
+#define _CRT_SECURE_NO_WARNINGS
+#endif
+
 #include "CGFscene.h"
 #include "CGFshader.h"
 #include "CGFapplication.h"
+#include "CGFaxis.h"
+#include "XMLScene.h"
+#include "Graph.h"
 #include <map>
 #include <string>
 #include <typeinfo>
-#include "Graph.h"
+
 class DemoScene : public CGFscene
 {
 public:
@@ -15,6 +22,7 @@ public:
 	void display();
 	void update(unsigned long t);
 	~DemoScene();
+	void setGlobals(const GlobalData &globals);
 	void setCamera();
 	void setLights();
 	int drawMode;
@@ -24,6 +32,7 @@ public:
 	map<string,Camera> cameras;
 	void setLightVector();
 	void processCameras();
+	void setAnfFileName(char *filename,unsigned int size);
 private:
 };
 

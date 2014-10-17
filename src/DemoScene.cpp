@@ -1,18 +1,10 @@
 #include "DemoScene.h"
-#include "CGFaxis.h"
-
-#include "XMLScene.h"
-#include "Graph.h"
 
 GlobalData globals;
 Graph graphScene;
 
-void DemoScene::init() 
-{
-
-	printf("Write name of file ANF to be read.\n>> ");
-	char line[256];
-	if(fgets(line, sizeof(line), stdin)){
+void DemoScene::setAnfFileName(char *line,unsigned int size){
+	if(fgets(line, size*sizeof(char), stdin)){
 		if(sscanf(line,"%s\n",line)==1){
 			printf("Trying to open file %s...\n",line);
 		}
@@ -23,8 +15,9 @@ void DemoScene::init()
 	else{
 		printf("Error obtaining filename.\nDefault \"scene.anf\" will be used.\n");
 	}
-	XMLScene anf(line, globals, graphScene);
+}
 
+void DemoScene::setGlobals(const GlobalData &globals){
 	if(globals.lightEnabled){
 		glEnable(GL_LIGHTING);
 	}
@@ -79,9 +72,21 @@ void DemoScene::init()
 	}
 	glEnable(GL_NORMALIZE);
 	glNormal3f(0,0,1);
+}
+void DemoScene::init() 
+{
+
+	printf("Write the name of the file to be read.\n>> ");
 	
+	char line[256];
+	setAnfFileName(line,256);
+
+	XMLScene anf(line, globals, graphScene);
+
+	setGlobals(globals);
 	setLightVector();
 	setLights();
+
 	typedef std::map<std::string, Camera >::iterator it_type;
 	int c=0;
 	for(it_type iterator = graphScene.cameras.begin(); iterator != graphScene.cameras.end(); iterator++,c++) {
@@ -90,9 +95,6 @@ void DemoScene::init()
 	}
 	this->cameras=graphScene.cameras;
 	setCamera();
-	// Defines a default normal
-	//glNormal3f(0,0,1);
-	
 	
 	setUpdatePeriod(30);
 }
@@ -123,16 +125,13 @@ void DemoScene::display()
 	else if(drawMode == 2){
 		glPolygonMode( GL_FRONT_AND_BACK, GL_POINT );
 	}
-	// ---- BEGIN Background, camera and axis setup
-	
-	// Clear image and depth buffer everytime we update the scene
+
 	glClearColor(globals.drawBackground[0], globals.drawBackground[1], globals.drawBackground[2], globals.drawBackground[3]);
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-	// Initialize Model-View matrix as identity (no transformation
+
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	//Apply transformations corresponding to the camera position relative to the origin
-	//CGFscene::activeCamera->applyView();
+
 	setLights();
 	setCamera();
 	for(unsigned int i=0;i<graphScene.lights.size();i++){
@@ -143,11 +142,6 @@ void DemoScene::display()
 
 	graphScene.draw();
 
-	// ---- END feature demos
-
-	// We have been drawing in a memory area that is not visible - the back buffer, 
-	// while the graphics card is showing the contents of another buffer - the front buffer
-	// glutSwapBuffers() will swap pointers so that the back buffer becomes the front buffer and vice-versa
 	glutSwapBuffers();
 }
 
@@ -198,7 +192,7 @@ void DemoScene::setCamera(){
 				else
 					gluLookAt(0,0,1,0,0,0,0,1,0);
 			}
-			else if(iterator->second.type==1){
+			else if(iterator->second.type==1){//is perspective camera
 				gluPerspective(iterator->second.angle,CGFapplication::xy_aspect,iterator->second.near,iterator->second.far);
 				glMatrixMode(GL_MODELVIEW);
 				glLoadIdentity();
@@ -219,7 +213,7 @@ void DemoScene::setCamera(){
 
 DemoScene::~DemoScene()
 {
-	for(int i =0;i<lights.size();i++){
+	for(unsigned int i =0;i<lights.size();i++){
 		delete(this->lights.at(i));
 		delete(this->graphLights.at(i));
 	}
