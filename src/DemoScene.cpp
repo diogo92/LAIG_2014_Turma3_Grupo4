@@ -86,7 +86,7 @@ void DemoScene::init()
 
 	setGlobals(globals);
 	setLightVector();
-	setLights();
+	initLights();
 
 	typedef std::map<std::string, Camera >::iterator it_type;
 	int c=0;
@@ -106,7 +106,6 @@ void DemoScene::setLightVector(){
 
 void DemoScene::update(unsigned long t)
 {
-	
 }
 
 void DemoScene::processCameras(){
@@ -130,7 +129,7 @@ void DemoScene::display()
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-
+	setLights();
 	setCamera();
 	for(unsigned int i=0;i<graphScene.lights.size();i++){
 		if(graphScene.lights.at(i)->marked)
@@ -143,7 +142,7 @@ void DemoScene::display()
 	glutSwapBuffers();
 }
 
-void DemoScene::setLights(){
+void DemoScene::initLights(){
 	for(unsigned int i=0;i<graphLights.size();i++){
 		if(graphScene.lights.at(i)->type=="omni"){
 			this->lights.push_back(new CGFlight(GL_LIGHT0+i,graphLights.at(i)->pos));
@@ -171,6 +170,21 @@ void DemoScene::setLights(){
 			}
 	}
 
+}
+
+void DemoScene::setLights(){
+	for(unsigned int i=0;i<graphLights.size();i++){
+		if(graphLights.at(i)->state==1){
+				this->lights.at(i)->enable();
+				glEnable(GL_LIGHT0+i);
+				
+			}
+			else{
+				this->lights.at(i)->disable();
+				glDisable(GL_LIGHT0+i);
+			}
+	}
+	
 }
 
 void DemoScene::setCamera(){

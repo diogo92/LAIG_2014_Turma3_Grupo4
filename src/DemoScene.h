@@ -24,6 +24,7 @@ public:
 	~DemoScene();
 	void setGlobals(const GlobalData &globals);
 	void setCamera();
+	void initLights();
 	void setLights();
 	int drawMode;
 	int activeCameraNumber;
