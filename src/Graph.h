@@ -13,6 +13,7 @@ using std::map;
 using std::string;
 using std::vector;
 
+
 class Node;
 
 struct Texture{
@@ -49,5 +50,8 @@ public:
 	GLfloat matrix[16];
 	vector<string> childs;
 	vector<VisualObject*> primitives;
+	bool displayList;
+	unsigned int dispList;
+	void checkList(Graph * graph,unsigned int dispList);
 };
 #endif

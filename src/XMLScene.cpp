@@ -851,6 +851,7 @@ void XMLScene::parseGraph(Graph &graphScene){
 		bool existsPrim;
 		bool existsDesc;
 		while(node){
+			bool displayList=false;
 			nodeElement = NULL;
 			temp = node->Attribute("id");
 			atualnode = node->Attribute("id");
@@ -860,11 +861,18 @@ void XMLScene::parseGraph(Graph &graphScene){
 				exit(-1);
 			}
 			else {
+
+				if(node->Attribute("displaylist")){
+					temp=node->Attribute("displaylist");
+					if(temp=="true")
+						displayList=true;
+				}
 				existsPrim=false;
 				existsDesc=false;
 				printf(">> node id: %s\n",atualnode.c_str());
 				if ( graphScene.nodes.find(atualnode) == graphScene.nodes.end() ) {
 					graphScene.nodes[atualnode] = Node(atualnode);
+					graphScene.nodes[atualnode].displayList=displayList;
 				}
 				else{
 					printf(">> node %s already exists\n",atualnode.c_str());

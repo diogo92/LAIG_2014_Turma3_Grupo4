@@ -7,6 +7,7 @@
 #include "math.h"
 #include "Vertice.h"
 
+
 class Cylinder : public VisualObject {
 	
 	int lados;
@@ -23,6 +24,7 @@ class Cylinder : public VisualObject {
 	    void draw();
 		void drawTop();
 		void drawBase();
+		void drawList();
 };
 
 class Rectangle: public VisualObject {
@@ -31,6 +33,7 @@ class Rectangle: public VisualObject {
 		double coordX1, coordY1;
 		double coordX2, coordY2;
 		void draw();
+		void drawList();
 };
 
 class Sphere: public VisualObject {
@@ -42,6 +45,7 @@ class Sphere: public VisualObject {
 		Sphere(float raio, int slices, int stacks);
 		~Sphere();
 	    void draw();
+		void drawList();
 };
 
 class Torus : public VisualObject {
@@ -58,6 +62,7 @@ class Torus : public VisualObject {
 		Torus(double raioInterior, double raioExterior, double lados, int loops);
 		~Torus(){};
 	    void draw();
+		void drawList();
 		void calcVertices(int i,int j);
 };
 
@@ -65,6 +70,7 @@ class Triangle: public VisualObject {
 	public:
 		Triangle(double x1, double y1, double z1, double x2, double y2, double z2, double x3, double y3, double z3);
 		void draw(void);
+		void drawList();
 	private:
 		double coordX1, coordY1, coordZ1;
 		double coordX2, coordY2, coordZ2;
