@@ -27,7 +27,9 @@ class Cylinder : public VisualObject {
 		void drawList();
 };
 
+
 class Plane: public VisualObject{
+	 
 public:
 		Plane(int parts);
 		int parts;

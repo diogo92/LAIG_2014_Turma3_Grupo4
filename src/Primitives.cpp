@@ -1,5 +1,28 @@
 #include "Primitives.h"
 
+GLfloat ctrlpoints[4][3]={
+	{0.5,0.0,-0.5},
+	{0.5,0.0,0.5},
+	{-0.5,0.0,-0.5},
+	{-0.5,0.0,0.5}
+};
+GLfloat nrmlcompon[4][3]={
+	{0.0,0.0,1.0},
+	{0.0,0.0,1.0},
+	{0.0,0.0,1.0},
+	{0.0,0.0,1.0}
+};
+
+GLfloat textpoints[4][2] = {
+	{ 0.0, 0.0},
+	{ 0.0, 1.0},
+	{ 1.0, 0.0},
+	{ 1.0, 1.0} 
+};
+GLfloat colorpoints[4][4] = {	{ 0.0, 0.7, 0.7, 0},
+								{ 0.0, 0.0, 0.7, 0}, 
+								{ 0.0, 0.7, 0.0, 0},
+								{ 0.7, 0.0, 0.0, 0} };
 Cylinder::Cylinder(double raioBase, double raioTopo, double altura, int slices, int stacks) {
 	lados = slices;
 	andares = stacks;
@@ -74,27 +97,22 @@ Plane::Plane(int parts){
 }
 
 void Plane::draw(){
-	glPushMatrix();
-	glRotatef(180.0,1,0,0);
-	glTranslatef(-0.5,0.0,-0.5);
-	glScalef(1.0/(double) parts, 1 ,1.0/(double) parts);
-	glNormal3f(0,-1,0);
+	
+	glMap2f(GL_MAP2_VERTEX_3, 0.0, 1.0, 3, 2,  0.0, 1.0, 6, 2,  &ctrlpoints[0][0]);
+	glMap2f(GL_MAP2_NORMAL,   0.0, 1.0, 3, 2,  0.0, 1.0, 6, 2,  &nrmlcompon[0][0]);
+	glMap2f(GL_MAP2_COLOR_4,  0.0, 1.0, 4, 2,  0.0, 1.0, 8, 2,  &colorpoints[0][0]);
+	glMap2f(GL_MAP2_TEXTURE_COORD_2,  0.0, 1.0, 2, 2,  0.0, 1.0, 4, 2,  &textpoints[0][0]);
 
-	for (double bx = 0; bx<parts; bx++)
-	{
-		glBegin(GL_TRIANGLE_STRIP);
-		glTexCoord2f((bx/parts)*1.0,0);
-		glVertex3f(bx, 0, 0);
-		for (double bz = 0; bz<parts; bz++)
-		{
-			glTexCoord2f(((bx + 1)/parts)*1.0,(bz/parts)*1.0);glVertex3f(bx + 1, 0, bz);
-			glTexCoord2f(((bx)/parts)*1.0,((bz+1)/parts)*1.0);glVertex3f(bx, 0, bz + 1);
-		}
-		glTexCoord2f(((bx + 1)/parts)*1.0,1);glVertex3d(bx+ 1, 0, parts);
+	
+	glEnable(GL_MAP2_VERTEX_3);
+	glEnable(GL_MAP2_NORMAL);
+	glEnable(GL_MAP2_COLOR_4);
+	glEnable(GL_MAP2_TEXTURE_COORD_2);
 
-		glEnd();
-	}
-	glPopMatrix();
+	glMapGrid2f(parts, 0.0, 1.0, parts, 0.0, 1.0); 
+
+	glEvalMesh2(GL_FILL, 0, parts, 0, parts);
+
 }
 Rectangle::Rectangle(double x1, double y1, double x2, double y2){
 	coordX1=x1;
