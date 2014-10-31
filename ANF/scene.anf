@@ -128,11 +128,13 @@
             </transforms>
  
             <appearanceref id="cerveja"/>
-
-            <descendants>
+            <primitives>
+                <plane parts="9"/>
+            </primitives>
+      <!--     <descendants>
                 <noderef id="objects" />
                 <noderef id="room" />
-            </descendants>
+            </descendants>-->
         </node>
 
         <node id="room">

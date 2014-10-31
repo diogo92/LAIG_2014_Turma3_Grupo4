@@ -53,12 +53,12 @@ void Node::draw(Graph * graph){
 	}
 }
 
-void Node::checkList(Graph * graph, unsigned int dispList){
+void Node::checkList(Graph * graph){
 	if(displayList){
 		for(unsigned int i = 0;i<this->childs.size();i++){
 			graph->nodes[this->childs.at(i)].displayList=true;
 		}
-		dispList=glGenLists(1);
+		this->dispList=glGenLists(1);
 		glNewList(dispList,GL_COMPILE);
 		for(unsigned int i = 0; i < this->primitives.size();i++){
 			this->primitives.at(i)->tex_s=this->appear->s;

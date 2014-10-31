@@ -50,8 +50,8 @@ public:
 	GLfloat matrix[16];
 	vector<string> childs;
 	vector<VisualObject*> primitives;
+	GLuint dispList;
 	bool displayList;
-	unsigned int dispList;
-	void checkList(Graph * graph,unsigned int dispList);
+	void checkList(Graph * graph);
 };
 #endif

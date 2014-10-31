@@ -27,6 +27,12 @@ class Cylinder : public VisualObject {
 		void drawList();
 };
 
+class Plane: public VisualObject{
+public:
+		Plane(int parts);
+		int parts;
+		void draw();
+};
 class Rectangle: public VisualObject {
 	public:
 		Rectangle(double x1, double y1, double x2, double y2);

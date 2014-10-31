@@ -68,6 +68,34 @@ void Cylinder::drawBase(){
 	glPopMatrix();
 }
 
+
+Plane::Plane(int parts){
+	this->parts=parts;
+}
+
+void Plane::draw(){
+	glPushMatrix();
+	glRotatef(180.0,1,0,0);
+	glTranslatef(-0.5,0.0,-0.5);
+	glScalef(1.0/(double) parts, 1 ,1.0/(double) parts);
+	glNormal3f(0,-1,0);
+
+	for (double bx = 0; bx<parts; bx++)
+	{
+		glBegin(GL_TRIANGLE_STRIP);
+		glTexCoord2f((bx/parts)*1.0,0);
+		glVertex3f(bx, 0, 0);
+		for (double bz = 0; bz<parts; bz++)
+		{
+			glTexCoord2f(((bx + 1)/parts)*1.0,(bz/parts)*1.0);glVertex3f(bx + 1, 0, bz);
+			glTexCoord2f(((bx)/parts)*1.0,((bz+1)/parts)*1.0);glVertex3f(bx, 0, bz + 1);
+		}
+		glTexCoord2f(((bx + 1)/parts)*1.0,1);glVertex3d(bx+ 1, 0, parts);
+
+		glEnd();
+	}
+	glPopMatrix();
+}
 Rectangle::Rectangle(double x1, double y1, double x2, double y2){
 	coordX1=x1;
 	coordY1=y1;

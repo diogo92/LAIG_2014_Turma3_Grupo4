@@ -1046,6 +1046,20 @@ void XMLScene::parseGraph(Graph &graphScene){
 
 							graphScene.nodes[atualnode].primitives.push_back(new Rectangle(x1,y1,x2,y2));
 						}
+						else if(strcmp(temp.c_str(),"plane")==0){
+							printf(" primitive plane\n");
+							float parts;
+							temp = nodeElement->Attribute("parts");
+							if(temp.c_str() && sscanf(temp.c_str(),"%f",&parts)==1)
+							{
+								printf(" >> parts: %f\n",parts);
+							}
+							else{
+								printf(" error parsing parts\n");
+								exit(-1);
+							}
+							graphScene.nodes[atualnode].primitives.push_back(new Plane(parts));
+						}
 						else if(strcmp(temp.c_str(),"triangle") == 0){
 							printf("  primitive triangle\n");
 							float x1,x2,x3,y1,y2,y3,z1,z2,z3;
