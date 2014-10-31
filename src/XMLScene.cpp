@@ -1060,6 +1060,91 @@ void XMLScene::parseGraph(Graph &graphScene){
 							}
 							graphScene.nodes[atualnode].primitives.push_back(new Plane(parts));
 						}
+						else if(strcmp(temp.c_str(),"patch")==0){
+							string compute;
+							float partsU,partsV,order;
+							temp=nodeElement->Attribute("compute");
+							if(!temp.empty()){
+								if(temp=="point" || temp=="line" || temp=="fill")
+									compute=temp;
+								else{
+									printf(" compute value error\n");
+									exit(-1);
+								}
+							}
+							else{
+								printf(" error parsing compute\n");
+							}
+							temp=nodeElement->Attribute("order");
+							if(temp.c_str() && sscanf(temp.c_str(),"%f",&order)==1){
+								printf(" >> order: %f\n",order);
+							}
+							else {
+								printf("  error parsing order\n");
+								exit(-1);
+							}
+
+							temp = nodeElement->Attribute("partsU");
+							if(temp.c_str() && sscanf(temp.c_str(),"%f",&partsU)==1){
+								printf(" >> partsU: %f\n",partsU);
+							}
+							else {
+								printf("  error parsing partsU\n");
+								exit(-1);
+							}
+
+							temp = nodeElement->Attribute("partsV");
+							if(temp.c_str() && sscanf(temp.c_str(),"%f",&partsV)==1){
+								printf(" >> partsV: %f\n",partsV);
+							}
+							else {
+								printf("  error parsing partsV\n");
+								exit(-1);
+							}
+							TiXmlElement* ctrlpoints=nodeElement->FirstChildElement();
+							const int numCP = (order+1)*(order+1);
+							int count=0;
+							GLfloat** ctrl = new GLfloat*[numCP];
+							for(int i=0;i<numCP;i++){
+								ctrl[i]= new GLfloat[3];
+							}
+							while(ctrlpoints){
+								float x,y,z;
+								temp=ctrlpoints->Attribute("x");
+								if(temp.c_str() && sscanf(temp.c_str(),"%f",&x)==1){
+									printf(" >> x: %f\n",x);
+								}
+								else{
+									printf(" error parsing x\n");
+									exit(-1);
+								}
+								temp=ctrlpoints->Attribute("y");
+								if(temp.c_str() && sscanf(temp.c_str(),"%f",&y)==1){
+									printf(" >> y: %f\n",y);
+								}
+								else{
+									printf(" error parsing y\n");
+									exit(-1);
+								}
+								temp=ctrlpoints->Attribute("y");
+								if(temp.c_str() && sscanf(temp.c_str(),"%f",&y)==1){
+									printf(" >> y: %f\n",y);
+								}
+								else{
+									printf(" error parsing y\n");
+									exit(-1);
+								}
+								ctrl[count][0]=x;
+								ctrl[count][1]=y;
+								ctrl[count][2]=z;
+								count++;
+								ctrlpoints=ctrlpoints->NextSiblingElement();
+							}
+							if(count!=numCP){
+								printf(" bad number of control points\n");
+								exit(-1);
+							}
+						}
 						else if(strcmp(temp.c_str(),"triangle") == 0){
 							printf("  primitive triangle\n");
 							float x1,x2,x3,y1,y2,y3,z1,z2,z3;
