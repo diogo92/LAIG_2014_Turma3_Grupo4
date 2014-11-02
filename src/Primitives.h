@@ -26,10 +26,22 @@ class Cylinder : public VisualObject {
 		void drawBase();
 		void drawList();
 };
-
+class Patch: public VisualObject{
+	int order,partsU,partsV;
+	string compute;
+	GLfloat** ctrlpoints;
+public:
+	Patch(int order,int partsU,int partsV,string compute,GLfloat** ctrlpoints);
+	void draw();
+	void setPoints();
+};
 
 class Plane: public VisualObject{
 	 
+	static const GLfloat ctrlpoints[4][3];
+	static const GLfloat nrmlcompon[4][3];
+	static const GLfloat textpoints[4][2];
+	static const GLfloat colorpoints[4][4];
 public:
 		Plane(int parts);
 		int parts;

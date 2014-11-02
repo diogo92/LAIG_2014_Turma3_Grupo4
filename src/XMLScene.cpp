@@ -1078,6 +1078,10 @@ void XMLScene::parseGraph(Graph &graphScene){
 							temp=nodeElement->Attribute("order");
 							if(temp.c_str() && sscanf(temp.c_str(),"%f",&order)==1){
 								printf(" >> order: %f\n",order);
+								if(order>3 || order<1){
+									printf(" order must be a value between 1 and 3\n");
+									exit(-1);
+								}
 							}
 							else {
 								printf("  error parsing order\n");
@@ -1144,6 +1148,7 @@ void XMLScene::parseGraph(Graph &graphScene){
 								printf(" bad number of control points\n");
 								exit(-1);
 							}
+							graphScene.nodes[atualnode].primitives.push_back(new Patch(order,partsU,partsV,compute,ctrl));
 						}
 						else if(strcmp(temp.c_str(),"triangle") == 0){
 							printf("  primitive triangle\n");
