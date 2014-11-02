@@ -1130,9 +1130,9 @@ void XMLScene::parseGraph(Graph &graphScene){
 									printf(" error parsing y\n");
 									exit(-1);
 								}
-								temp=ctrlpoints->Attribute("y");
-								if(temp.c_str() && sscanf(temp.c_str(),"%f",&y)==1){
-									printf(" >> y: %f\n",y);
+								temp=ctrlpoints->Attribute("z");
+								if(temp.c_str() && sscanf(temp.c_str(),"%f",&z)==1){
+									printf(" >> z: %f\n",z);
 								}
 								else{
 									printf(" error parsing y\n");
