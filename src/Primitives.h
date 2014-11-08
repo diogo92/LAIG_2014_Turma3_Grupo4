@@ -29,9 +29,9 @@ class Cylinder : public VisualObject {
 class Patch: public VisualObject{
 	int order,partsU,partsV;
 	string compute;
-	GLfloat** ctrlpoints;
+	GLfloat* ctrlpoints;
 public:
-	Patch(int order,int partsU,int partsV,string compute,GLfloat** ctrlpoints);
+	Patch(int order,int partsU,int partsV,string compute,GLfloat* ctrlpoints);
 	void draw();
 	void setPoints();
 };

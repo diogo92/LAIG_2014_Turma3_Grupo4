@@ -34,9 +34,11 @@ void Node::draw(Graph * graph){
 		if(displayList)
 			glCallList(this->dispList);
 		else{
+			glPushMatrix();
 			this->primitives.at(i)->tex_s=this->appear->s;
 			this->primitives.at(i)->tex_t=this->appear->t;
 			this->primitives.at(i)->draw();
+			glPopMatrix();
 		}
 
 	}
@@ -61,9 +63,11 @@ void Node::checkList(Graph * graph){
 		this->dispList=glGenLists(1);
 		glNewList(dispList,GL_COMPILE);
 		for(unsigned int i = 0; i < this->primitives.size();i++){
+			glPushMatrix();
 			this->primitives.at(i)->tex_s=this->appear->s;
 			this->primitives.at(i)->tex_t=this->appear->t;
 			this->primitives.at(i)->draw();
+			glPopMatrix();
 		}
 		glEndList();
 	}

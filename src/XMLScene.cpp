@@ -1108,10 +1108,7 @@ void XMLScene::parseGraph(Graph &graphScene){
 							TiXmlElement* ctrlpoints=nodeElement->FirstChildElement();
 							const int numCP = (order+1)*(order+1);
 							int count=0;
-							GLfloat** ctrl = new GLfloat*[numCP];
-							for(int i=0;i<numCP;i++){
-								ctrl[i]= new GLfloat[3];
-							}
+							GLfloat* ctrl = new GLfloat[numCP*3];
 							while(ctrlpoints){
 								float x,y,z;
 								temp=ctrlpoints->Attribute("x");
@@ -1138,9 +1135,9 @@ void XMLScene::parseGraph(Graph &graphScene){
 									printf(" error parsing y\n");
 									exit(-1);
 								}
-								ctrl[count][0]=x;
-								ctrl[count][1]=y;
-								ctrl[count][2]=z;
+								ctrl[count*3 + 0]=x;
+								ctrl[count*3 + 1]=y;
+								ctrl[count*3 + 2]=z;
 								count++;
 								ctrlpoints=ctrlpoints->NextSiblingElement();
 							}
@@ -1148,7 +1145,18 @@ void XMLScene::parseGraph(Graph &graphScene){
 								printf(" bad number of control points\n");
 								exit(-1);
 							}
-							graphScene.nodes[atualnode].primitives.push_back(new Patch(order,partsU,partsV,compute,ctrl));
+							GLfloat* ctPoints = new GLfloat[numCP * 3];
+							for(int i = 0; i < numCP; i++) {
+								int tmp = (i%3);
+								tmp *= ((order+1)*(order+1));
+								tmp += floor((double)i/3) *3;
+								ctPoints[i*3 + 0] = ctrl[tmp + 0];
+								ctPoints[i*3 + 1] = ctrl[tmp + 1];
+								ctPoints[i*3 + 2] = ctrl[tmp + 2];
+							}
+
+							graphScene.nodes[atualnode].primitives.push_back(new Patch(order,partsU,partsV,compute,ctPoints));
+
 						}
 						else if(strcmp(temp.c_str(),"triangle") == 0){
 							printf("  primitive triangle\n");

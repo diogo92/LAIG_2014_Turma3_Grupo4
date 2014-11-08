@@ -117,20 +117,17 @@ void Plane::draw(){
 
 }
 
-Patch::Patch(int order,int partsU,int partsV,string compute,GLfloat** ctrlpoints){
+Patch::Patch(int order,int partsU,int partsV,string compute,GLfloat* ctrlpoints){
 	this->order=order;
 	this->partsU=partsU;
 	this->partsV=partsV;
 	this->compute=compute;
 	const int numCP = (order+1)*(order+1);
-	this->ctrlpoints=new GLfloat*[numCP];
-	for(int i=0;i<numCP;i++){
-		this->ctrlpoints[i]= new GLfloat[3];
-	}
-	for(int i=0;i<numCP;i++){
-		this->ctrlpoints[i][0]=ctrlpoints[i][0];
-		this->ctrlpoints[i][1]=ctrlpoints[i][1];
-		this->ctrlpoints[i][2]=ctrlpoints[i][2];
+	this->ctrlpoints=new GLfloat[numCP*3];
+	for(int i = 0; i < numCP; i++) {
+		this->ctrlpoints[i*3+0] = ctrlpoints[i*3+0];
+		this->ctrlpoints[i*3+1] = ctrlpoints[i*3+1];
+		this->ctrlpoints[i*3+2] = ctrlpoints[i*3+2];
 	}
 }
 
@@ -139,27 +136,27 @@ void Patch::draw(){
 	glGetIntegerv(GL_FRONT_FACE, &ff);
 	glEnable(GL_CW);
 	glEnable(GL_AUTO_NORMAL);
-	glMap2f(GL_MAP2_VERTEX_3, 0.0, 1.0, 3, order+1, 0.0, 1.0, 3*(order+1), order+1, &ctrlpoints[0][0]);
+	glMap2f(GL_MAP2_VERTEX_3, 0.0, 1.0, 3, order+1, 0.0, 1.0, 3*(order+1), order+1, &this->ctrlpoints[0]);
 	
 	if(order==1){
 		GLfloat textpoints[4][2] = {
-			{0.0, this->tex_t}, {this->tex_s,this->tex_t},
-			{0.0, 0.0}, {this->tex_s, 0.0}
+			{0.0, 1}, {1,1},
+			{0.0, 0.0}, {1, 0.0}
 		};
 	glMap2f(GL_MAP2_TEXTURE_COORD_2, 0.0, 1.0, 2, (order+1), 0.0, 1.0, (order+1)*2, (order+1), &textpoints[0][0]);
 	}else if(order==2){
 		GLfloat textpoints[9][2] = {
-			{0.0,this->tex_t}, {this->tex_s/2, this->tex_t}, {this->tex_s,this->tex_t},
-			{0.0,this->tex_t/2}, {this->tex_s/2, this->tex_t/2}, {this->tex_s, this->tex_t/2},
-			{0.0,0.0}, {this->tex_s/2,0.0}, {this->tex_s,0.0}
+			{0.0,1}, {1/2, 1}, {1,1},
+			{0.0,1/2}, {1/2, 1/2}, {1, 1/2},
+			{0.0,0.0}, {1/2,0.0}, {1,0.0}
 		};
 	glMap2f(GL_MAP2_TEXTURE_COORD_2, 0.0, 1.0, 2, (order+1), 0.0, 1.0, (order+1)*2, (order+1), &textpoints[0][0]);
 	}else if(order==3){
 		GLfloat textpoints[16][2] = {
-			{0.0,this->tex_t}, {this->tex_s/3, this->tex_t}, {2*this->tex_s/3,this->tex_t}, {this->tex_s,this->tex_t},
-			{0.0,2*this->tex_t/3},{this->tex_s/3,2*this->tex_t/3},{2*this->tex_s/3,2*this->tex_t/3}, {this->tex_s,2*this->tex_t/3},
-			{0.0,this->tex_t/3}, {this->tex_s/3,this->tex_t/3}, {2*this->tex_s/3,this->tex_t/3}, {this->tex_s,this->tex_t/3},
-			{0.0,0.0}, {this->tex_s/3,0.0}, {2*this->tex_s/3,0.0}, {this->tex_s,0.0}
+			{0.0,1}, {1/3, 1}, {2/3,this->tex_t}, {1,1},
+			{0.0,2/3},{1/3,2/3},{2/3,2*this->tex_t/3}, {1,2/3},
+			{0.0,1/3}, {1/3,1/3}, {2/3,this->tex_t/3}, {1,1/3},
+			{0.0,0.0}, {1/3,0.0}, {2/3,0.0}, {1,0.0}
 		};
 	glMap2f(GL_MAP2_TEXTURE_COORD_2, 0.0, 1.0, 2, (order+1), 0.0, 1.0, (order+1)*2, (order+1), &textpoints[0][0]);
 	}
