@@ -133,7 +133,8 @@ void DemoScene::display()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	setLights();
-	setCamera();
+	//setCamera();
+		CGFscene::activeCamera->applyView();
 	for(unsigned int i=0;i<graphScene.lights.size();i++){
 		if(graphScene.lights.at(i)->marked)
 			lights.at(i)->draw();

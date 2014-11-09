@@ -227,9 +227,11 @@ void XMLScene::parseGlobals(GlobalData &globals){
 			if (!temp.empty()){
 				if(strcmp(temp.c_str(),"ccw") == 0){
 					globals.cullingOrder = 0;
+					cull=0;
 				}
 				else if(strcmp(temp.c_str(),"cw") == 0){
 					globals.cullingOrder = 1;
+					cull=1;
 				}
 				else{
 					printf("Invalid value at culling order\n");
@@ -1149,14 +1151,15 @@ void XMLScene::parseGraph(Graph &graphScene){
 							for(int i = 0; i < numCP; i++) {
 								int tmp = (i%3);
 								tmp *= ((order+1)*(order+1));
-								tmp += floor((double)i/3) *3;
+								tmp += floor((float)i/3) *3;
 								ctPoints[i*3 + 0] = ctrl[tmp + 0];
 								ctPoints[i*3 + 1] = ctrl[tmp + 1];
 								ctPoints[i*3 + 2] = ctrl[tmp + 2];
 							}
-
-							graphScene.nodes[atualnode].primitives.push_back(new Patch(order,partsU,partsV,compute,ctPoints));
-
+							if(cull==1)
+								graphScene.nodes[atualnode].primitives.push_back(new Patch(order,partsU,partsV,compute,ctrl));
+							else
+								graphScene.nodes[atualnode].primitives.push_back(new Patch(order,partsU,partsV,compute,ctPoints));
 						}
 						else if(strcmp(temp.c_str(),"triangle") == 0){
 							printf("  primitive triangle\n");

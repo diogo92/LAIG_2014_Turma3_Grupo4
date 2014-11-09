@@ -30,35 +30,34 @@ void Graph::draw(){
 void Node::draw(Graph * graph){
 	glMultMatrixf(&this->matrix[0]);
 	this->appear->apply();
-	for(unsigned int i = 0; i < this->primitives.size();i++){
-		if(displayList)
-			glCallList(this->dispList);
-		else{
+	if(displayList)
+		glCallList(this->dispList);
+	else{
+		for(unsigned int i = 0; i < this->primitives.size();i++){
 			glPushMatrix();
 			this->primitives.at(i)->tex_s=this->appear->s;
 			this->primitives.at(i)->tex_t=this->appear->t;
 			this->primitives.at(i)->draw();
 			glPopMatrix();
 		}
-
-	}
-	float currentColor[4];
-	glGetFloatv(GL_CURRENT_COLOR,currentColor);
-	for(unsigned int i = 0; i < this->childs.size();i++){
-		glPushMatrix();
-		if(graph->nodes[this->childs.at(i)].inherited){
-			graph->nodes[this->childs.at(i)].appear = this->appear;
+		float currentColor[4];
+		glGetFloatv(GL_CURRENT_COLOR,currentColor);
+		for(unsigned int i = 0; i < this->childs.size();i++){
+			glPushMatrix();
+			if(graph->nodes[this->childs.at(i)].inherited){
+				graph->nodes[this->childs.at(i)].appear = this->appear;
+			}
+			graph->nodes[this->childs.at(i)].draw(graph);
+			glPopMatrix();
+			glColor4fv(currentColor);
 		}
-		graph->nodes[this->childs.at(i)].draw(graph);
-		glPopMatrix();
-		glColor4fv(currentColor);
 	}
 }
 
 void Node::checkList(Graph * graph){
 	if(displayList){
 		for(unsigned int i = 0;i<this->childs.size();i++){
-			graph->nodes[this->childs.at(i)].displayList=true;
+			//	graph->nodes[this->childs.at(i)].displayList=true;
 		}
 		this->dispList=glGenLists(1);
 		glNewList(dispList,GL_COMPILE);
@@ -68,6 +67,17 @@ void Node::checkList(Graph * graph){
 			this->primitives.at(i)->tex_t=this->appear->t;
 			this->primitives.at(i)->draw();
 			glPopMatrix();
+		}
+		float currentColor[4];
+		glGetFloatv(GL_CURRENT_COLOR,currentColor);
+		for(unsigned int i = 0; i < this->childs.size();i++){
+			glPushMatrix();
+			if(graph->nodes[this->childs.at(i)].inherited){
+				graph->nodes[this->childs.at(i)].appear = this->appear;
+			}
+			graph->nodes[this->childs.at(i)].draw(graph);
+			glPopMatrix();
+			glColor4fv(currentColor);
 		}
 		glEndList();
 	}

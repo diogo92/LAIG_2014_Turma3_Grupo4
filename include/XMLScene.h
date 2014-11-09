@@ -35,6 +35,7 @@ protected:
 	TiXmlElement* appearanceElement;
 	TiXmlElement* cameraElement;
 	TiXmlElement* lightElement;
+	int cull;
 };
 
 #endif
