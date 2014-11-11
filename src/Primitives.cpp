@@ -140,8 +140,8 @@ void Patch::draw(){
 	
 	if(order==1){
 		GLfloat textpoints[4][2] = {
-			{0.0, 1}, {1,1},
-			{0.0, 0.0}, {1, 0.0}
+			{1, 0.0}, {1,1},
+			{0.0, 0.0},{0.0, 1} 
 		};
 	glMap2f(GL_MAP2_TEXTURE_COORD_2, 0.0, 1.0, 2, (order+1), 0.0, 1.0, (order+1)*2, (order+1), &textpoints[0][0]);
 	}else if(order==2){
