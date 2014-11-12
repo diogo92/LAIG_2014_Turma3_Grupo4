@@ -179,6 +179,32 @@ void Patch::draw(){
 	glFrontFace(ff);
 }
 
+Vehicle::Vehicle(){
+	GLfloat vehicleCtrlPoints[48]={
+		2,-2,0,
+		3,-1,0,
+		3,1,0,
+		2,2,0,
+		1,-3,0,
+		1,-1,5,
+		1,1,5,
+		1,3,0,
+		-1,-3,0,
+		-1,-1,5,
+		-1,1,5,
+		-1,3,0,
+		-2,-2,0,
+		-3,-1,0,
+		-3,1,0,
+		-2,2,0
+	};
+	patch=new Patch(3,100,100,"fill",vehicleCtrlPoints);
+}
+
+void Vehicle::draw(){
+	patch->draw();
+}
+
 Rectangle::Rectangle(double x1, double y1, double x2, double y2){
 	coordX1=x1;
 	coordY1=y1;

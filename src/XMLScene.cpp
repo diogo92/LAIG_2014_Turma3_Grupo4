@@ -1161,6 +1161,9 @@ void XMLScene::parseGraph(Graph &graphScene){
 							else
 								graphScene.nodes[atualnode].primitives.push_back(new Patch(order,partsU,partsV,compute,ctPoints));
 						}
+						else if(strcmp(temp.c_str(),"vehicle")==0){
+							graphScene.nodes[atualnode].primitives.push_back(new Vehicle());
+						}
 						else if(strcmp(temp.c_str(),"triangle") == 0){
 							printf("  primitive triangle\n");
 							float x1,x2,x3,y1,y2,y3,z1,z2,z3;
