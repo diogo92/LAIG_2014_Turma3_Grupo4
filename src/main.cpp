@@ -3,11 +3,11 @@
  * 
  */
 
+#include "DemoScene.h"
 #include <iostream>
 #include <exception>
 #include "DemoInterface.h"
 #include "CGFapplication.h"
-#include "DemoScene.h"
 
 using std::cout;
 using std::exception;

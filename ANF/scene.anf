@@ -54,6 +54,8 @@
           <texture id="wall1" file="wall1.png" texlength_s="10.0" texlength_t="10.0" />
           <texture id="wall2" file="wall2.png" texlength_s="10.0" texlength_t="10.0" />
           <texture id="floor" file="floor.png" texlength_s="1.0" texlength_t="1.0" />
+          <texture id="grass" file="grass.png" texlength_s="1.0" texlength_t="1.0" />
+          <texture id="evaltex" file="evaltext.jpg" texlength_s="1.0" texlength_t="1.0" />
     </textures>
 
     <appearances>
@@ -117,26 +119,54 @@
                <component type="diffuse" value="0.82 0.7 0.44 0.2" />
                <component type="specular" value="0.82 0.7 0.44 0.2" />
         </appearance>
+        <appearance id="grass" shininess="0" textureref="grass">
+            <component type="ambient" value="0.25 0.25 0.25 1" />
+            <component type="diffuse" value="0.5 0.5 0.5 1" />
+            <component type="specular" value="0 0 0 1" />
+        </appearance>
+        <appearance id="evaltex" shininess="0" textureref="evaltex">
+            <component type="ambient" value="0.25 0.25 0.25 1" />
+            <component type="diffuse" value="0.5 0.5 0.5 1" />
+            <component type="specular" value="0 0 0 1" />
+        </appearance>
+
     </appearances>
 
     <!-- Início do bloco de grafo -->
 
     <graph rootid="root">
 
-        <node id="root" displaylist="true">
+        <node id="root" displaylist="false">
             <transforms>
             </transforms>
  
-            <appearanceref id="cerveja"/>
+            <appearanceref id="evaltex"/>
             <primitives>
-                <plane parts="9"/>
+               <!--<patch order="2" partsU="100" partsV="100" compute="fill">
+                        <controlpoint x="0.5" y="0" z="-0.5" />
+                        <controlpoint x="0.5" y="-2" z="0" />
+                        <controlpoint x="0.5" y="0" z="0.5" />
+                        <controlpoint x="0" y="0" z="-0.5" />
+                        <controlpoint x="0" y="-2" z="0" />
+                        <controlpoint x="0" y="0" z="0.5" />
+                        <controlpoint x="-0.5" y="0" z="-0.5" />
+                        <controlpoint x="-0.5" y="-2" z="0" />
+                        <controlpoint x="-0.5" y="0" z="0.5" />
+                </patch>
+                <patch order="1" partsU="40" partsV="60" compute="fill">
+                    <controlpoint x="1.0" y="1.0" z="0.0"/>
+                    <controlpoint x="1.0" y="8.0" z="0.0"/>
+                    <controlpoint x="12.0" y="1.0" z="0.0"/>
+                    <controlpoint x="12.0" y="8.0" z="0.0"/>
+                </patch>-->
+                <flag texture="flag.jpg" />
             </primitives>
-      <!--     <descendants>
-                <noderef id="objects" />
-                <noderef id="room" />
-            </descendants>-->
+          <descendants>
+             <!--   <noderef id="objects" />
+                <noderef id="room" />-->
+            </descendants>
         </node>
-
+<!--
         <node id="room">
             <transforms>
             </transforms>
@@ -150,7 +180,7 @@
             </descendants>
         </node>
                 <node id="wall1"> <!-- plane xy -->
-                    <transforms>
+                   <!-- <transforms>
                         <transform type="rotate" axis="x" angle="180"/>
                         <transform type="rotate" axis="z" angle="-90"/>
                     </transforms>
@@ -161,7 +191,7 @@
                      </primitives>
                 </node>
                 <node id="wall2"> <!-- plane zy -->
-                    <transforms>
+           <!--         <transforms>
                         <transform type="rotate" axis="z" angle="180"/>
                         <transform type="rotate" axis="x" angle="90"/>
                         <transform type="rotate" axis="y" angle="-90"/>
@@ -173,7 +203,7 @@
                      </primitives>
                 </node>
                 <node id="floor"> <!-- plane xz -->
-                    <transforms>
+        <!--            <transforms>
                         <transform type="rotate" axis="x" angle="90"/>
                     </transforms>
          
@@ -201,7 +231,7 @@
 
 
         <!-- Início do bloco do nó "homer", que representa a personagem desenhada na cena -->
-
+<!--
         <node id="homer">
             <transforms>
 				<transform type="translate" to="0.0 1.5 0.0"/>
@@ -528,7 +558,7 @@
 
                                         </node>
                                         <node id="finger1"><!-- thumb-->
-                                            <transforms>
+         <!--                                   <transforms>
                                                 <transform type="translate" to="0.8.0 0.0 0.0"/>
                                                 <transform type="rotate" axis="y" angle="70"/>
                                                 <transform type="scale" factor="0.15 0.15 0.15"/>
@@ -541,7 +571,7 @@
                                             </primitives>
                                         </node>
                                         <node id="finger2"><!-- index finger-->
-                                            <transforms>
+                                    <!--        <transforms>
                                                 <transform type="translate" to="0.5 0.0 1.1"/>
                                                 <transform type="scale" factor="0.15 0.15 0.15"/>
                                             </transforms>
@@ -554,7 +584,7 @@
 
                                         </node>
                                         <node id="finger3"><!-- middle finger-->
-                                            <transforms>
+                       <!--                     <transforms>
                                                 <transform type="translate" to="0.0 0.0 1.1"/>
                                                 <transform type="scale" factor="0.15 0.15 0.15"/>
                                             </transforms>
@@ -567,7 +597,7 @@
 
                                         </node>
                                         <node id="finger4"> <!-- ring finger-->
-                                            <transforms>
+                         <!--                   <transforms>
                                                 <transform type="translate" to="-0.5 0.0 1.1"/>
                                                 <transform type="scale" factor="0.15 0.15 0.15"/>
                                             </transforms>
@@ -580,7 +610,7 @@
 
                                         </node>
                                         <node id="finger5"><!-- pinkie-->
-                                            <transforms>
+                                       <!--     <transforms>
                                                 <transform type="translate" to="-1.0 0.0 0.5"/>
                                                 <transform type="scale" factor="0.15 0.15 0.15"/>
                                             </transforms>
@@ -673,7 +703,7 @@
 
         -->
         <!-- Início do bloco table, que representa a mesa desenhada na cena -->
-        <node id="table">
+    <!--    <node id="table">
             <transforms>
                 <transform type="translate" to="0.0 4.0 6.0"/>
                 <transform type="rotate" axis="y" angle="90"/>
@@ -767,7 +797,7 @@
                         </node>
 
                         <node id="side1"> <!-- TOPO -->
-                            <transforms>
+                  <!--          <transforms>
                                 <transform type="translate" to="0.0 1.0 0.0"/>
                                 <transform type="rotate" axis="x" angle="90"/>
                             </transforms>
@@ -780,7 +810,7 @@
 
                         </node>
                         <node id="side2"> <!-- FUNDO -->
-                            <transforms>
+                        <!--    <transforms>
                                 <transform type="translate" to="0.0 0.0 1.0"/>
                                 <transform type="rotate" axis="x" angle="-90"/>
                             </transforms>
@@ -793,7 +823,7 @@
 
                         </node>
                         <node id="side3"> <!-- lado z neg -->
-                            <transforms>
+                     <!--       <transforms>
                             </transforms>
 
                             <appearanceref id="inherit"/>
@@ -804,7 +834,7 @@
 
                         </node>
                         <node id="side4"> <!-- lado x pos -->
-                            <transforms>
+                   <!--         <transforms>
                                 <transform type="translate" to="1.0 0.0 0.0" />
                                 <transform type="rotate" axis="y" angle="-90"/>
                             </transforms>
@@ -817,7 +847,7 @@
 
                         </node>
                         <node id="side5"> <!-- lado x neg -->
-                            <transforms>
+                       <!--     <transforms>
                                 <transform type="translate" to="0.0 0.0 1.0"/>
                                 <transform type="rotate" axis="y" angle="90"/>
                             </transforms>
@@ -830,7 +860,7 @@
 
                         </node>
                         <node id="side6"> <!-- lado x pos -->
-                            <transforms>
+                         <!--   <transforms>
                                 <transform type="translate" to="1.0 0.0 1.0"/>
                                 <transform type="rotate" axis="y" angle="180"/>
                             </transforms>
@@ -943,7 +973,7 @@
                 <torus inner="1" outer="1.5" slices="16" loops="16"/>
             </primitives>
 
-        </node>
+        </node>-->
 
     </graph>
 </anf>

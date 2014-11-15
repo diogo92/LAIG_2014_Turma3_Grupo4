@@ -83,7 +83,6 @@ void DemoScene::init()
 	setAnfFileName(line,256);
 
 	XMLScene anf(line, globals, graphScene);
-
 	setGlobals(globals);
 	setLightVector();
 	initLights();
@@ -109,6 +108,10 @@ void DemoScene::setLightVector(){
 
 void DemoScene::update(unsigned long t)
 {
+	typedef std::map<std::string, Node >::iterator it_typeNode;
+	for(it_typeNode iterator=graphScene.nodes.begin(); iterator != graphScene.nodes.end(); iterator++){
+		iterator->second.update(wind);
+	}
 }
 
 void DemoScene::processCameras(){
@@ -117,6 +120,16 @@ void DemoScene::processCameras(){
 	
 void DemoScene::display() 
 {
+	if(wind < 0){
+		wind=0;
+	}
+	if(wind >50){
+		wind=50;
+	}
+
+	updatePer=abs(50-wind);
+
+	setUpdatePeriod(updatePer);
 	if(drawMode == 0){
 		glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
 	}
@@ -127,6 +140,7 @@ void DemoScene::display()
 		glPolygonMode( GL_FRONT_AND_BACK, GL_POINT );
 	}
 
+	
 	glClearColor(globals.drawBackground[0], globals.drawBackground[1], globals.drawBackground[2], globals.drawBackground[3]);
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 

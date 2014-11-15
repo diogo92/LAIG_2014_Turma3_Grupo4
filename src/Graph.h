@@ -44,6 +44,7 @@ public:
 	~Node(void);
 	Node(string id);
 	void draw(Graph * graph);
+	void update(unsigned long t);
 	string id;
 	bool inherited;
 	Appearance * appear;

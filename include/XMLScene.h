@@ -5,9 +5,9 @@
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
+#include "Primitives.h"
 #include "tinyxml.h"
 #include "GlobalData.h"
-#include "Primitives.h"
 #include "Appearance.h"
 #include "Camera.h"
 #include "Light.h"

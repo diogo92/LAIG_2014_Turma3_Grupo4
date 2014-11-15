@@ -1063,6 +1063,7 @@ void XMLScene::parseGraph(Graph &graphScene){
 							graphScene.nodes[atualnode].primitives.push_back(new Plane(parts));
 						}
 						else if(strcmp(temp.c_str(),"patch")==0){
+							printf(" primitive patch\n");
 							string compute;
 							float partsU,partsV,order;
 							temp=nodeElement->Attribute("compute");
@@ -1163,6 +1164,17 @@ void XMLScene::parseGraph(Graph &graphScene){
 						}
 						else if(strcmp(temp.c_str(),"vehicle")==0){
 							graphScene.nodes[atualnode].primitives.push_back(new Vehicle());
+						}
+						else if(strcmp(temp.c_str(),"flag")==0){
+							printf(" primitive vehicle\n");
+							string texture;
+							temp=nodeElement->Attribute("texture");
+							if(temp.empty()){
+								printf("no texture file input\n");
+								exit(-1);
+							}
+							texture=temp;
+							graphScene.nodes[atualnode].primitives.push_back(new Flag(texture));
 						}
 						else if(strcmp(temp.c_str(),"triangle") == 0){
 							printf("  primitive triangle\n");

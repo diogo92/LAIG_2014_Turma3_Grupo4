@@ -2,12 +2,13 @@
 #define _PRIMITIVES_H
 
 
+#include <GL/glew.h>
 #include <vector>
 #include "VisualObject.h"
 #include "math.h"
 #include "Vertice.h"
-
-
+#include <CGFshader.h>
+#include <CGFtexture.h>
 class Cylinder : public VisualObject {
 	
 	int lados;
@@ -59,6 +60,21 @@ class Vehicle: public VisualObject {
 public:
 	Vehicle();
 	void draw();
+};
+
+class Flag: public VisualObject {
+	Plane* p;
+	CGFtexture * texture;
+	CGFshader shader;
+	GLint image;
+	GLint wind;
+	GLint time;
+	float time2;
+	float wind2;
+public:
+	Flag(string texture);
+	void draw();
+	void update(unsigned long t);
 };
 
 class Rectangle: public VisualObject {

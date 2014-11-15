@@ -5,11 +5,11 @@
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
+#include "XMLScene.h"
 #include "CGFscene.h"
 #include "CGFshader.h"
 #include "CGFapplication.h"
 #include "CGFaxis.h"
-#include "XMLScene.h"
 #include "Graph.h"
 #include <map>
 #include <string>
@@ -28,6 +28,8 @@ public:
 	void setLights();
 	int drawMode;
 	int activeCameraNumber;
+	int wind;
+	int updatePer;
 	vector<CGFlight* > lights;
 	vector<Light* > graphLights;
 	map<string,Camera> cameras;

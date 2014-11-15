@@ -1,5 +1,6 @@
-#include "DemoInterface.h"
 #include "DemoScene.h"
+#include "DemoInterface.h"
+
 
 
 DemoInterface::DemoInterface()
@@ -34,6 +35,11 @@ void DemoInterface::initGUI()
 	for(unsigned int i=0;i<((DemoScene *) scene)->graphLights.size();i++){
 		addCheckboxToPanel(lighPanel,(char*)((DemoScene *) scene)->graphLights.at(i)->id.c_str(),(int *)&((DemoScene *) scene)->graphLights.at(i)->state,atual);
 	}
+	atual++;
+	addColumnToPanel(masterPanel);
+	addStaticTextToPanel(masterPanel,"");
+	GLUI_Spinner *windSpinner=addSpinnerToPanel(masterPanel,"Wind",GLUI_SPINNER_INT,(int *)&(((DemoScene*) scene)->wind),atual);
+	windSpinner->set_float_limits(1,50,GLUI_LIMIT_WRAP);
 
 }
 

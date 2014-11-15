@@ -205,6 +205,42 @@ void Vehicle::draw(){
 	patch->draw();
 }
 
+Flag::Flag(string texture){
+	this->p= new Plane(100);
+	this->time2=0;
+	this->wind2=0;
+	char* vert="flag.vert";
+	char* frag="flag.frag";
+	this->shader.init(vert,frag);
+	this->texture= new CGFtexture(texture);
+}
+
+void Flag::draw(){
+	shader.bind();
+	printf("WIND::::%f\n",wind2);
+	this->wind=glGetUniformLocation(shader.id(),"wind");
+	glUniform1f(wind,wind2);
+	this->time=glGetUniformLocation(shader.id(),"time");
+	glUniform1f(time, time2);
+	this->image=glGetUniformLocation(shader.id(),"hImage");
+	glUniform1i(this->image,0);
+
+	glActiveTexture(GL_TEXTURE0);
+
+	this->texture->apply();
+
+	p->draw();
+	shader.unbind();
+}
+
+void Flag::update(unsigned long t){
+	this->wind2=t;
+	this->time2 += 0.3;
+	if(this->time2 >=5){
+		this->time2-=5;
+	}
+	
+}
 Rectangle::Rectangle(double x1, double y1, double x2, double y2){
 	coordX1=x1;
 	coordY1=y1;
