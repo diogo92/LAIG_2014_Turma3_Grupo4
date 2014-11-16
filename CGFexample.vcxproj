@@ -73,7 +73,6 @@
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\DemoInterface.cpp" />
     <ClCompile Include="src\DemoScene.cpp" />
-    <ClCompile Include="src\ExampleObject.cpp" />
     <ClCompile Include="src\GlobalData.cpp" />
     <ClCompile Include="src\Light.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -88,13 +87,15 @@
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\DemoInterface.h" />
     <ClInclude Include="src\DemoScene.h" />
-    <ClInclude Include="src\ExampleObject.h" />
     <ClInclude Include="src\GlobalData.h" />
     <ClInclude Include="src\Light.h" />
     <ClInclude Include="src\Graph.h" />
     <ClInclude Include="src\Primitives.h" />
     <ClInclude Include="src\Vertice.h" />
     <ClInclude Include="src\VisualObject.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

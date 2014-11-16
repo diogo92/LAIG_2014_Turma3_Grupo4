@@ -57,6 +57,7 @@ public:
 class Vehicle: public VisualObject {
 
 	Patch* patch;
+	Cylinder* cil;
 public:
 	Vehicle();
 	void draw();

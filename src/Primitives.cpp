@@ -153,9 +153,9 @@ void Patch::draw(){
 	glMap2f(GL_MAP2_TEXTURE_COORD_2, 0.0, 1.0, 2, (order+1), 0.0, 1.0, (order+1)*2, (order+1), &textpoints[0][0]);
 	}else if(order==3){
 		GLfloat textpoints[16][2] = {
-			{0.0,1}, {1/3, 1}, {2/3,this->tex_t}, {1,1},
-			{0.0,2/3},{1/3,2/3},{2/3,2*this->tex_t/3}, {1,2/3},
-			{0.0,1/3}, {1/3,1/3}, {2/3,this->tex_t/3}, {1,1/3},
+			{0.0,1}, {1/3, 1}, {2/3,1}, {1,1},
+			{0.0,2/3},{1/3,2/3},{2/3,2*1/3}, {1,2/3},
+			{0.0,1/3}, {1/3,1/3}, {2/3,1/3}, {1,1/3},
 			{0.0,0.0}, {1/3,0.0}, {2/3,0.0}, {1,0.0}
 		};
 	glMap2f(GL_MAP2_TEXTURE_COORD_2, 0.0, 1.0, 2, (order+1), 0.0, 1.0, (order+1)*2, (order+1), &textpoints[0][0]);
@@ -199,10 +199,16 @@ Vehicle::Vehicle(){
 		-2,2,0
 	};
 	patch=new Patch(3,100,100,"fill",vehicleCtrlPoints);
+	cil= new Cylinder(4,4,1,30,30);
 }
 
 void Vehicle::draw(){
+
 	patch->draw();
+	glPushMatrix();
+	glTranslated(0,0,-1);
+	cil->draw();
+	glPopMatrix();
 }
 
 Flag::Flag(string texture){
@@ -217,7 +223,6 @@ Flag::Flag(string texture){
 
 void Flag::draw(){
 	shader.bind();
-	printf("WIND::::%f\n",wind2);
 	this->wind=glGetUniformLocation(shader.id(),"wind");
 	glUniform1f(wind,wind2);
 	this->time=glGetUniformLocation(shader.id(),"time");
