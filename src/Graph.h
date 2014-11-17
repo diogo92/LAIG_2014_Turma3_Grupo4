@@ -33,6 +33,7 @@ public:
 	map<string,Camera> cameras;
 	map<string,Texture> textures;
 	map<string,Appearance> appearances;
+	void setAppearances();
 	vector<Light*> lights;
 	string rootNode;
 };
@@ -44,6 +45,7 @@ public:
 	~Node(void);
 	Node(string id);
 	void draw(Graph * graph);
+	void setAppearances(Graph * graph);
 	void update(unsigned long t);
 	string id;
 	bool inherited;

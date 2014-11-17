@@ -27,6 +27,24 @@ void Graph::draw(){
 	this->nodes[this->rootNode].draw(this);
 }
 
+void Graph::setAppearances(){
+	this->nodes[this->rootNode].setAppearances(this);
+}
+
+void Node::setAppearances(Graph * graph){
+	float currentColor[4];
+		glGetFloatv(GL_CURRENT_COLOR,currentColor);
+		for(unsigned int i = 0; i < this->childs.size();i++){
+			glPushMatrix();
+			if(graph->nodes[this->childs.at(i)].inherited){
+				graph->nodes[this->childs.at(i)].appear = this->appear;
+			}
+			graph->nodes[this->childs.at(i)].setAppearances(graph);
+			glPopMatrix();
+			glColor4fv(currentColor);
+		}
+}
+
 void Node::draw(Graph * graph){
 	glMultMatrixf(&this->matrix[0]);
 	this->appear->apply();
@@ -40,16 +58,10 @@ void Node::draw(Graph * graph){
 			this->primitives.at(i)->draw();
 			glPopMatrix();
 		}
-		float currentColor[4];
-		glGetFloatv(GL_CURRENT_COLOR,currentColor);
 		for(unsigned int i = 0; i < this->childs.size();i++){
 			glPushMatrix();
-			if(graph->nodes[this->childs.at(i)].inherited){
-				graph->nodes[this->childs.at(i)].appear = this->appear;
-			}
 			graph->nodes[this->childs.at(i)].draw(graph);
 			glPopMatrix();
-			glColor4fv(currentColor);
 		}
 	}
 }
@@ -70,16 +82,12 @@ void Node::checkList(Graph * graph){
 			this->primitives.at(i)->draw();
 			glPopMatrix();
 		}
-		float currentColor[4];
-		glGetFloatv(GL_CURRENT_COLOR,currentColor);
 		for(unsigned int i = 0; i < this->childs.size();i++){
 			glPushMatrix();
-			if(graph->nodes[this->childs.at(i)].inherited){
-				graph->nodes[this->childs.at(i)].appear = this->appear;
+			if(!graph->nodes[this->childs.at(i)].displayList){
+				graph->nodes[this->childs.at(i)].draw(graph);
 			}
-			graph->nodes[this->childs.at(i)].draw(graph);
 			glPopMatrix();
-			glColor4fv(currentColor);
 		}
 		glEndList();
 	}
