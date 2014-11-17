@@ -48,8 +48,15 @@ void Node::setAppearances(Graph * graph){
 void Node::draw(Graph * graph){
 	glMultMatrixf(&this->matrix[0]);
 	this->appear->apply();
-	if(displayList)
+	if(displayList){
 		glCallList(this->dispList);
+		for(unsigned int i = 0; i < this->childs.size();i++){
+			glPushMatrix();
+			if(graph->nodes[this->childs.at(i)].displayList)
+				graph->nodes[this->childs.at(i)].draw(graph);
+			glPopMatrix();
+		}
+	}
 	else{
 		for(unsigned int i = 0; i < this->primitives.size();i++){
 			glPushMatrix();
