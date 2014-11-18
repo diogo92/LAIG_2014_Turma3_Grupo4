@@ -55,6 +55,7 @@ public:
 	vector<VisualObject*> primitives;
 	GLuint dispList;
 	bool displayList;
+	void draw2(Graph * graph);
 	void checkList(Graph * graph);
 };
 #endif

@@ -180,7 +180,7 @@ void Patch::draw(){
 }
 
 Vehicle::Vehicle(){
-	GLfloat vehicleCtrlPoints[48]={
+	GLfloat vehicle1CtrlPoints[48]={
 		2,-2,0,
 		3,-1,0,
 		3,1,0,
@@ -198,16 +198,36 @@ Vehicle::Vehicle(){
 		-3,1,0,
 		-2,2,0
 	};
-	patch=new Patch(3,100,100,"fill",vehicleCtrlPoints);
-	cil= new Cylinder(4,4,1,30,30);
+
+	GLfloat vehicle2CtrlPoints[48]={
+		5,-5,0,
+		6,-4,0,
+		6,4,0,
+		5,5,0,
+		4,-6,0,
+		4,-4,2,
+		4,4,2,
+		4,6,0,
+		-4,-6,0,
+		-4,-4,2,
+		-4,4,2,
+		-4,6,0,
+		-5,-5,0,
+		-6,-4,0,
+		-6,4,0,
+		-5,3,0
+	};
+	patch1=new Patch(3,100,100,"fill",vehicle1CtrlPoints);
+	patch2=new Patch(3,100,100,"fill",vehicle2CtrlPoints);
 }
 
 void Vehicle::draw(){
 
-	patch->draw();
+	patch1->draw();
+	patch2->draw();
 	glPushMatrix();
-	glTranslated(0,0,-1);
-	cil->draw();
+	glRotated(180,0,1,0);
+	patch2->draw();
 	glPopMatrix();
 }
 
