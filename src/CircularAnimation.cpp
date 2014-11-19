@@ -43,6 +43,7 @@ void CircularAnimation::apply(){
 	glTranslatef(this->center.x,this->center.y,this->center.z);
 	glRotatef(this->angle,0,1,0);
 	glTranslatef(this->radius,0,0);
+	glRotatef(180,0,1,0);
 }
 
 void CircularAnimation::init(unsigned long t)
