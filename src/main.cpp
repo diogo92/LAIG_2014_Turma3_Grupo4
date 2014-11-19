@@ -19,7 +19,6 @@ int main(int argc, char* argv[]) {
 
 	try {
 		app.init(&argc, argv);
-
 		app.setScene(new DemoScene());
 		app.setInterface(new DemoInterface());
 		

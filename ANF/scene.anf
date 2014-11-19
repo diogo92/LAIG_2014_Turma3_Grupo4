@@ -54,7 +54,7 @@
   <texture id="wall1" file="wall1.png" texlength_s="10.0" texlength_t="10.0" />
   <texture id="wall2" file="wall2.png" texlength_s="10.0" texlength_t="10.0" />
   <texture id="floor" file="floor.png" texlength_s="1.0" texlength_t="1.0" />
-  <texture id="aliens" file="aliens.gif" texlength_s="1.0" texlength_t="1.0" />
+  <texture id="aliens" file="aliens.jpg" texlength_s="1.0" texlength_t="1.0" />
 </textures>
 
 <appearances>
@@ -986,14 +986,15 @@
 
 <node id="mflag">
     <transforms>
-        <transform type="translate" to="1.5 9.5 0"/>
+        <transform type="translate" to="1.5 9.0 0"/>
+        <transform type="rotate" axis="y" angle="180"/>
         <transform type="rotate" axis="x" angle="-90"/>
         <transform type="scale" factor="3 1 2"/>
     </transforms>
     
     <appearanceref id="inherited"/>
     <primitives>
-        <flag texture="moe.jpeg"/>
+        <flag texture="flag.jpg"/>
     </primitives>
 </node>
 

@@ -9,6 +9,7 @@ DemoInterface::DemoInterface()
 
 void DemoInterface::initGUI()
 {
+	glutReshapeWindow(550,550);
 	GLUI_Panel *masterPanel=addPanel("Interface",GLUI_PANEL_RAISED);
 	addStaticTextToPanel(masterPanel,"Interface");
 	int atual=2;
