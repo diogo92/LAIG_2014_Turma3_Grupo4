@@ -16,5 +16,6 @@ public:
 	float startang;
 	float rotang;
 	float stepAngle;
+	float correction;
 };
 

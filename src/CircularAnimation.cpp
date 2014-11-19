@@ -17,6 +17,10 @@ void CircularAnimation::reset()
 
 void CircularAnimation::calcValues(){
 	this->stepAngle = rotang / span;
+	if(rotang>0)
+		correction=180;
+	else
+		correction=0;
 }
 
 void CircularAnimation::update(unsigned long t)
@@ -43,7 +47,7 @@ void CircularAnimation::apply(){
 	glTranslatef(this->center.x,this->center.y,this->center.z);
 	glRotatef(this->angle,0,1,0);
 	glTranslatef(this->radius,0,0);
-	glRotatef(180,0,1,0);
+	glRotatef(this->correction,0,1,0);
 }
 
 void CircularAnimation::init(unsigned long t)

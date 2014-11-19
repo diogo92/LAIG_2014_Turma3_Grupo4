@@ -127,14 +127,14 @@
     </appearances>
 
     <animations>
-        <animation id="retas" span="10" type="linear">
+        <animation id="retas" span="4" type="linear">
             <controlpoint xx="10" yy="5" zz="14" />
-            <controlpoint xx="7" yy="3" zz="10" />
-            <controlpoint xx="10" yy="5" zz="6" />
             <controlpoint xx="13" yy="3" zz="10" />
+            <controlpoint xx="10" yy="5" zz="6" />
+            <controlpoint xx="7" yy="3" zz="10" />
             <controlpoint xx="10" yy="5" zz="14" />
         </animation>
-        <animation id="circulo" span="10" type="circular" center="10 5 10" radius="5" startang="-90" rotang="360" />
+        <animation id="circulo" span="4" type="circular" center="10 5 10" radius="5" startang="-90" rotang="-360" />
     </animations>
 
     <!-- Início do bloco de grafo -->
