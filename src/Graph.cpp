@@ -29,10 +29,10 @@ void Graph::draw(){
 	this->nodes[this->rootNode].draw(this);
 }
 
-<<<<<<< HEAD
 void Node::animsTransforms(){
 	this->anims.at(this->atualAnim)->apply();
-=======
+}
+
 void Graph::setAppearances(){
 	this->nodes[this->rootNode].setAppearances(this);
 }
@@ -62,7 +62,6 @@ void Node::draw2(Graph * graph){
 			graph->nodes[this->childs.at(i)].draw2(graph);
 		glPopMatrix();
 	}
->>>>>>> origin/master
 }
 
 void Node::draw(Graph * graph){

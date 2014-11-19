@@ -69,12 +69,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Animation.cpp" />
     <ClCompile Include="src\Appearance.cpp" />
     <ClCompile Include="src\Camera.cpp" />
+    <ClCompile Include="src\CircularAnimation.cpp" />
     <ClCompile Include="src\DemoInterface.cpp" />
     <ClCompile Include="src\DemoScene.cpp" />
     <ClCompile Include="src\GlobalData.cpp" />
     <ClCompile Include="src\Light.cpp" />
+    <ClCompile Include="src\LinearAnimation.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Graph.cpp" />
     <ClCompile Include="src\Primitives.cpp" />
@@ -83,13 +86,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\XMLScene.h" />
+    <ClInclude Include="src\Animation.h" />
     <ClInclude Include="src\Appearance.h" />
     <ClInclude Include="src\Camera.h" />
+    <ClInclude Include="src\CircularAnimation.h" />
     <ClInclude Include="src\DemoInterface.h" />
     <ClInclude Include="src\DemoScene.h" />
     <ClInclude Include="src\GlobalData.h" />
     <ClInclude Include="src\Light.h" />
     <ClInclude Include="src\Graph.h" />
+    <ClInclude Include="src\LinearAnimation.h" />
     <ClInclude Include="src\Primitives.h" />
     <ClInclude Include="src\Vertice.h" />
     <ClInclude Include="src\VisualObject.h" />

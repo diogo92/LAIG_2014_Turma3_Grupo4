@@ -47,11 +47,8 @@ public:
 	~Node(void);
 	Node(string id);
 	void draw(Graph * graph);
-<<<<<<< HEAD
 	void updateAnim(unsigned long t);
-=======
 	void setAppearances(Graph * graph);
->>>>>>> origin/master
 	void update(unsigned long t);
 	string id;
 	bool inherited;
