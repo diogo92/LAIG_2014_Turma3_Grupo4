@@ -30,7 +30,9 @@ void Graph::draw(){
 }
 
 void Node::animsTransforms(){
-	this->anims.at(this->atualAnim)->apply();
+	if(this->anims.size()>0){
+		this->anims.at(this->atualAnim)->apply();
+	}
 }
 
 void Graph::setAppearances(){
@@ -95,6 +97,7 @@ void Node::draw(Graph * graph){
 }
 
 void Node::updateAnim(unsigned long t){
+	if(this->anims.size() >0){
 		if(this->anims.at(this->atualAnim)->ended){
 			this->atualAnim++;
 		}
@@ -106,6 +109,7 @@ void Node::updateAnim(unsigned long t){
 			}
 		}
 		this->anims.at(this->atualAnim)->update(t);
+	}
 }
 void Node::update(unsigned long t){
 	for(int i=0;i< this->primitives.size();i++){

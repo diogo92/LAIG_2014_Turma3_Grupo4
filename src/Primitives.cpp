@@ -222,12 +222,15 @@ Vehicle::Vehicle(){
 }
 
 void Vehicle::draw(){
-
+	glPushMatrix();
+	glRotatef(-90,1,0,0);
+	glScalef(0.2,0.2,0.2);
 	patch1->draw();
 	patch2->draw();
 	glPushMatrix();
 	glRotated(180,0,1,0);
 	patch2->draw();
+	glPopMatrix();
 	glPopMatrix();
 }
 
