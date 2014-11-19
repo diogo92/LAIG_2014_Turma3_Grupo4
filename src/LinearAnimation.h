@@ -10,6 +10,14 @@ class LinearAnimation :
 public:
 	LinearAnimation(void);
 	~LinearAnimation(void);
-	vector<float *> control_points;
+	vector<cor> control_points;
+	vector<cor> velocidades_segmentos;
+	unsigned int segmento_atual;
+	void update(unsigned long t);
+	void init(unsigned long t);
+	void reset();
+	void apply();
+	float sector;
+	void calcValues();
 };
 

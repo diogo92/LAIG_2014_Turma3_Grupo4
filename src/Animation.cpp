@@ -3,6 +3,7 @@
 
 Animation::Animation(void)
 {
+	this->ended = false;
 }
 
 

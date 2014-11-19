@@ -28,12 +28,14 @@ XMLScene::XMLScene(char *filename, GlobalData &globals, Graph &graphScene)
 	textureElement = anfElement->FirstChildElement("textures");
 	appearanceElement = anfElement->FirstChildElement("appearances");
 	graphElement = anfElement->FirstChildElement("graph");
+	animsElement = anfElement->FirstChildElement("animations");
 
 	parseGlobals(globals);
 	parseCameras(graphScene);
 	parseLights(graphScene);
 	parseTextures(graphScene);
 	parseAppearances(graphScene);
+	parseAnimations(graphScene);
 	parseGraph(graphScene);
 }
 
@@ -827,6 +829,159 @@ void XMLScene::parseAppearances(Graph &graphScene){
 		}
 	}
 }
+
+void XMLScene::parseAnimations(Graph &graphScene){
+	if(animsElement == NULL){
+		printf("animations element not found\n");
+		exit(-1);
+	}
+	else {
+		TiXmlElement *node = animsElement->FirstChildElement();
+		while(node){
+			float span;
+			string id,type;
+
+			temp = node->Attribute("id");
+			if(temp.empty()){
+				printf("  animation attribute id not found\n");
+				exit(-1);
+			}
+			else{
+				id = node->Attribute("id");
+				printf("  >> animation id: %s\n",temp.c_str());
+			}
+			temp = node->Attribute("span");
+			if(temp.c_str() && sscanf(temp.c_str(),"%f",&span)==1)
+			{
+				printf("  >> animation span: %f\n",span);
+				span *= 1000;
+			}
+			else {
+				printf("Error parsing control point xx\n");
+				exit(-1);
+			}
+			temp = node->Attribute("type");
+			if(temp.empty()){
+				printf("  animation attribute type not found\n");
+				exit(-1);
+			}
+			else if(temp == "linear"){
+				type = node->Attribute("type");
+				printf("  >> animation type: %s\n",temp.c_str());
+				LinearAnimation * anim = new LinearAnimation();
+				anim->id = id;
+				anim->span = span;
+				size_t counter = 0;
+				TiXmlElement *control_points = node->FirstChildElement();
+				while(control_points){
+					float x,y,z;
+					temp = control_points->Attribute("xx");
+					printf("  >> control point:\n");
+					if(temp.c_str() && sscanf(temp.c_str(),"%f",&x)==1)
+					{
+						printf("    >> x: %f", x);
+					}
+					else {
+						printf("Error parsing control point xx\n");
+						exit(-1);
+					}
+					temp = control_points->Attribute("yy");
+					if(temp.c_str() && sscanf(temp.c_str(),"%f",&y)==1)
+					{
+						printf("; y: %f", y);
+					}
+					else {
+						printf("\nError parsing control point yy\n");
+						exit(-1);
+					}
+					temp = control_points->Attribute("zz");
+					if(temp.c_str() && sscanf(temp.c_str(),"%f",&z)==1)
+					{
+						printf("; z: %f\n", z);
+					}
+					else {
+						printf("\nError parsing control point zz\n");
+						exit(-1);
+					}
+					cor point;
+					point.x = x;
+					point.y = y;
+					point.z = z;
+					anim->control_points.push_back(point);
+					counter++;
+					control_points = control_points->NextSiblingElement();
+				}
+				if(counter < 2){
+					printf("Linear animation must have at least 2 control points\n");
+					exit(-1);
+				}
+				anim->calcValues();
+				graphScene.anims.push_back(anim);
+			}
+			else if(temp == "circular"){
+				type = node->Attribute("type");
+				printf("  >> animation type: %s\n",temp.c_str());
+
+				float x,y,z,radius,startang,rotang;
+
+				temp = node->Attribute("center");
+				if(temp.c_str() && sscanf(temp.c_str(),"%f %f %f",&x,&y,&z)==3)
+				{
+					printf("  >> center: %f %f %f\n", x,y,z);
+				}
+				else {
+					printf("Error parsing center\n");
+					exit(-1);
+				}
+				temp = node->Attribute("radius");
+				if(temp.c_str() && sscanf(temp.c_str(),"%f",&radius)==1)
+				{
+					printf("  >> radius: %f\n", radius);
+				}
+				else {
+					printf("Error parsing radius\n");
+					exit(-1);
+				}
+				temp = node->Attribute("startang");
+				if(temp.c_str() && sscanf(temp.c_str(),"%f",&startang)==1)
+				{
+					printf("  >> startang: %f\n", startang);
+				}
+				else {
+					printf("Error parsing startang\n");
+					exit(-1);
+				}
+				temp = node->Attribute("rotang");
+				if(temp.c_str() && sscanf(temp.c_str(),"%f",&rotang)==1)
+				{
+					printf("  >> rotang: %f\n", rotang);
+				}
+				else {
+					printf("Error parsing rotang\n");
+					exit(-1);
+				}
+				
+				CircularAnimation * anim = new CircularAnimation();
+				anim->id = id;
+				anim->center.x = x;
+				anim->center.y = y;
+				anim->center.z = z;
+				anim->radius = radius;
+				anim->rotang = rotang;
+				anim->span = span;
+				anim->startang = startang;
+				anim->calcValues();
+				graphScene.anims.push_back(anim);
+			}
+			else{
+				printf("  wrong value type of animation\n");
+				exit(-1);
+			}
+			node = node->NextSiblingElement();
+		}
+	}
+}
+
 void XMLScene::parseGraph(Graph &graphScene){
 	if (graphElement == NULL){
 		printf("graph element not found\n");
@@ -980,6 +1135,28 @@ void XMLScene::parseGraph(Graph &graphScene){
 
 				}
 				
+				TiXmlElement * anim = node->FirstChildElement("animationref");
+				bool found = false;
+				while(anim){
+					temp = anim->Attribute("id");
+					if(temp.empty()){
+						printf("Error parsing animationref id\n");
+						exit(-1);
+					}
+					for(size_t i = 0; i < graphScene.anims.size(); i++){
+						if(temp == graphScene.anims.at(i)->id){
+							found = true;
+							graphScene.nodes[atualnode].anims.push_back(graphScene.anims.at(i));
+							break;
+						}
+					}
+					if(!found){
+						printf("Animation %s doesn't exist\n", temp.c_str());
+						exit(-1);
+					}
+					found = false;
+					anim = anim->NextSiblingElement("animationref");
+				}
 				TiXmlElement *prim=node->FirstChildElement("primitives");
 				if(prim!=NULL)
 					existsPrim=true;

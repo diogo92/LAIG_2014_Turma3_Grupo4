@@ -111,6 +111,7 @@ void DemoScene::update(unsigned long t)
 	typedef std::map<std::string, Node >::iterator it_typeNode;
 	for(it_typeNode iterator=graphScene.nodes.begin(); iterator != graphScene.nodes.end(); iterator++){
 		iterator->second.update(wind);
+		iterator->second.updateAnim(t);
 	}
 }
 

@@ -12,6 +12,8 @@
 #include "Camera.h"
 #include "Light.h"
 #include "Graph.h"
+#include "LinearAnimation.h"
+#include "CircularAnimation.h"
 
 class XMLScene
 {
@@ -26,6 +28,7 @@ public:
 	void parseTextures(Graph &graphScene);
 	void parseAppearances(Graph &graphScene);
 	void parseGraph(Graph &graphScene);
+	void parseAnimations(Graph &graphScene);
 protected:
 	string temp;
 	TiXmlDocument* doc;
@@ -35,6 +38,7 @@ protected:
 	TiXmlElement* appearanceElement;
 	TiXmlElement* cameraElement;
 	TiXmlElement* lightElement;
+	TiXmlElement* animsElement;
 	int cull;
 };
 

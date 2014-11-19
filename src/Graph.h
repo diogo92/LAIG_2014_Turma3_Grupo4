@@ -8,6 +8,7 @@
 #include "Camera.h"
 #include "Light.h"
 #include "Appearance.h"
+#include "Animation.h"
 
 using std::map;
 using std::string;
@@ -35,6 +36,7 @@ public:
 	map<string,Appearance> appearances;
 	vector<Light*> lights;
 	string rootNode;
+	vector<Animation * > anims;
 };
 
 class Node
@@ -44,6 +46,7 @@ public:
 	~Node(void);
 	Node(string id);
 	void draw(Graph * graph);
+	void updateAnim(unsigned long t);
 	void update(unsigned long t);
 	string id;
 	bool inherited;
@@ -54,5 +57,8 @@ public:
 	GLuint dispList;
 	bool displayList;
 	void checkList(Graph * graph);
+	void animsTransforms();
+	unsigned int atualAnim;
+	vector<Animation * > anims;
 };
 #endif

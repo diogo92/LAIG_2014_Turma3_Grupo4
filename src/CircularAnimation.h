@@ -6,9 +6,15 @@ class CircularAnimation :
 public:
 	CircularAnimation(void);
 	~CircularAnimation(void);
-	float center[3];
+	void update(unsigned long t);
+	void init(unsigned long t);
+	void reset();
+	void calcValues();
+	void apply();
+	cor center;
 	float radius;
 	float startang;
 	float rotang;
+	float stepAngle;
 };
 
