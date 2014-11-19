@@ -34,6 +34,7 @@ public:
 	map<string,Camera> cameras;
 	map<string,Texture> textures;
 	map<string,Appearance> appearances;
+	void setAppearances();
 	vector<Light*> lights;
 	string rootNode;
 	vector<Animation * > anims;
@@ -46,7 +47,11 @@ public:
 	~Node(void);
 	Node(string id);
 	void draw(Graph * graph);
+<<<<<<< HEAD
 	void updateAnim(unsigned long t);
+=======
+	void setAppearances(Graph * graph);
+>>>>>>> origin/master
 	void update(unsigned long t);
 	string id;
 	bool inherited;
@@ -56,6 +61,7 @@ public:
 	vector<VisualObject*> primitives;
 	GLuint dispList;
 	bool displayList;
+	void draw2(Graph * graph);
 	void checkList(Graph * graph);
 	void animsTransforms();
 	unsigned int atualAnim;

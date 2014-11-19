@@ -96,6 +96,7 @@ void DemoScene::init()
 	this->cameras=graphScene.cameras;
 	setCamera();
 	typedef std::map<std::string, Node >::iterator it_typeNode;
+	graphScene.setAppearances();
 	for(it_typeNode iterator=graphScene.nodes.begin(); iterator != graphScene.nodes.end(); iterator++){
 		iterator->second.checkList(&graphScene);
 	}

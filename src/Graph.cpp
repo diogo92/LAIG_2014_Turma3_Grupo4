@@ -29,15 +29,53 @@ void Graph::draw(){
 	this->nodes[this->rootNode].draw(this);
 }
 
+<<<<<<< HEAD
 void Node::animsTransforms(){
 	this->anims.at(this->atualAnim)->apply();
+=======
+void Graph::setAppearances(){
+	this->nodes[this->rootNode].setAppearances(this);
+}
+
+void Node::setAppearances(Graph * graph){
+	float currentColor[4];
+		glGetFloatv(GL_CURRENT_COLOR,currentColor);
+		for(unsigned int i = 0; i < this->childs.size();i++){
+			glPushMatrix();
+			if(graph->nodes[this->childs.at(i)].inherited){
+				graph->nodes[this->childs.at(i)].appear = this->appear;
+			}
+			graph->nodes[this->childs.at(i)].setAppearances(graph);
+			glPopMatrix();
+			glColor4fv(currentColor);
+		}
+}
+
+void Node::draw2(Graph * graph){
+	glMultMatrixf(&this->matrix[0]);
+	this->appear->apply();
+	if(displayList){
+		glCallList(this->dispList);
+	}
+	for(unsigned int i = 0; i < this->childs.size();i++){
+		glPushMatrix();
+			graph->nodes[this->childs.at(i)].draw2(graph);
+		glPopMatrix();
+	}
+>>>>>>> origin/master
 }
 
 void Node::draw(Graph * graph){
 	glMultMatrixf(&this->matrix[0]);
 	this->appear->apply();
-	if(displayList)
+	if(displayList){
 		glCallList(this->dispList);
+		for(unsigned int i = 0; i < this->childs.size();i++){
+			glPushMatrix();
+				graph->nodes[this->childs.at(i)].draw2(graph);
+			glPopMatrix();
+		}
+	}
 	else{
 		glPushMatrix();
 		animsTransforms();
@@ -48,16 +86,10 @@ void Node::draw(Graph * graph){
 			this->primitives.at(i)->draw();
 			glPopMatrix();
 		}
-		float currentColor[4];
-		glGetFloatv(GL_CURRENT_COLOR,currentColor);
 		for(unsigned int i = 0; i < this->childs.size();i++){
 			glPushMatrix();
-			if(graph->nodes[this->childs.at(i)].inherited){
-				graph->nodes[this->childs.at(i)].appear = this->appear;
-			}
 			graph->nodes[this->childs.at(i)].draw(graph);
 			glPopMatrix();
-			glColor4fv(currentColor);
 		}
 		glPopMatrix();
 	}
@@ -92,16 +124,12 @@ void Node::checkList(Graph * graph){
 			this->primitives.at(i)->draw();
 			glPopMatrix();
 		}
-		float currentColor[4];
-		glGetFloatv(GL_CURRENT_COLOR,currentColor);
 		for(unsigned int i = 0; i < this->childs.size();i++){
 			glPushMatrix();
-			if(graph->nodes[this->childs.at(i)].inherited){
-				graph->nodes[this->childs.at(i)].appear = this->appear;
+			if(!graph->nodes[this->childs.at(i)].displayList){
+				graph->nodes[this->childs.at(i)].draw(graph);
 			}
-			graph->nodes[this->childs.at(i)].draw(graph);
 			glPopMatrix();
-			glColor4fv(currentColor);
 		}
 		glEndList();
 	}
