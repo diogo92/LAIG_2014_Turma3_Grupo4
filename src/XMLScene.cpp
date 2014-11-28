@@ -1239,6 +1239,10 @@ void XMLScene::parseGraph(Graph &graphScene){
 							}
 							graphScene.nodes[atualnode].primitives.push_back(new Plane(parts));
 						}
+						else if(strcmp(temp.c_str(),"board")==0){
+							printf(" Game Board\n");
+							graphScene.nodes[atualnode].primitives.push_back(new Board());
+						}
 						else if(strcmp(temp.c_str(),"patch")==0){
 							printf(" primitive patch\n");
 							string compute;
