@@ -149,16 +149,20 @@ void DemoScene::display()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	setLights();
-	//setCamera();
-		CGFscene::activeCamera->applyView();
+	setCamera();
+	//	CGFscene::activeCamera->applyView();
 	for(unsigned int i=0;i<graphScene.lights.size();i++){
 		if(graphScene.lights.at(i)->marked)
 			lights.at(i)->draw();
 	}
+	glPushMatrix();
+	glTranslated(-1,0,-1);
 	axis.draw();
-
+	glPopMatrix();
+	glPushMatrix();
+	glScaled(10,10,10);
 	graphScene.draw();
-
+	glPopMatrix();
 	glutSwapBuffers();
 }
 

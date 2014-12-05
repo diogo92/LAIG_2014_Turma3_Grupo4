@@ -14,13 +14,14 @@
 
 
 class Cylinder;
+class Rectangle;
 
 class Piece: public VisualObject {
 	Cylinder* cyl;
-	Appearance* p1;
-	Appearance* p2;
+	CGFtexture* p1;
+	CGFtexture* p2;
 public:
-	Piece(Appearance* tex1, Appearance* tex2);
+	Piece(CGFtexture * tex1, CGFtexture * tex2);
 	~Piece(void);
 	void draw(int player);
 };
@@ -39,6 +40,7 @@ class Board : public VisualObject{
 	PieceHolder* p1;
 	PieceHolder* p2;
 	Appearance* app;
+	Rectangle* rect;
 	Piece* piece;
 	vector<int> pieces;
 public:

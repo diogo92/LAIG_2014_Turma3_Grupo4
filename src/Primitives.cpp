@@ -26,11 +26,16 @@ const GLfloat Plane::colorpoints[4][4] = {
 	{ 0.7, 0.0, 0.0, 0} 
 };
 
-Piece::Piece(Appearance* tex1, Appearance* tex2){
+Piece::Piece(CGFtexture * tex1, CGFtexture * tex2){
 	this->p1=tex1;
 	this->p2=tex2;
 	this->cyl=new Cylinder(0.5,0.5,0.1,16,16);
 }
+
+Piece::~Piece(){
+	delete(this->cyl);
+}
+
 
 void Piece::draw(int player){
 	if(player==1){
@@ -42,37 +47,50 @@ void Piece::draw(int player){
 	cyl->draw();
 
 }
+
 Board::Board(){
-	float * amb=new float[4];
-	float * dif=new float[4];
-	float * spe=new float[4];
-	amb[0]=0.1;
-	amb[1]=0.1;
-	amb[2]=0.1;
-	amb[3]=0.1;
-	dif[0]=0.1;
-	dif[1]=0.1;
-	dif[2]=0.1;
-	dif[3]=0.1;
-	spe[0]=0.1;
-	spe[1]=0.1;
-	spe[2]=0.1;
-	spe[3]=0.1;
 	this->init();
-	this->piece=new Piece(new Appearance("",0.1,amb,dif,spe,1,1, ""/*string texfile*/),
-							new Appearance("",0.1,amb,dif,spe,1,1, ""/*string texfile*/));
+	this->piece=new Piece(new CGFtexture("flag.jpg"),
+							new CGFtexture("donut.png"));
+
+	for(int i=0;i<64;i++){
+		pieces.push_back(0);
+	}
+
+	rect= new Rectangle(0,0,1,1);
 
 }
 
 void Board::draw(){
-	
+	glPushMatrix();
+	glRotated(90,1,0,0);
+	rect->draw();
+	glPopMatrix();
+	int curr=0;
+	for(int i = 0;i<8;i++){
+		float col = (float)i/8.0;
+		for(int j=0;j<8;j++){
+			float row = (float)j/8;
+				glPushMatrix();
+				glPushName(i+1);
+				glPushName(j+1);
+				glTranslated(col+(0.5/8.0), 0, row+(0.5/8.0));
+				glRotated(-90,1,0,0);
+				glScaled((0.5/8.0),(0.5/8.0),(0.5/8.0));
+				piece->draw(pieces.at(curr));
+				glPopName();
+				glPopName();
+				glPopMatrix();
+				curr++;
+		}
+	}
 }
 
 void Board::init(){
-	p1=new PieceHolder(1);
+	/*p1=new PieceHolder(1);
 	p2=new PieceHolder(2);
 	p1->draw();
-	p2->draw();
+	p2->draw();*/
 	int row=0;
 	int peca1=1;
 	int peca2=2;
@@ -119,12 +137,6 @@ Cylinder::~Cylinder(){
 }
 void Cylinder::draw() 
 {
-	/*glMatrixMode(GL_TEXTURE);
-		
-		glLoadIdentity();
-		glScalef(1/this->tex_s,1/this->tex_t,1);
-		
-	glMatrixMode(GL_MODELVIEW);*/
 
 	gluQuadricOrientation(obj,GLU_OUTSIDE);
 	gluQuadricTexture(obj,GLU_TRUE);
@@ -142,11 +154,6 @@ void Cylinder::draw()
 	
 	}
 
-	/*glMatrixMode(GL_TEXTURE);
-		
-		glScalef(this->tex_s,this->tex_t,1);
-		
-	glMatrixMode(GL_MODELVIEW);*/
 	
 }
 
