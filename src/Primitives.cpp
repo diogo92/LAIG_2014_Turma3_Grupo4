@@ -25,6 +25,81 @@ const GLfloat Plane::colorpoints[4][4] = {
 	{ 0.0, 0.7, 0.0, 0},
 	{ 0.7, 0.0, 0.0, 0} 
 };
+
+Piece::Piece(Appearance* tex1, Appearance* tex2){
+	this->p1=tex1;
+	this->p2=tex2;
+	this->cyl=new Cylinder(0.5,0.5,0.1,16,16);
+}
+
+void Piece::draw(int player){
+	if(player==1){
+		this->p1->apply();
+	}
+	else
+		this->p2->apply();
+
+	cyl->draw();
+
+}
+Board::Board(){
+	float * amb=new float[4];
+	float * dif=new float[4];
+	float * spe=new float[4];
+	amb[0]=0.1;
+	amb[1]=0.1;
+	amb[2]=0.1;
+	amb[3]=0.1;
+	dif[0]=0.1;
+	dif[1]=0.1;
+	dif[2]=0.1;
+	dif[3]=0.1;
+	spe[0]=0.1;
+	spe[1]=0.1;
+	spe[2]=0.1;
+	spe[3]=0.1;
+	this->init();
+	this->piece=new Piece(new Appearance("",0.1,amb,dif,spe,1,1, ""/*string texfile*/),
+							new Appearance("",0.1,amb,dif,spe,1,1, ""/*string texfile*/));
+
+}
+
+void Board::draw(){
+	
+}
+
+void Board::init(){
+	p1=new PieceHolder(1);
+	p2=new PieceHolder(2);
+	p1->draw();
+	p2->draw();
+	int row=0;
+	int peca1=1;
+	int peca2=2;
+	for(int i=0;i<64;i++){
+		if(row%2==0){
+			peca1=1;
+			peca2=2;
+		}
+		else{
+			peca2=1;
+			peca1=2;
+		}
+		if(i%2==0){
+			pieces.push_back(peca1);
+			printf("%d , ",peca1);
+		}
+		else{
+			pieces.push_back(peca2);
+			printf("%d , ",peca2);
+		}
+		if((i+1)%8==0){
+			row++;
+			printf("\n");
+		}
+	}
+}
+
 Cylinder::Cylinder(double raioBase, double raioTopo, double altura, int slices, int stacks) {
 	lados = slices;
 	andares = stacks;

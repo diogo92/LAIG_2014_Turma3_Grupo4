@@ -9,6 +9,49 @@
 #include "Vertice.h"
 #include <CGFshader.h>
 #include <CGFtexture.h>
+#include "Appearance.h"
+
+
+
+class Cylinder;
+
+class Piece: public VisualObject {
+	Cylinder* cyl;
+	Appearance* p1;
+	Appearance* p2;
+public:
+	Piece(Appearance* tex1, Appearance* tex2);
+	~Piece(void);
+	void draw(int player);
+};
+
+class PieceHolder: public VisualObject{
+	int player;
+	Appearance* app;
+	unsigned int numPieces;
+public:
+	PieceHolder(int player);
+	void draw();
+	void addPiece();
+};
+
+class Board : public VisualObject{
+	PieceHolder* p1;
+	PieceHolder* p2;
+	Appearance* app;
+	Piece* piece;
+	vector<int> pieces;
+public:
+	Board();
+	void init();
+	void draw();
+
+};
+
+
+
+
+
 class Cylinder : public VisualObject {
 	
 	int lados;
