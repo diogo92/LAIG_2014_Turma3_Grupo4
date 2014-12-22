@@ -18,10 +18,10 @@ class Rectangle;
 
 class Piece: public VisualObject {
 	Cylinder* cyl;
-	CGFtexture* p1;
-	CGFtexture* p2;
+	CGFappearance* p1;
+	CGFappearance* p2;
 public:
-	Piece(CGFtexture * tex1, CGFtexture * tex2);
+	Piece(CGFappearance * tex1, CGFappearance * tex2);
 	~Piece(void);
 	void draw(int player);
 };
@@ -40,7 +40,7 @@ class Board : public VisualObject{
 	PieceHolder* p1;
 	PieceHolder* p2;
 	Appearance* app;
-	Rectangle* rect;
+	Rectangle* square;
 	Piece* piece;
 	vector<int> pieces;
 public:

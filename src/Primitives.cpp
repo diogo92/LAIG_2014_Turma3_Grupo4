@@ -26,7 +26,7 @@ const GLfloat Plane::colorpoints[4][4] = {
 	{ 0.7, 0.0, 0.0, 0} 
 };
 
-Piece::Piece(CGFtexture * tex1, CGFtexture * tex2){
+Piece::Piece(CGFappearance * tex1, CGFappearance * tex2){
 	this->p1=tex1;
 	this->p2=tex2;
 	this->cyl=new Cylinder(0.5,0.5,0.1,16,16);
@@ -50,38 +50,71 @@ void Piece::draw(int player){
 
 Board::Board(){
 	this->init();
-	this->piece=new Piece(new CGFtexture("flag.jpg"),
-							new CGFtexture("donut.png"));
+	this->piece=new Piece(new CGFappearance("flag.jpg",1,1),
+							new CGFappearance("donut.png",1,1));
 
 	for(int i=0;i<64;i++){
 		pieces.push_back(0);
 	}
 
-	rect= new Rectangle(0,0,1,1);
+	square= new Rectangle(0,0,1,1);
 
 }
 
 void Board::draw(){
-	glPushMatrix();
-	glRotated(90,1,0,0);
-	rect->draw();
-	glPopMatrix();
 	int curr=0;
+	bool imp=false;
+	float * red = new float[4];
+	float * black = new float[4];
+	red[0]=0.75;
+	red[1]=0.24;
+	red[2]=0.19;
+	red[3]=0;
+	black[0]=0.43;
+	black[1]=0.42;
+	black[2]=0.42;
+	black[3]=0;
+	CGFappearance* redapp= new CGFappearance(red,red,red,0);
+	CGFappearance* blackapp= new CGFappearance(black,black,black,0);
 	for(int i = 0;i<8;i++){
 		float col = (float)i/8.0;
+		if(imp){
+			redapp->apply();
+			imp=false;
+		}
+		else{
+			blackapp->apply();
+			imp=true;
+		}
 		for(int j=0;j<8;j++){
 			float row = (float)j/8;
+
 				glPushMatrix();
 				glPushName(i+1);
 				glPushName(j+1);
 				glTranslated(col+(0.5/8.0), 0, row+(0.5/8.0));
 				glRotated(-90,1,0,0);
 				glScaled((0.5/8.0),(0.5/8.0),(0.5/8.0));
+
+				glPushMatrix();
+				glScaled(2,2,2);
+				glTranslated(-0.5,-0.5,0);
+				if(imp){
+					redapp->apply();
+					imp=false;
+				}
+				else{
+					blackapp->apply();
+					imp=true;
+				}
+				square->draw();
+				glPopMatrix();
 				piece->draw(pieces.at(curr));
 				glPopName();
 				glPopName();
 				glPopMatrix();
 				curr++;
+
 		}
 	}
 }
