@@ -109,9 +109,9 @@ void Board::draw(){
 				}
 				square->draw();
 				glPopMatrix();
+				glPopName();
+				glPopName();
 				piece->draw(pieces.at(curr));
-				glPopName();
-				glPopName();
 				glPopMatrix();
 				curr++;
 
@@ -120,10 +120,6 @@ void Board::draw(){
 }
 
 void Board::init(){
-	/*p1=new PieceHolder(1);
-	p2=new PieceHolder(2);
-	p1->draw();
-	p2->draw();*/
 	int row=0;
 	int peca1=1;
 	int peca2=2;

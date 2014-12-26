@@ -26,19 +26,8 @@ public:
 	void draw(int player);
 };
 
-class PieceHolder: public VisualObject{
-	int player;
-	Appearance* app;
-	unsigned int numPieces;
-public:
-	PieceHolder(int player);
-	void draw();
-	void addPiece();
-};
 
 class Board : public VisualObject{
-	PieceHolder* p1;
-	PieceHolder* p2;
 	Appearance* app;
 	Rectangle* square;
 	Piece* piece;
