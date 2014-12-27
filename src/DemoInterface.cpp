@@ -25,10 +25,10 @@ void DemoInterface::initGUI()
 	GLUI_Panel *cameraPanel= addPanelToPanel(masterPanel,"Cameras",1);
 	GLUI_RadioGroup * g2 = addRadioGroupToPanel(cameraPanel,&(((DemoScene*) scene)->activeCameraNumber),atual);
 	atual++;
-	map<string,Camera>::const_iterator it;
+	map<string,Camera *>::const_iterator it;
 
 	for(it=((DemoScene*) scene)->cameras.begin();it!=((DemoScene*) scene)->cameras.end();it++){
-		addRadioButtonToGroup(g2,(char*)it->second.id.c_str());
+		addRadioButtonToGroup(g2,(char*)it->second->id.c_str());
 	}
 
 	addColumnToPanel(masterPanel);

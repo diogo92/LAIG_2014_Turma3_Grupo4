@@ -87,10 +87,10 @@ void DemoScene::init()
 	setLightVector();
 	initLights();
 
-	typedef std::map<std::string, Camera >::iterator it_type;
+	typedef std::map<std::string, Camera *>::iterator it_type;
 	int c=0;
 	for(it_type iterator = graphScene.cameras.begin(); iterator != graphScene.cameras.end(); iterator++,c++) {
-		if(iterator->second.isActive)
+		if(iterator->second->isActive)
 			activeCameraNumber=c;
 	}
 	this->cameras=graphScene.cameras;
@@ -149,7 +149,7 @@ void DemoScene::display()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	setLights();
-	//setCamera();
+	setCamera();
 	CGFscene::activeCamera->applyView();
 	for(unsigned int i=0;i<graphScene.lights.size();i++){
 		if(graphScene.lights.at(i)->marked)
@@ -213,27 +213,28 @@ void DemoScene::setLights(){
 
 void DemoScene::setCamera(){
 	int i=0;
-	typedef std::map<std::string, Camera >::iterator it_type;
+	typedef std::map<std::string, Camera *>::iterator it_type;
 	for(it_type iterator = graphScene.cameras.begin(); iterator != graphScene.cameras.end(); iterator++,i++) {
 		if(activeCameraNumber==i){
-			glMatrixMode(GL_PROJECTION);
+			CGFscene::activeCamera= (CGFcamera *)iterator->second;
+			/*glMatrixMode(GL_PROJECTION);
 			glLoadIdentity();
-			if(iterator->second.type==0){//is ortho camera
-				glOrtho(iterator->second.left,iterator->second.right,iterator->second.bottom,iterator->second.top,iterator->second.near,iterator->second.far);
+			if(iterator->second->type==0){//is ortho camera
+				glOrtho(iterator->second->left,iterator->second->right,iterator->second->bottom,iterator->second->top,iterator->second->near,iterator->second->far);
 				glMatrixMode(GL_MODELVIEW);
 				glLoadIdentity();
-				if(iterator->second.direction=="x")
+				if(iterator->second->direction=="x")
 					gluLookAt(1,0,0,0,0,0,0,1,0);
-				else if(iterator->second.direction=="y")
+				else if(iterator->second->direction=="y")
 					gluLookAt(0,1,0,0,0,0,0,0,-1);
 				else
 					gluLookAt(0,0,1,0,0,0,0,1,0);
 			}
-			else if(iterator->second.type==1){//is perspective camera
-				gluPerspective(iterator->second.angle,CGFapplication::xy_aspect,iterator->second.near,iterator->second.far);
+			else if(iterator->second->type==1){//is perspective camera
+				gluPerspective(iterator->second->angle,CGFapplication::xy_aspect,iterator->second->near,iterator->second->far);
 				glMatrixMode(GL_MODELVIEW);
 				glLoadIdentity();
-				gluLookAt(iterator->second.pos[0],iterator->second.pos[1],iterator->second.pos[2],iterator->second.target[0],iterator->second.target[1],iterator->second.target[2],0,1,0);
+				gluLookAt(iterator->second->pos[0],iterator->second->pos[1],iterator->second->pos[2],iterator->second->target[0],iterator->second->target[1],iterator->second->target[2],0,1,0);
 				
 			}
 
@@ -241,7 +242,7 @@ void DemoScene::setCamera(){
 				printf("Camera error\n");
 				exit(-1);
 			}
-			break;
+			break;*/
 		}
 		
 	}

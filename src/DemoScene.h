@@ -32,7 +32,7 @@ public:
 	int updatePer;
 	vector<CGFlight* > lights;
 	vector<Light* > graphLights;
-	map<string,Camera> cameras;
+	map<string,Camera *> cameras;
 	void setLightVector();
 	void processCameras();
 	void setAnfFileName(char *filename,unsigned int size);

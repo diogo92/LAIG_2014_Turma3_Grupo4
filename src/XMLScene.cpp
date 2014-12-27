@@ -323,11 +323,11 @@ void XMLScene::parseCameras(Graph &graphScene){
 					printf("Error parsing perspective camera target");
 					exit(-1);
 				}
-				graphScene.cameras[id]= Camera(id,near,far,angle,pos,target);
-				graphScene.cameras[id].type=1;
+				graphScene.cameras[id]= new Camera(id,near,far,angle,pos,target);
+				graphScene.cameras[id]->type=1;
 				if(id==initialID){
-					graphScene.cameras[id].initial=true;
-					graphScene.cameras[id].isActive=true;
+					graphScene.cameras[id]->initial=true;
+					graphScene.cameras[id]->isActive=true;
 
 				}
 			}
@@ -395,11 +395,11 @@ void XMLScene::parseCameras(Graph &graphScene){
 					printf("Error parsing bottom attribute");
 					exit(-1);
 				}
-				graphScene.cameras[id]= Camera(id,direction,near,far,left,right,top,bottom);
-				graphScene.cameras[id].type=0;
+				graphScene.cameras[id]= new Camera(id,direction,near,far,left,right,top,bottom);
+				graphScene.cameras[id]->type=0;
 				if(id==initialID){
-					graphScene.cameras[id].initial=true;
-					graphScene.cameras[id].isActive=true;
+					graphScene.cameras[id]->initial=true;
+					graphScene.cameras[id]->isActive=true;
 					
 				}
 			}

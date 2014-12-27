@@ -110,11 +110,11 @@ void Board::draw(){
 					blackapp->apply();
 					imp=true;
 				}
-				glPushName(j);
+				glPushName(j+100);
 				square->draw();
 				glPopName();
 				glPopMatrix();
-				glPushName(j+100);
+				glPushName(j);
 				piece->draw(pieces.at(curr));
 				glPopName();
 				glPopMatrix();

@@ -31,7 +31,7 @@ public:
 	~Graph(void);
 	void draw();
 	map<string,Node> nodes;
-	map<string,Camera> cameras;
+	map<string,Camera *> cameras;
 	map<string,Texture> textures;
 	map<string,Appearance> appearances;
 	void setAppearances();
