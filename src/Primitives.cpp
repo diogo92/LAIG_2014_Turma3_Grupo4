@@ -76,6 +76,9 @@ void Board::draw(){
 	black[3]=0;
 	CGFappearance* redapp= new CGFappearance(red,red,red,0);
 	CGFappearance* blackapp= new CGFappearance(black,black,black,0);
+	glPushMatrix();
+	glPushName(-1);
+	glPopMatrix();
 	for(int i = 0;i<8;i++){
 		float col = (float)i/8.0;
 		if(imp){
@@ -86,12 +89,12 @@ void Board::draw(){
 			blackapp->apply();
 			imp=true;
 		}
+		glPushMatrix();
+		glLoadName(i);
 		for(int j=0;j<8;j++){
 			float row = (float)j/8;
 
 				glPushMatrix();
-				glPushName(i+1);
-				glPushName(j+1);
 				glTranslated(col+(0.5/8.0), 0, row+(0.5/8.0));
 				glRotated(-90,1,0,0);
 				glScaled((0.5/8.0),(0.5/8.0),(0.5/8.0));
@@ -107,15 +110,18 @@ void Board::draw(){
 					blackapp->apply();
 					imp=true;
 				}
+				glPushName(j);
 				square->draw();
+				glPopName();
 				glPopMatrix();
-				glPopName();
-				glPopName();
+				glPushName(j+100);
 				piece->draw(pieces.at(curr));
+				glPopName();
 				glPopMatrix();
 				curr++;
 
 		}
+		glPopMatrix();
 	}
 }
 
