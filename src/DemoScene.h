@@ -38,6 +38,7 @@ public:
 	void setAnfFileName(char *filename,unsigned int size);
 	void changeTheme();
 	int theme;
+	int gameMode;
 	Board * board;
 private:
 };

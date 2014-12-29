@@ -82,6 +82,7 @@ void DemoScene::init()
 {
 	XMLScene anf("scene.anf", globals, graphScene);
 	theme=0;
+	gameMode=0;
 	//printf("Write the name of the file to be read.\n>> ");
 	
 	/*char line[256];

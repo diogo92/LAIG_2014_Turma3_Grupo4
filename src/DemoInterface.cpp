@@ -60,13 +60,14 @@ void DemoInterface::initGUI()
 	GLUI_Panel * statusPanel = addPanelToPanel(gamePanel,"Game Status",1);
 	GLUI_StaticText * gameStatus = addStaticTextToPanel(statusPanel,"");
 	char c[128];
-	//sprintf(c, "Current player: %d | Game score: %d - %d", pnum, scorep1,scorep2);
+	sprintf(c,"status here");
+	//sprintf(c, "Current player: %d | Game score: %d - %d\n Current game time: %d", pnum, scorep1,scorep2,time);
 	gameStatus->set_text(c);
 	addColumnToPanel(gamePanel);
 
 
 	GLUI_Panel * difPanel = addPanelToPanel(gamePanel,"Game Difficulty",1);
-	GLUI_RadioGroup * dif=addRadioGroupToPanel(difPanel ,&((DemoScene *) scene)->theme,atual);
+	GLUI_RadioGroup * dif=addRadioGroupToPanel(difPanel,0,atual);
 	atual++;
 	addRadioButtonToGroup(dif,"Easy");
 	addRadioButtonToGroup(dif,"Medium");
@@ -75,10 +76,19 @@ void DemoInterface::initGUI()
 
 	addColumnToPanel(gamePanel);
 	GLUI_Panel * modePanel = addPanelToPanel(gamePanel,"Game Mode",1);
-	GLUI_RadioGroup * mode=addRadioGroupToPanel(modePanel,&((DemoScene *) scene)->theme,1);
+	GLUI_RadioGroup * mode=addRadioGroupToPanel(modePanel,&((DemoScene *) scene)->gameMode,atual);
+	atual++,
 	addRadioButtonToGroup(mode,"Hum vs. Hum");
 	addRadioButtonToGroup(mode,"Hum vs. CPU");
 	addRadioButtonToGroup(mode,"CPU vs. CPU");
+
+
+
+	addColumnToPanel(gamePanel);
+	GLUI_Panel * buttonPanel = addPanelToPanel(gamePanel,"");
+	GLUI_Button * undoButton=addButtonToPanel(buttonPanel,"Undo Move",atual);
+	atual++;
+	GLUI_Button * replayButton=addButtonToPanel(buttonPanel,"Replay last game",atual);
 
 }
 
@@ -91,6 +101,14 @@ void DemoInterface::processGUI(GLUI_Control *ctrl)
 		((DemoScene*) scene)->setLights();
 	if(ctrl->user_id == 5)
 		((DemoScene*) scene)->changeTheme();
+	if(ctrl->user_id == 6)
+		printf("AI difficulty changed\n");
+	if(ctrl->user_id == 7)
+		printf("Game mode\n");
+	if(ctrl->user_id == 8)
+		printf("Undo\n");
+	if(ctrl->user_id == 9)
+		printf("Replay\n");
 }
 
 void DemoInterface::processMouse(int button, int state, int x, int y) 
