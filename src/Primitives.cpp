@@ -26,9 +26,14 @@ const GLfloat Plane::colorpoints[4][4] = {
 	{ 0.7, 0.0, 0.0, 0} 
 };
 
-Piece::Piece(CGFappearance * tex1, CGFappearance * tex2){
-	this->p1=tex1;
-	this->p2=tex2;
+Piece::Piece(){
+	this->tex=0;
+	this->appearances1.push_back(new CGFappearance("woodtheme/p1.jpg",1,1));
+	this->appearances1.push_back(new CGFappearance("mineraltheme/p1.jpg",1,1));
+	this->appearances1.push_back(new CGFappearance("seatheme/p1.jpg",1,1));
+	this->appearances2.push_back(new CGFappearance("woodtheme/p2.jpg",1,1));
+	this->appearances2.push_back(new CGFappearance("mineraltheme/p2.png",1,1));
+	this->appearances2.push_back(new CGFappearance("seatheme/p2.jpg",1,1));
 	this->cyl=new Cylinder(0.5,0.5,0.1,16,16);
 }
 
@@ -39,25 +44,30 @@ Piece::~Piece(){
 
 void Piece::draw(int player){
 	if(player==1){
-		this->p1->apply();
+		this->appearances1.at(tex)->apply();
 	}
 	else
-		this->p2->apply();
+		this->appearances2.at(tex)->apply();
 
 	cyl->draw();
 
 }
 
 Board::Board(){
+	this->tex=0;
+	this->appearances1.push_back(new CGFappearance("woodtheme/boardp1.png",1,1));
+	this->appearances1.push_back(new CGFappearance("mineraltheme/boardp1.jpg",1,1));
+	this->appearances1.push_back(new CGFappearance("seatheme/boardp1.jpeg",1,1));
+	this->appearances2.push_back(new CGFappearance("woodtheme/boardp2.jpg",1,1));
+	this->appearances2.push_back(new CGFappearance("mineraltheme/boardp2.png",1,1));
+	this->appearances2.push_back(new CGFappearance("seatheme/boardp2.png",1,1));
 	this->init();
-	this->piece=new Piece(new CGFappearance("flag.jpg",1,1),
-							new CGFappearance("donut.png",1,1));
-
 	for(int i=0;i<64;i++){
 		pieces.push_back(0);
 	}
-
 	square= new Rectangle(0,0,1,1);
+	square->tex_s=1;
+	square->tex_t=1;
 
 }
 
@@ -66,30 +76,21 @@ void Board::draw(){
 	bool imp=false;
 	float * red = new float[4];
 	float * black = new float[4];
-	red[0]=0.75;
-	red[1]=0.24;
-	red[2]=0.19;
-	red[3]=0;
-	black[0]=0.43;
-	black[1]=0.42;
-	black[2]=0.42;
-	black[3]=0;
-	CGFappearance* redapp= new CGFappearance(red,red,red,0);
-	CGFappearance* blackapp= new CGFappearance(black,black,black,0);
 	glPushMatrix();
 	glPushName(-1);
 	glPopMatrix();
 	for(int i = 0;i<8;i++){
 		float col = (float)i/8.0;
 		if(imp){
-			redapp->apply();
+			appearances1.at(tex)->apply();
 			imp=false;
 		}
 		else{
-			blackapp->apply();
+			appearances2.at(tex)->apply();
 			imp=true;
 		}
 		glPushMatrix();
+		glTranslated(0,0.001,0);
 		glLoadName(i);
 		for(int j=0;j<8;j++){
 			float row = (float)j/8;
@@ -103,11 +104,11 @@ void Board::draw(){
 				glScaled(2,2,2);
 				glTranslated(-0.5,-0.5,0);
 				if(imp){
-					redapp->apply();
+					appearances1.at(tex)->apply();
 					imp=false;
 				}
 				else{
-					blackapp->apply();
+					appearances2.at(tex)->apply();
 					imp=true;
 				}
 				glPushName(j+100);
@@ -125,7 +126,13 @@ void Board::draw(){
 	}
 }
 
+void Board::setTexture(int t){
+	this->tex=t;
+	this->piece->tex=t;
+}
+
 void Board::init(){
+	this->piece=new Piece();
 	int row=0;
 	int peca1=1;
 	int peca2=2;

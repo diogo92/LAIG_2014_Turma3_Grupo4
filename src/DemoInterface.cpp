@@ -42,15 +42,26 @@ void DemoInterface::initGUI()
 	addStaticTextToPanel(masterPanel,"");
 	GLUI_Spinner *windSpinner=addSpinnerToPanel(masterPanel,"Wind",GLUI_SPINNER_INT,(int *)&(((DemoScene*) scene)->wind),atual);
 	windSpinner->set_float_limits(1,50,GLUI_LIMIT_WRAP);
-
+	
+	atual++;
+	GLUI_Panel * masterPanel2=addPanel("Game options",GLUI_PANEL_RAISED);
+	GLUI_Panel * ambientPanel=addPanelToPanel(masterPanel2,"Game Ambient",1);
+	GLUI_RadioGroup * amb=addRadioGroupToPanel(masterPanel2,&((DemoScene *) scene)->theme,atual);
+	atual++;
+	addRadioButtonToGroup(amb,"Wood");
+	addRadioButtonToGroup(amb,"Mineral");
+	addRadioButtonToGroup(amb,"Under the sea!");
 }
 
 void DemoInterface::processGUI(GLUI_Control *ctrl)
 {
+	printf("%d\n",ctrl->user_id);
 	if(ctrl->user_id == 2)
 		((DemoScene*) scene)->processCameras();
-	if(ctrl->user_id > 2)
+	if(ctrl->user_id == 3)
 		((DemoScene*) scene)->setLights();
+	if(ctrl->user_id == 5)
+		((DemoScene*) scene)->changeTheme();
 }
 
 void DemoInterface::processMouse(int button, int state, int x, int y) 

@@ -36,6 +36,9 @@ public:
 	void setLightVector();
 	void processCameras();
 	void setAnfFileName(char *filename,unsigned int size);
+	void changeTheme();
+	int theme;
+	Board * board;
 private:
 };
 

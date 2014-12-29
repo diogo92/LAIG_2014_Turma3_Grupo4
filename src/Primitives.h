@@ -18,24 +18,29 @@ class Rectangle;
 
 class Piece: public VisualObject {
 	Cylinder* cyl;
-	CGFappearance* p1;
-	CGFappearance* p2;
 public:
-	Piece(CGFappearance * tex1, CGFappearance * tex2);
+	vector<CGFappearance*> appearances1;
+	vector<CGFappearance*> appearances2;
+	Piece();
 	~Piece(void);
 	void draw(int player);
+	int tex;
 };
 
 
 class Board : public VisualObject{
-	Appearance* app;
 	Rectangle* square;
 	Piece* piece;
 	vector<int> pieces;
+
 public:
 	Board();
 	void init();
 	void draw();
+	int tex;
+	void setTexture(int t);
+	vector<CGFappearance*> appearances1;
+	vector<CGFappearance*> appearances2;
 
 };
 

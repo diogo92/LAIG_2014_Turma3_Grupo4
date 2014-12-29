@@ -35,7 +35,7 @@ void Camera::applyView(){
 		if(direction=="x")
 			gluLookAt(1,0,0,0,0,0,0,1,0);
 		else if(direction=="y")
-			gluLookAt(0,1,0,0,0,0,0,0,-1);
+			gluLookAt(5,12,5,5,0,5,0,0,-1);
 		else
 			gluLookAt(0,0,1,0,0,0,0,1,0);
 	}

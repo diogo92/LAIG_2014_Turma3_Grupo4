@@ -4,6 +4,7 @@ GlobalData globals;
 Graph graphScene;
 
 void DemoScene::setAnfFileName(char *line,unsigned int size){
+	
 	if(fgets(line, size*sizeof(char), stdin)){
 		if(sscanf(line,"%s\n",line)==1){
 			printf("Trying to open file %s...\n",line);
@@ -17,6 +18,9 @@ void DemoScene::setAnfFileName(char *line,unsigned int size){
 	}
 }
 
+void DemoScene::changeTheme(){
+	board->setTexture(theme);
+}
 void DemoScene::setGlobals(const GlobalData &globals){
 	if(globals.lightEnabled){
 		glEnable(GL_LIGHTING);
@@ -76,17 +80,18 @@ void DemoScene::setGlobals(const GlobalData &globals){
 
 void DemoScene::init() 
 {
-
-	printf("Write the name of the file to be read.\n>> ");
+	XMLScene anf("scene.anf", globals, graphScene);
+	theme=0;
+	//printf("Write the name of the file to be read.\n>> ");
 	
-	char line[256];
-	setAnfFileName(line,256);
-
-	XMLScene anf(line, globals, graphScene);
+	/*char line[256];
+	setAnfFileName(line,256);*/
+	board = new Board();
+	changeTheme();
 	setGlobals(globals);
 	setLightVector();
 	initLights();
-
+	
 	typedef std::map<std::string, Camera *>::iterator it_type;
 	int c=0;
 	for(it_type iterator = graphScene.cameras.begin(); iterator != graphScene.cameras.end(); iterator++,c++) {
@@ -160,8 +165,11 @@ void DemoScene::display()
 	axis.draw();
 	glPopMatrix();
 	glPushMatrix();
-	glScaled(10,10,10);
 	graphScene.draw();
+	glPushMatrix();
+	glScaled(10,10,10);
+	board->draw();
+	glPopMatrix();
 	glPopMatrix();
 	glutSwapBuffers();
 }
