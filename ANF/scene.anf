@@ -1,0 +1,138 @@
+    <anf>
+
+        <globals>
+
+            <drawing mode="fill" shading="gouraud" background="0.1 0.2 0.3 0.6" />
+
+            <lighting doublesided="false" local="true" enabled="true" ambient="0.2 0.2 0.2 1" />
+            <culling face="none" order="cw" />
+
+        </globals>
+
+        <cameras initial="Normal" >
+            <perspective id="Normal" near="0.1" far="300" angle="45" pos="5 15 10" target="5 0 5" />
+            <perspective id="Dos Segredos" near="0.1" far="300" angle="90" pos="13 13 13" target="5 0 5" />
+            <ortho id="Visao Aerea" direction="y" near="-25" far="25" left="-1" right="11" top="1" bottom="-11" />
+        </cameras>
+
+        <lights>
+            <light id="omni 1" type="omni" enabled="true" marker="false" pos="5 15 5" >
+               <component type="ambient" value="0.1 0.1 0.1 1" />
+               <component type="diffuse" value="0.1 0.1 0.1 1" />
+               <component type="specular" value="0.1 0.1 0.1 1" />
+           </light>
+
+           <light id="omni 2" type="omni" enabled="false" marker="false" pos="10 15 10" >
+               <component type="ambient" value="0.1 0.1 0.1 1" />
+               <component type="diffuse" value="0.1 0.1 0.1 1" />
+               <component type="specular" value="0.1 0.1 0.1 1" />
+           </light>
+
+           <light id="spot 1" type="spot" enabled="true" marker="true" pos="10 10 0" target="0 -1 0" 
+            angle="45" exponent="300" >
+            <component type="ambient" value="0.2 0.2 0.2 0.2" />
+            <component type="diffuse" value="0.2 1 0.2 1" />
+            <component type="specular" value="0.2 0.2 1 0.2" />
+        </light>
+
+        <light id="spot 2" type="spot" enabled="false" marker="true" pos="0 10 10" target="0 -1 0" 
+            angle="45" exponent="300" >
+            <component type="ambient" value="0.2 0.2 0.2 0.2" />
+            <component type="diffuse" value="0.2 1 0.2 1" />
+            <component type="specular" value="0.2 0.2 1 0.2" />
+        </light>
+
+    </lights>
+
+    <textures>      <texture id="wall1" file="wall1.jpg" texlength_s="10.0" texlength_t="10.0" />
+    <texture id="wall2" file="wall2.jpg" texlength_s="10.0" texlength_t="10.0" />
+    <texture id="floor" file="floor.png" texlength_s="10.0" texlength_t="10.0" />
+    </textures>
+
+    <appearances>
+        <appearance id="wall1" shininess="0" textureref="wall1">
+        <component type="ambient" value="0.25 0.25 0.25 1" />
+        <component type="diffuse" value="0.5 0.5 0.5 1" />
+        <component type="specular" value="0 0 0 1" />
+        </appearance>
+
+        <appearance id="wall2" shininess="0" textureref="wall2">
+        <component type="ambient" value="0.0 0.0 0.0 1" />
+        <component type="diffuse" value="0.55 0.55 0.55 1" />
+        <component type="specular" value="0.7 0.7 0.7 1" />
+        </appearance>
+
+        <appearance id="floor" shininess="0" textureref="floor">
+        <component type="ambient" value="0.0 0.0 0.0 1" />
+        <component type="diffuse" value="0.55 0.55 0.55 1" />
+        <component type="specular" value="0.7 0.7 0.7 1" />
+        </appearance>
+    </appearances>
+
+    <animations>
+        <animation id="retas" span="4" type="linear">
+            <controlpoint xx="10" yy="5" zz="14" />
+            <controlpoint xx="13" yy="3" zz="10" />
+            <controlpoint xx="10" yy="5" zz="6" />
+            <controlpoint xx="7" yy="3" zz="10" />
+            <controlpoint xx="10" yy="5" zz="14" />
+        </animation>
+        <animation id="circulo" span="4" type="circular" center="10 5 10" radius="5" startang="-90" rotang="-360" />
+    </animations>
+
+    <!-- Início do bloco de grafo -->
+
+    <graph rootid="root">
+
+        <node id="root">
+            <transforms>
+            </transforms>
+            <appearanceref id="alien"/>
+            <primitives>
+                <board />
+            </primitives>
+            <descendants>
+            <noderef id="spongeBobHouse"/>
+            <noderef id="squidwardHouse"/>
+            <noderef id="sandFloor"/>
+          </descendants>
+      </node>
+
+      <node id="spongeBobHouse">
+        <transforms>
+            <transform type="rotate" axis="x" angle="180"/>
+            <transform type="rotate" axis="z" angle="-90"/>
+        </transforms>
+
+        <appearanceref id="wall1"/>
+        <primitives>
+            <rectangle xy1="0 0" xy2="10 10"/>
+        </primitives>
+      </node>
+
+      <node id="squidwardHouse">
+        <transforms>
+            <transform type="rotate" axis="z" angle="180"/>
+            <transform type="rotate" axis="x" angle="90"/>
+            <transform type="rotate" axis="y" angle="-90"/>
+        </transforms>
+
+        <appearanceref id="wall2"/>
+        <primitives>
+            <rectangle xy1="0 0" xy2="10 10"/>
+        </primitives>
+      </node>
+
+      <node id="sandFloor">
+         <transforms>
+            <transform type="rotate" axis="x" angle="90"/>
+        </transforms>
+
+        <appearanceref id="floor"/>
+        <primitives>
+            <rectangle xy1="0 0" xy2="10 10"/>
+        </primitives>
+      </node>
+
+    </graph>
+  </anf>

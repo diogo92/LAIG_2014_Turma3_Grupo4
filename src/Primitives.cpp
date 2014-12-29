@@ -29,11 +29,11 @@ const GLfloat Plane::colorpoints[4][4] = {
 Piece::Piece(){
 	this->tex=0;
 	this->appearances1.push_back(new CGFappearance("woodtheme/p1.jpg",1,1));
-	this->appearances1.push_back(new CGFappearance("mineraltheme/p1.jpg",1,1));
+	this->appearances1.push_back(new CGFappearance("mineraltheme/p1.png",1,1));
 	this->appearances1.push_back(new CGFappearance("seatheme/p1.jpg",1,1));
 	this->appearances2.push_back(new CGFappearance("woodtheme/p2.jpg",1,1));
-	this->appearances2.push_back(new CGFappearance("mineraltheme/p2.png",1,1));
-	this->appearances2.push_back(new CGFappearance("seatheme/p2.jpg",1,1));
+	this->appearances2.push_back(new CGFappearance("mineraltheme/p2.jpg",1,1));
+	this->appearances2.push_back(new CGFappearance("seatheme/p2.png",1,1));
 	this->cyl=new Cylinder(0.5,0.5,0.1,16,16);
 }
 
@@ -54,28 +54,36 @@ void Piece::draw(int player){
 }
 
 Board::Board(){
+	this->goingUp=true;
 	this->tex=0;
+	this->h=0;
+	this->angRot=0;
 	this->appearances1.push_back(new CGFappearance("woodtheme/boardp1.png",1,1));
 	this->appearances1.push_back(new CGFappearance("mineraltheme/boardp1.jpg",1,1));
 	this->appearances1.push_back(new CGFappearance("seatheme/boardp1.jpeg",1,1));
 	this->appearances2.push_back(new CGFappearance("woodtheme/boardp2.jpg",1,1));
 	this->appearances2.push_back(new CGFappearance("mineraltheme/boardp2.png",1,1));
 	this->appearances2.push_back(new CGFappearance("seatheme/boardp2.png",1,1));
-	this->init();
-	for(int i=0;i<64;i++){
-		pieces.push_back(0);
+	for(int i=0;i<8;i++){
+		for(int j=0;j<8;j++){
+			pieces[i][j]=0;
+		}
 	}
+	this->init();
 	square= new Rectangle(0,0,1,1);
 	square->tex_s=1;
 	square->tex_t=1;
 
 }
 
+bool Board::selected(int row, int col){
+	bool res=false;
+	if(selectedRow == row && selectedColumn==col)
+		res=true;
+	return res;
+}
 void Board::draw(){
-	int curr=0;
 	bool imp=false;
-	float * red = new float[4];
-	float * black = new float[4];
 	glPushMatrix();
 	glPushName(-1);
 	glPopMatrix();
@@ -116,14 +124,42 @@ void Board::draw(){
 				glPopName();
 				glPopMatrix();
 				glPushName(j);
-				piece->draw(pieces.at(curr));
+				glPushMatrix();
+				if(selected(i,j)){
+					glTranslated(0,0,h);
+					glRotated(angRot,0,1,0);
+				}
+				piece->draw(pieces[i][j]);
+				glPopMatrix();
 				glPopName();
 				glPopMatrix();
-				curr++;
 
 		}
 		glPopMatrix();
 	}
+}
+
+void Board::movePiece(){
+	printf("MOVING PIECE FROM %d %d TO %d %d\n",selectedRow,selectedColumn,targetRow,targetColumn);
+	selectedRow=-1;
+	selectedColumn=-1;
+	targetColumn=-1;
+	targetRow=-1;
+}
+void Board::update(unsigned long t){
+	if(goingUp){
+		if(h>3)
+			goingUp=false;
+		else
+			h+=0.5;
+	}
+	if(!goingUp){
+		if(h<=0)
+			goingUp=true;
+		else
+			h-=0.5;
+	}
+	angRot+=15;
 }
 
 void Board::setTexture(int t){
@@ -136,27 +172,25 @@ void Board::init(){
 	int row=0;
 	int peca1=1;
 	int peca2=2;
-	for(int i=0;i<64;i++){
-		if(row%2==0){
-			peca1=1;
-			peca2=2;
+	for(int i=0;i<8;i++){
+		for(int j=0;j<8;j++){
+			if(row%2==0){
+				peca1=1;
+				peca2=2;
+			}
+			else{
+				peca2=1;
+				peca1=2;
+			}
+			if(j%2==0){
+				pieces[i][j]=peca1;
+			}
+			else{
+				pieces[i][j]=peca2;
+			}
+
 		}
-		else{
-			peca2=1;
-			peca1=2;
-		}
-		if(i%2==0){
-			pieces.push_back(peca1);
-			printf("%d , ",peca1);
-		}
-		else{
-			pieces.push_back(peca2);
-			printf("%d , ",peca2);
-		}
-		if((i+1)%8==0){
-			row++;
-			printf("\n");
-		}
+		row++;
 	}
 }
 

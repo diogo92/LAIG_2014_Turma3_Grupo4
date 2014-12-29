@@ -31,9 +31,11 @@ public:
 class Board : public VisualObject{
 	Rectangle* square;
 	Piece* piece;
-	vector<int> pieces;
-
+	float h;
+	float angRot;
 public:
+	int pieces[8][8];
+	bool goingUp;
 	Board();
 	void init();
 	void draw();
@@ -41,7 +43,10 @@ public:
 	void setTexture(int t);
 	vector<CGFappearance*> appearances1;
 	vector<CGFappearance*> appearances2;
-
+	void update(unsigned long t);
+	bool selected(int row, int col);
+	int selectedRow, selectedColumn,targetRow,targetColumn;
+	void movePiece();
 };
 
 

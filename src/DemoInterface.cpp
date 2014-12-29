@@ -10,7 +10,8 @@ DemoInterface::DemoInterface()
 
 void DemoInterface::initGUI()
 {
-	glutReshapeWindow(550,550);
+	this->pieceSelected=false;
+	glutReshapeWindow(680,550);
 	GLUI_Panel *masterPanel=addPanel("Interface",GLUI_PANEL_RAISED);
 	addStaticTextToPanel(masterPanel,"Interface");
 	int atual=2;
@@ -42,15 +43,43 @@ void DemoInterface::initGUI()
 	addStaticTextToPanel(masterPanel,"");
 	GLUI_Spinner *windSpinner=addSpinnerToPanel(masterPanel,"Wind",GLUI_SPINNER_INT,(int *)&(((DemoScene*) scene)->wind),atual);
 	windSpinner->set_float_limits(1,50,GLUI_LIMIT_WRAP);
-	
+
 	atual++;
-	GLUI_Panel * masterPanel2=addPanel("Game options",GLUI_PANEL_RAISED);
-	GLUI_Panel * ambientPanel=addPanelToPanel(masterPanel2,"Game Ambient",1);
-	GLUI_RadioGroup * amb=addRadioGroupToPanel(masterPanel2,&((DemoScene *) scene)->theme,atual);
+	addColumnToPanel(masterPanel);
+	GLUI_Panel * ambientPanel=addPanelToPanel(masterPanel,"Game Ambient",1);
+	GLUI_RadioGroup * amb=addRadioGroupToPanel(ambientPanel,&((DemoScene *) scene)->theme,atual);
 	atual++;
 	addRadioButtonToGroup(amb,"Wood");
 	addRadioButtonToGroup(amb,"Mineral");
-	addRadioButtonToGroup(amb,"Under the sea!");
+	addRadioButtonToGroup(amb,"Aquatic");
+
+
+
+
+	GLUI_Panel * gamePanel = addPanel("Game",GLUI_PANEL_EMBOSSED);
+	GLUI_Panel * statusPanel = addPanelToPanel(gamePanel,"Game Status",1);
+	GLUI_StaticText * gameStatus = addStaticTextToPanel(statusPanel,"");
+	char c[128];
+	//sprintf(c, "Current player: %d | Game score: %d - %d", pnum, scorep1,scorep2);
+	gameStatus->set_text(c);
+	addColumnToPanel(gamePanel);
+
+
+	GLUI_Panel * difPanel = addPanelToPanel(gamePanel,"Game Difficulty",1);
+	GLUI_RadioGroup * dif=addRadioGroupToPanel(difPanel ,&((DemoScene *) scene)->theme,atual);
+	atual++;
+	addRadioButtonToGroup(dif,"Easy");
+	addRadioButtonToGroup(dif,"Medium");
+	addRadioButtonToGroup(dif,"Hard");	
+
+
+	addColumnToPanel(gamePanel);
+	GLUI_Panel * modePanel = addPanelToPanel(gamePanel,"Game Mode",1);
+	GLUI_RadioGroup * mode=addRadioGroupToPanel(modePanel,&((DemoScene *) scene)->theme,1);
+	addRadioButtonToGroup(mode,"Hum vs. Hum");
+	addRadioButtonToGroup(mode,"Hum vs. CPU");
+	addRadioButtonToGroup(mode,"CPU vs. CPU");
+
 }
 
 void DemoInterface::processGUI(GLUI_Control *ctrl)
@@ -135,7 +164,7 @@ void DemoInterface::processHits (GLint hits, GLuint buffer[])
 		for (int j=0; j < num; j++) 
 			ptr++;
 	}
-	
+
 	// if there were hits, the one selected is in "selected", and it consist of nselected "names" (integer ID's)
 	if (selected!=NULL)
 	{
@@ -145,6 +174,32 @@ void DemoInterface::processHits (GLint hits, GLuint buffer[])
 		for (int i=0; i<nselected; i++)
 			printf("%d ",selected[i]);
 		printf("\n");
+		if(nselected==3){
+			if(selected[2]>=100)
+				selected[2]-=100;
+			if(pieceSelected){
+				if(((DemoScene*) scene)->board->selected(selected[1],selected[2])){
+					((DemoScene*) scene)->board->selectedColumn=500;
+					((DemoScene*) scene)->board->selectedRow=500;
+					pieceSelected=false;
+				}
+				else{
+					if(((DemoScene*) scene)->board->pieces[selected[1]][selected[2]]==0){
+						((DemoScene*) scene)->board->targetColumn=selected[2];
+						((DemoScene*) scene)->board->targetRow=selected[1];
+						((DemoScene*) scene)->board->movePiece();
+						pieceSelected=false;
+					}
+				}
+			}
+			else{
+				if(((DemoScene*) scene)->board->pieces[selected[1]][selected[2]]>0){
+					((DemoScene*) scene)->board->selectedColumn=selected[2];
+					((DemoScene*) scene)->board->selectedRow=selected[1];
+					pieceSelected=true;
+				}
+			}
+		}
 	}
 	else
 		printf("Nothing selected while picking \n");	
