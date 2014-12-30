@@ -40,6 +40,7 @@ public:
 	int theme;
 	int gameMode;
 	Board * board;
+	bool gameStarted;
 private:
 };
 

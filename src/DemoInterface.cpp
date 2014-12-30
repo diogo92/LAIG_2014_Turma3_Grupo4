@@ -89,6 +89,9 @@ void DemoInterface::initGUI()
 	GLUI_Button * undoButton=addButtonToPanel(buttonPanel,"Undo Move",atual);
 	atual++;
 	GLUI_Button * replayButton=addButtonToPanel(buttonPanel,"Replay last game",atual);
+	atual++;
+	GLUI_Button * startButton=addButtonToPanel(buttonPanel,"Start Game",atual);
+	atual++;
 
 }
 
@@ -109,6 +112,10 @@ void DemoInterface::processGUI(GLUI_Control *ctrl)
 		printf("Undo\n");
 	if(ctrl->user_id == 9)
 		printf("Replay\n");
+	if(ctrl->user_id == 10){
+		printf("Starting Game\n");
+		((DemoScene*) scene)->gameStarted=true;
+	}
 }
 
 void DemoInterface::processMouse(int button, int state, int x, int y) 
@@ -202,12 +209,10 @@ void DemoInterface::processHits (GLint hits, GLuint buffer[])
 					pieceSelected=false;
 				}
 				else{
-					//if(((DemoScene*) scene)->board->pieces[selected[1]][selected[2]]==0){
 						((DemoScene*) scene)->board->targetColumn=selected[2];
 						((DemoScene*) scene)->board->targetRow=selected[1];
 						((DemoScene*) scene)->board->movePiece();
 						pieceSelected=false;
-					//}
 				}
 			}
 			else{

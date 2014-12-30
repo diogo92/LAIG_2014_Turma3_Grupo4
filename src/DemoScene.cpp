@@ -83,6 +83,7 @@ void DemoScene::init()
 	XMLScene anf("scene.anf", globals, graphScene);
 	theme=0;
 	gameMode=0;
+	gameStarted=false;
 	//printf("Write the name of the file to be read.\n>> ");
 	
 	/*char line[256];
@@ -170,7 +171,8 @@ void DemoScene::display()
 	graphScene.draw();
 	glPushMatrix();
 	glScaled(10,10,10);
-	board->draw();
+	if(gameStarted)
+		board->draw();
 	glPopMatrix();
 	glPopMatrix();
 	glutSwapBuffers();
