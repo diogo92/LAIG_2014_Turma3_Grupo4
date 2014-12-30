@@ -202,12 +202,12 @@ void DemoInterface::processHits (GLint hits, GLuint buffer[])
 					pieceSelected=false;
 				}
 				else{
-					if(((DemoScene*) scene)->board->pieces[selected[1]][selected[2]]==0){
+					//if(((DemoScene*) scene)->board->pieces[selected[1]][selected[2]]==0){
 						((DemoScene*) scene)->board->targetColumn=selected[2];
 						((DemoScene*) scene)->board->targetRow=selected[1];
 						((DemoScene*) scene)->board->movePiece();
 						pieceSelected=false;
-					}
+					//}
 				}
 			}
 			else{

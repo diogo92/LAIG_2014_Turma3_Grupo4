@@ -34,6 +34,8 @@ class Board : public VisualObject{
 	float h;
 	float angRot;
 public:
+	float moveX,moveZ;
+	bool moving;
 	int pieces[8][8];
 	bool goingUp;
 	Board();

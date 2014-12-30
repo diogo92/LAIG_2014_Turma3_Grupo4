@@ -54,6 +54,9 @@ void Piece::draw(int player){
 }
 
 Board::Board(){
+	this->moving=false;
+	this->moveX=0;
+	this->moveZ=0;
 	this->goingUp=true;
 	this->tex=0;
 	this->h=0;
@@ -126,10 +129,11 @@ void Board::draw(){
 				glPushName(j);
 				glPushMatrix();
 				if(selected(i,j)){
-					glTranslated(0,0,h);
+					glTranslated(moveX,moveZ,h);
 					glRotated(angRot,0,1,0);
 				}
-				piece->draw(pieces[i][j]);
+				if(pieces[i][j]!=0)
+					piece->draw(pieces[i][j]);
 				glPopMatrix();
 				glPopName();
 				glPopMatrix();
@@ -141,12 +145,51 @@ void Board::draw(){
 
 void Board::movePiece(){
 	printf("MOVING PIECE FROM %d %d TO %d %d\n",selectedRow,selectedColumn,targetRow,targetColumn);
-	selectedRow=-1;
-	selectedColumn=-1;
-	targetColumn=-1;
-	targetRow=-1;
+	moving=true;
 }
 void Board::update(unsigned long t){
+	if(moving){
+		if(moveX<=-2.5 || moveX>=2.5 || moveZ>=2.5 || moveZ<=-2.5){
+			pieces[targetRow][targetColumn]=pieces[selectedRow][selectedColumn];
+			pieces[selectedRow][selectedColumn]=0;
+			if(selectedRow==targetRow){
+				if(selectedColumn>targetColumn){
+					pieces[targetRow][targetColumn+1]=0;
+				}
+				else
+					pieces[targetRow][targetColumn-1]=0;
+			}
+			else if(selectedColumn==targetColumn){
+				if(selectedRow>targetRow){
+					pieces[targetRow+1][targetColumn]=0;
+				}
+				else
+					pieces[targetRow-1][targetColumn]=0;
+			}
+			
+			selectedRow=-1;
+			selectedColumn=-1;
+			targetColumn=-1;
+			targetRow=-1;
+			moving=false;
+			moveX=0;
+			moveZ=0;
+		}
+		else if(selectedRow==targetRow){
+			moveX=0;
+			if(selectedColumn>targetColumn)
+				moveZ+=0.5;
+			else
+				moveZ-=0.5;
+		}
+		else if(selectedColumn==targetColumn){
+			moveZ=0;
+			if(selectedRow>targetRow)
+				moveX-=0.5;
+			else
+				moveX+=0.5;
+		}
+	}
 	if(goingUp){
 		if(h>3)
 			goingUp=false;
