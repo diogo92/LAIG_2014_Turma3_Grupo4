@@ -1,12 +1,8 @@
-#include <winsock2.h>
-#include <iostream>
-
-#define IPADDRESS "127.0.0.1"
-#define PORT 60001
-
-using namespace std;
+#include "socket.h"
 
 SOCKET m_socket;
+
+using namespace std;
 
 bool socketConnect() {// Initialize Winsock.
     WSADATA wsaData;
@@ -73,15 +69,4 @@ void quit() {
 	envia(buff, 6);
 	char ans[128];
 	recebe(ans);
-}
-
-int main() {
-	socketConnect();
-	char *s = "comando(1, 2).\n";
-	envia(s, strlen(s));
-	char ans[128];
-	recebe(ans);
-	quit();
-	getchar();
-	return 0;
 }

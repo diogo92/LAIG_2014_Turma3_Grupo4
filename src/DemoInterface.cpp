@@ -39,10 +39,6 @@ void DemoInterface::initGUI()
 		addCheckboxToPanel(lighPanel,(char*)((DemoScene *) scene)->graphLights.at(i)->id.c_str(),(int *)&((DemoScene *) scene)->graphLights.at(i)->state,atual);
 	}
 	atual++;
-	addColumnToPanel(masterPanel);
-	addStaticTextToPanel(masterPanel,"");
-	GLUI_Spinner *windSpinner=addSpinnerToPanel(masterPanel,"Wind",GLUI_SPINNER_INT,(int *)&(((DemoScene*) scene)->wind),atual);
-	windSpinner->set_float_limits(1,50,GLUI_LIMIT_WRAP);
 
 	atual++;
 	addColumnToPanel(masterPanel);
