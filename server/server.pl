@@ -40,7 +40,7 @@ server_input(execute(jogada, 2, Col, Lin, ColDest, LinDest, Board), ok(NewBoard)
 	verificaJogada(Col,Lin,ColDest,LinDest,2,Board,_,NewBoard), !.
 
 server_input(avalia(Jogador,Board),ok(Result)):-
-	avaliaTab(1,1,Jogador,Board)->Result=1;Result=0,!.
+	avaliaTab(1,1,Jogador,Board)->Result=1,!;Result=0,!.
 
 server_input(bye, ok):-!.
 server_input(end_of_file, ok):-!.

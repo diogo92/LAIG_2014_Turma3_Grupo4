@@ -121,12 +121,13 @@ void DemoInterface::processGUI(GLUI_Control *ctrl)
 
 void DemoInterface::verificarTermino(int player){
 	ostringstream converter2;
+	converter2.str("");
 	converter2 << "avalia(";
 	if(player == 1){
-		converter2 << ((DemoScene*) scene)->player+1;
+		converter2 << player+1;
 	}
 	else {
-		converter2 << ((DemoScene*) scene)->player-1;	
+		converter2 << player-1;	
 	}
 	converter2 << "," << ((DemoScene*) scene)->board->toString() << ").\n";
 	string message2;
@@ -247,11 +248,11 @@ void DemoInterface::processHits (GLint hits, GLuint buffer[])
 								// verificar quem ganhou e jogador seguinte
 
 								if(((DemoScene*) scene)->player == 1){
-									//verificarTermino(((DemoScene*) scene)->player);
+									verificarTermino(((DemoScene*) scene)->player);
 									((DemoScene*) scene)->player++;
 								}
 								else{					
-									//verificarTermino(((DemoScene*) scene)->player);
+									verificarTermino(((DemoScene*) scene)->player);
 									((DemoScene*) scene)->player = 1;
 								}
 							}
