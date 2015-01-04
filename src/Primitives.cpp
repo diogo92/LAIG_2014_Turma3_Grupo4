@@ -79,6 +79,29 @@ Board::Board(){
 
 }
 
+string Board::toString(){
+	ostringstream converter;
+	converter << "[";
+	int i=0,j=0;
+	while(i < 8){
+		converter << "[";
+		while(j < 8){
+			converter << this->pieces[i][j];
+			if(j<7){
+				converter << ",";
+			}
+			j++;
+		}
+		j=0;
+		converter << "]";
+		if(i<7){
+			converter << ",";
+		}
+		i++;
+	}
+	converter << "]";
+	return converter.str();
+}
 bool Board::selected(int row, int col){
 	bool res=false;
 	if(selectedRow == row && selectedColumn==col)

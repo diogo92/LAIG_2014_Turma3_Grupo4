@@ -10,7 +10,7 @@
 #include <CGFshader.h>
 #include <CGFtexture.h>
 #include "Appearance.h"
-
+#include <sstream>
 
 
 class Cylinder;
@@ -49,6 +49,7 @@ public:
 	bool selected(int row, int col);
 	int selectedRow, selectedColumn,targetRow,targetColumn;
 	void movePiece();
+	string toString();
 };
 
 

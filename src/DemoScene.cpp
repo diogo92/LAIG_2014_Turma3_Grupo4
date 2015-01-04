@@ -84,8 +84,10 @@ void DemoScene::init()
 	theme=0;
 	gameMode=0;
 	gameStarted=false;
+	gameInit=false;
+	player = 1;
 	//printf("Write the name of the file to be read.\n>> ");
-	
+	primeiraJogada = true;
 	/*char line[256];
 	setAnfFileName(line,256);*/
 	board = new Board();

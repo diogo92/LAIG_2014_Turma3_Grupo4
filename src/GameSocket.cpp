@@ -1,10 +1,11 @@
-#include "socket.h"
 
-SOCKET m_socket;
+#include "GameSocket.h"
+
 
 using namespace std;
 
-bool socketConnect() {// Initialize Winsock.
+
+bool gameSocket::socketConnect() {// Initialize Winsock.
     WSADATA wsaData;
     int iResult = WSAStartup(MAKEWORD(2,2), &wsaData);
     if (iResult != NO_ERROR)
@@ -27,7 +28,7 @@ bool socketConnect() {// Initialize Winsock.
     clientService.sin_family = AF_INET;
     // Just test using the localhost, you can try other IP address
     clientService.sin_addr.s_addr = inet_addr("127.0.0.1");
-    clientService.sin_port = htons(60070);
+    clientService.sin_port = htons(60001);
 
     if (connect(m_socket, (SOCKADDR*)&clientService, sizeof(clientService)) == SOCKET_ERROR) {
         printf("Client: connect() - Failed to connect.\n");
@@ -44,13 +45,13 @@ bool socketConnect() {// Initialize Winsock.
 	return true;
 }
 
-void envia(char *s, int len) {
+void gameSocket::envia(char *s, int len) {
 	int bytesSent = send(m_socket, s, len, 0);
 	if(bytesSent == SOCKET_ERROR)
 		printf("Client: send() error %ld.\n", WSAGetLastError());
 }
 
-void recebe(char *ans) {
+void gameSocket::recebe(char *ans) {
 	int bytesRecv = SOCKET_ERROR;
 	int pos = 0;
 	while (true) {
@@ -63,10 +64,19 @@ void recebe(char *ans) {
 	cout << "prolog answered: " << ans << endl;
 }
 
-void quit() {
+void gameSocket::quit() {
 	cout << "Asking prolog to quit" << endl;
-	char buff[] = "quit.\n";
+	char buff[] = "bye.\n";
 	envia(buff, 6);
 	char ans[128];
 	recebe(ans);
+}
+
+gameSocket::gameSocket(){
+	if(!socketConnect()){
+		exit(-1);	
+	}
+}
+gameSocket::~gameSocket(){
+	quit();
 }

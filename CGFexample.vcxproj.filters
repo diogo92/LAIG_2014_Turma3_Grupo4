@@ -57,7 +57,7 @@
     <ClCompile Include="src\LinearAnimation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="server\socket.cpp">
+    <ClCompile Include="src\GameSocket.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -104,7 +104,7 @@
     <ClInclude Include="src\LinearAnimation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="server\socket.h">
+    <ClInclude Include="src\GameSocket.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

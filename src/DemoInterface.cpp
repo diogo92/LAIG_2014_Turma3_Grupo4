@@ -111,6 +111,11 @@ void DemoInterface::processGUI(GLUI_Control *ctrl)
 	if(ctrl->user_id == 10){
 		printf("Starting Game\n");
 		((DemoScene*) scene)->gameStarted=true;
+		((DemoScene*) scene)->gameInit = true;
+		((DemoScene*) scene)->m.envia("initialize.\n",strlen("initialize.\n"));
+		char s[255];
+		((DemoScene*) scene)->m.recebe(s);
+		printf("%s\n",s);
 	}
 }
 
@@ -207,15 +212,70 @@ void DemoInterface::processHits (GLint hits, GLuint buffer[])
 				else{
 						((DemoScene*) scene)->board->targetColumn=selected[2];
 						((DemoScene*) scene)->board->targetRow=selected[1];
+						ostringstream converter;
+						converter << "execute(jogada," << ((DemoScene*) scene)->player << "," << ((DemoScene*) scene)->board->selectedColumn+1 << "," << ((DemoScene*) scene)->board->selectedRow+1 << "," << selected[2]+1 << "," << selected[1]+1 << "," << ((DemoScene*) scene)->board->toString() << ").\n";
+							string message;
+							message = converter.str();
+							((DemoScene*) scene)->m.envia((char*)message.c_str(),strlen(message.c_str()));
+							char res[255];
+							((DemoScene*) scene)->m.recebe(res);
+							printf("%s\n",res);
+							string inv = "invalid.\r";
+							if(inv.compare(res)!=0){
 						((DemoScene*) scene)->board->movePiece();
+						if(((DemoScene*) scene)->player == 1)
+							((DemoScene*) scene)->player++;
+						else
+							((DemoScene*) scene)->player = 1;
+							}
 						pieceSelected=false;
+						
 				}
 			}
 			else{
-				if(((DemoScene*) scene)->board->pieces[selected[1]][selected[2]]>0){
+				if(((DemoScene*) scene)->board->pieces[selected[1]][selected[2]]==1 && ((DemoScene*) scene)->player == 1 || ((DemoScene*) scene)->board->pieces[selected[1]][selected[2]]==2 && ((DemoScene*) scene)->player == 2){
 					((DemoScene*) scene)->board->selectedColumn=selected[2];
 					((DemoScene*) scene)->board->selectedRow=selected[1];
 					pieceSelected=true;
+					if(((DemoScene*) scene)->primeiraJogada){
+						string status_board = ((DemoScene *) scene)->board->toString();
+						ostringstream converter;
+						if(((DemoScene*) scene)->player == 1){
+							converter << "execute(primeiraJogada," << selected[2]+1 << "," << selected[1]+1 << "," << status_board << ").\n";
+							string message;
+							message = converter.str();
+							((DemoScene*) scene)->m.envia((char*)message.c_str(),strlen(message.c_str()));
+							char res[255];
+							((DemoScene*) scene)->m.recebe(res);
+							printf("%s\n",res);
+							string inv = "invalid.\r";
+							if(inv.compare(res)!=0){
+								((DemoScene*) scene)->board->pieces[selected[1]][selected[2]] = 0;
+								((DemoScene*) scene)->linhaPrimeira = selected[1];
+								((DemoScene*) scene)->colunaPrimeira = selected[2];
+								pieceSelected = false;
+								((DemoScene*) scene)->player++;
+							}
+						}
+						else{
+							converter << "execute(primeiraJogada," << selected[2]+1 << "," << selected[1]+1 << "," << ((DemoScene*) scene)->colunaPrimeira+1 << "," << ((DemoScene*) scene)->linhaPrimeira+1 << "," << status_board << ").\n";
+							string message;
+							message = converter.str();
+							((DemoScene*) scene)->m.envia((char*)message.c_str(),strlen(message.c_str()));
+							char res[255];
+							((DemoScene*) scene)->m.recebe(res);
+							printf("%s\n",res);
+							string inv = "invalid.\r";
+							if(inv.compare(res)!=0){
+								((DemoScene*) scene)->board->pieces[selected[1]][selected[2]] = 0;
+								((DemoScene*) scene)->linhaPrimeira = selected[1];
+								((DemoScene*) scene)->colunaPrimeira = selected[2];
+								pieceSelected = false;
+								((DemoScene*) scene)->player = 1;
+								((DemoScene*) scene)->primeiraJogada = false;
+							}
+						}
+					}
 				}
 			}
 		}

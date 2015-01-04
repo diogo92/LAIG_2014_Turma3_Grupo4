@@ -16,7 +16,6 @@ using std::exception;
 int main(int argc, char* argv[]) {
 
 	CGFapplication app = CGFapplication();
-
 	try {
 		app.init(&argc, argv);
 		app.setScene(new DemoScene());

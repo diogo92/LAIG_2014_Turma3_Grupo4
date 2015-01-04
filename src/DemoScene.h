@@ -11,6 +11,7 @@
 #include "CGFapplication.h"
 #include "CGFaxis.h"
 #include "Graph.h"
+#include "GameSocket.h"
 #include <map>
 #include <string>
 #include <typeinfo>
@@ -18,6 +19,7 @@
 class DemoScene : public CGFscene
 {
 public:
+	gameSocket m;
 	void init();
 	void display();
 	void update(unsigned long t);
@@ -41,6 +43,11 @@ public:
 	int gameMode;
 	Board * board;
 	bool gameStarted;
+	bool gameInit;
+	int player;
+	bool primeiraJogada;
+	int linhaPrimeira;
+	int colunaPrimeira;
 private:
 };
 

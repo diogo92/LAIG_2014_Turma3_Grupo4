@@ -69,13 +69,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="server\socket.cpp" />
     <ClCompile Include="src\Animation.cpp" />
     <ClCompile Include="src\Appearance.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\CircularAnimation.cpp" />
     <ClCompile Include="src\DemoInterface.cpp" />
     <ClCompile Include="src\DemoScene.cpp" />
+    <ClCompile Include="src\GameSocket.cpp" />
     <ClCompile Include="src\GlobalData.cpp" />
     <ClCompile Include="src\Light.cpp" />
     <ClCompile Include="src\LinearAnimation.cpp" />
@@ -87,13 +87,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\XMLScene.h" />
-    <ClInclude Include="server\socket.h" />
     <ClInclude Include="src\Animation.h" />
     <ClInclude Include="src\Appearance.h" />
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\CircularAnimation.h" />
     <ClInclude Include="src\DemoInterface.h" />
     <ClInclude Include="src\DemoScene.h" />
+    <ClInclude Include="src\GameSocket.h" />
     <ClInclude Include="src\GlobalData.h" />
     <ClInclude Include="src\Light.h" />
     <ClInclude Include="src\Graph.h" />
