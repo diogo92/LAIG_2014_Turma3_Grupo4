@@ -11,6 +11,7 @@ class DemoInterface: public CGFinterface {
 		void performPicking(int x, int y);
 		void processHits(GLint hits, GLuint buffer[]);
 		bool pieceSelected;
+		void verificarTermino(int player);
 };
 
 #endif

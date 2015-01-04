@@ -119,6 +119,27 @@ void DemoInterface::processGUI(GLUI_Control *ctrl)
 	}
 }
 
+void DemoInterface::verificarTermino(int player){
+	ostringstream converter2;
+	converter2 << "avalia(";
+	if(player == 1){
+		converter2 << ((DemoScene*) scene)->player+1;
+	}
+	else {
+		converter2 << ((DemoScene*) scene)->player-1;	
+	}
+	converter2 << "," << ((DemoScene*) scene)->board->toString() << ").\n";
+	string message2;
+	message2 = converter2.str();
+	((DemoScene*) scene)->m.envia((char*)message2.c_str(),strlen(message2.c_str()));
+	char res2[255];
+	((DemoScene*) scene)->m.recebe(res2);
+	printf("%s\n",res2);
+	if(strcmp(res2,"0\r") == 0){
+		printf("jogador %d ganhou\n",player);
+	}
+}
+
 void DemoInterface::processMouse(int button, int state, int x, int y) 
 {
 	CGFinterface::processMouse(button,state, x, y);
@@ -168,10 +189,9 @@ void DemoInterface::performPicking(int x, int y)
 	processHits(hits, selectBuf);
 }
 
-
-
 void DemoInterface::processHits (GLint hits, GLuint buffer[])
 {
+
 	GLuint *ptr = buffer;
 	GLuint mindepth = 0xFFFFFFFF;
 	GLuint *selected=NULL;
@@ -222,11 +242,18 @@ void DemoInterface::processHits (GLint hits, GLuint buffer[])
 							printf("%s\n",res);
 							string inv = "invalid.\r";
 							if(inv.compare(res)!=0){
-						((DemoScene*) scene)->board->movePiece();
-						if(((DemoScene*) scene)->player == 1)
-							((DemoScene*) scene)->player++;
-						else
-							((DemoScene*) scene)->player = 1;
+								((DemoScene*) scene)->board->movePiece();
+
+								// verificar quem ganhou e jogador seguinte
+
+								if(((DemoScene*) scene)->player == 1){
+									//verificarTermino(((DemoScene*) scene)->player);
+									((DemoScene*) scene)->player++;
+								}
+								else{					
+									//verificarTermino(((DemoScene*) scene)->player);
+									((DemoScene*) scene)->player = 1;
+								}
 							}
 						pieceSelected=false;
 						
