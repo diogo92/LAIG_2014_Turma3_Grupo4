@@ -15,6 +15,8 @@
 #include <map>
 #include <string>
 #include <typeinfo>
+#include <time.h>
+
 
 class DemoScene : public CGFscene
 {
@@ -48,6 +50,7 @@ public:
 	bool primeiraJogada;
 	int linhaPrimeira;
 	int colunaPrimeira;
+	int gameTime;
 private:
 };
 

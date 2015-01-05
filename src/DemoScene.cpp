@@ -1,5 +1,6 @@
 #include "DemoScene.h"
-
+#include <iostream> 
+#include <sstream>
 GlobalData globals;
 Graph graphScene;
 
@@ -82,6 +83,7 @@ void DemoScene::init()
 {
 	XMLScene anf("scene.anf", globals, graphScene);
 	theme=0;
+	gameTime=0;
 	gameMode=0;
 	gameStarted=false;
 	gameInit=false;
@@ -124,6 +126,7 @@ void DemoScene::update(unsigned long t)
 		iterator->second.update(wind);
 		iterator->second.updateAnim(t);
 	}
+	gameTime=glutGet(GLUT_ELAPSED_TIME);
 }
 
 void DemoScene::processCameras(){

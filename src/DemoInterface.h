@@ -4,6 +4,7 @@
 #include <CGFinterface.h>
 class DemoInterface: public CGFinterface {
 	public:
+		GLUI_StaticText * gameStatus;
 		DemoInterface();
 		virtual void initGUI();
 		virtual void processGUI(GLUI_Control *ctrl);
@@ -12,6 +13,8 @@ class DemoInterface: public CGFinterface {
 		void processHits(GLint hits, GLuint buffer[]);
 		bool pieceSelected;
 		void verificarTermino(int player);
+		void updateStatus();
+		int scorep1,scorep2;
 };
 
 #endif

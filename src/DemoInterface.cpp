@@ -1,6 +1,5 @@
 #include "DemoScene.h"
 #include "DemoInterface.h"
-
 #define BUFSIZE 256
 GLuint selectBuf[BUFSIZE];
 
@@ -11,6 +10,8 @@ DemoInterface::DemoInterface()
 void DemoInterface::initGUI()
 {
 	this->pieceSelected=false;
+	scorep1=0;
+	scorep2=0;
 	glutReshapeWindow(680,550);
 	GLUI_Panel *masterPanel=addPanel("Interface",GLUI_PANEL_RAISED);
 	addStaticTextToPanel(masterPanel,"Interface");
@@ -52,12 +53,15 @@ void DemoInterface::initGUI()
 
 
 
-	GLUI_Panel * gamePanel = addPanel("Game",GLUI_PANEL_EMBOSSED);
+	GLUI_Panel * gameTimePanel = addPanel("Game Time",GLUI_PANEL_EMBOSSED);
+	GLUI_Panel * timePanel = addPanelToPanel(gameTimePanel,"Game Time",1);
+	GLUI_EditText * time = addEditTextToPanel(timePanel,"Current Game Time", &((DemoScene *) scene)->gameTime,1);
+
+	GLUI_Panel * gamePanel = addPanel("Game Status",GLUI_PANEL_EMBOSSED);
 	GLUI_Panel * statusPanel = addPanelToPanel(gamePanel,"Game Status",1);
-	GLUI_StaticText * gameStatus = addStaticTextToPanel(statusPanel,"");
+	gameStatus = addStaticTextToPanel(statusPanel,"Game Status");
 	char c[128];
-	sprintf(c,"status here");
-	//sprintf(c, "Current player: %d | Game score: %d - %d\n Current game time: %d", pnum, scorep1,scorep2,time);
+	sprintf(c, "Current player: %d | Game score: %d - %d \n ", &((DemoScene *) scene)->player,scorep1,scorep2);
 	gameStatus->set_text(c);
 	addColumnToPanel(gamePanel);
 
@@ -89,6 +93,12 @@ void DemoInterface::initGUI()
 	GLUI_Button * startButton=addButtonToPanel(buttonPanel,"Start Game",atual);
 	atual++;
 
+}
+void DemoInterface::updateStatus()
+{
+	char c[128];
+	sprintf(c, "Current player: %d | Game score: %d - %d \n ", ((DemoScene *) scene)->player,scorep1,scorep2);
+	gameStatus->set_text(c);
 }
 
 void DemoInterface::processGUI(GLUI_Control *ctrl)
@@ -138,6 +148,11 @@ void DemoInterface::verificarTermino(int player){
 	printf("%s\n",res2);
 	if(strcmp(res2,"0\r") == 0){
 		printf("jogador %d ganhou\n",player);
+		if(player==1)
+			scorep1++;
+		else
+			scorep2++;
+		((DemoScene*) scene)->board=new Board();
 	}
 }
 
@@ -192,7 +207,6 @@ void DemoInterface::performPicking(int x, int y)
 
 void DemoInterface::processHits (GLint hits, GLuint buffer[])
 {
-
 	GLuint *ptr = buffer;
 	GLuint mindepth = 0xFFFFFFFF;
 	GLuint *selected=NULL;
@@ -306,6 +320,8 @@ void DemoInterface::processHits (GLint hits, GLuint buffer[])
 					}
 				}
 			}
+			
+		updateStatus();
 		}
 	}
 	else
