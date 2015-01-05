@@ -231,6 +231,7 @@ void DemoInterface::processHits (GLint hits, GLuint buffer[])
 					pieceSelected=false;
 				}
 				else{
+						if(((DemoScene*) scene)->gameMode == 0 ||((DemoScene*) scene)->gameMode == 1 && ((DemoScene*) scene)->player == 1){
 						((DemoScene*) scene)->board->targetColumn=selected[2];
 						((DemoScene*) scene)->board->targetRow=selected[1];
 						ostringstream converter;
@@ -258,6 +259,7 @@ void DemoInterface::processHits (GLint hits, GLuint buffer[])
 							}
 						pieceSelected=false;
 						
+						}
 				}
 			}
 			else{
